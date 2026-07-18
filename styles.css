@@ -175,11 +175,11 @@ a:hover { text-decoration: underline; }
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(93,202,165,0.85) 0%, transparent 60%),
-    radial-gradient(ellipse 70% 70% at 80% 20%, rgba(55,138,221,0.9)  0%, transparent 55%),
-    radial-gradient(ellipse 60% 80% at 60% 85%, rgba(29,158,117,0.7)  0%, transparent 55%),
-    radial-gradient(ellipse 50% 50% at 10% 80%, rgba(24,95,165,0.6)   0%, transparent 50%),
-    #0d1b2a;
+    radial-gradient(ellipse 70% 55% at 15% 25%, rgba(29,158,117,0.38) 0%, transparent 60%),
+    radial-gradient(ellipse 65% 65% at 82% 18%, rgba(55,138,221,0.42) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 70% at 58% 88%, rgba(24,95,165,0.30)  0%, transparent 55%),
+    radial-gradient(ellipse 45% 45% at 8%  78%, rgba(93,202,165,0.22) 0%, transparent 50%),
+    #07111e;
   z-index: 0;
 }
 
@@ -254,7 +254,7 @@ a:hover { text-decoration: underline; }
 .hero__chip--logo {
   background: rgba(255,255,255,0.18);
   border: 1px solid rgba(255,255,255,0.3);
-  color: #fff;
+  color: #fff !important;
   font-size: 0.9375rem;
   font-weight: 700;
   top: 36px; left: 40px;
@@ -272,7 +272,7 @@ a:hover { text-decoration: underline; }
 .hero__chip--nav {
   background: rgba(255,255,255,0.1);
   border: 1px solid rgba(255,255,255,0.2);
-  color: rgba(255,255,255,0.9);
+  color: rgba(255,255,255,0.9) !important;
   box-shadow: 0 2px 12px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.15);
 }
 
@@ -288,7 +288,7 @@ a:hover { text-decoration: underline; }
 .hero__chip--cta {
   background: rgba(255,255,255,0.95);
   border: 1px solid rgba(255,255,255,0.9);
-  color: var(--blue-dark);
+  color: var(--blue-dark) !important;
   font-weight: 700;
   box-shadow: 0 4px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,1);
 }
@@ -388,7 +388,7 @@ a:hover { text-decoration: underline; }
   justify-content: center;
   width: 100%;
   min-height: 100vh;
-  padding: 120px 200px;
+  padding: 120px 24px;
 }
 
 /* ---- Glass panel — proper glassmorphism ---- */
@@ -473,19 +473,19 @@ a:hover { text-decoration: underline; }
   font-size: 0.9375rem;
   font-weight: 600;
   background: #fff;
-  color: var(--blue-dark);
+  color: var(--blue-dark) !important;
   border: none;
   cursor: pointer;
-  text-decoration: none;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  text-decoration: none !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25), 0 1px 0 rgba(255,255,255,0.8) inset;
   transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.22s ease;
 }
 
 .btn--hero-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.25);
-  text-decoration: none;
-  color: var(--blue-dark);
+  box-shadow: 0 10px 32px rgba(0,0,0,0.3);
+  text-decoration: none !important;
+  color: var(--blue-dark) !important;
   opacity: 0.95;
 }
 
@@ -499,7 +499,7 @@ a:hover { text-decoration: underline; }
   font-size: 0.9375rem;
   font-weight: 600;
   background: rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.9);
+  color: rgba(255,255,255,0.9) !important;
   border: 1px solid rgba(255,255,255,0.3);
   cursor: pointer;
   text-decoration: none;
@@ -510,9 +510,9 @@ a:hover { text-decoration: underline; }
 
 .btn--hero-outline:hover {
   background: rgba(255,255,255,0.2);
-  color: #fff;
+  color: #fff !important;
   transform: translateY(-2px);
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 /* ---- Scroll indicator ---- */
