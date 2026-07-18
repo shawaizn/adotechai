@@ -85,6 +85,19 @@ a:hover { text-decoration: underline; }
   line-height: 1.7;
 }
 
+.section__sub-kicker {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .section__header--light h2,
 .section__header--light p { color: #fff; }
 
