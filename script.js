@@ -1,30 +1,59 @@
 /* ============================================================
-   NAV — scroll state + mobile burger
+   HERO MOBILE NAV
    ============================================================ */
-const nav = document.getElementById('nav');
-const burger = document.getElementById('navBurger');
-const mobileMenu = document.getElementById('navMobile');
+const mobileToggle = document.getElementById('heroMobileToggle');
+const mobileMenu   = document.getElementById('heroMobileMenu');
 
-function updateNav() {
-  const atTop = window.scrollY < 60;
-  nav.classList.toggle('scrolled', !atTop);
-  nav.classList.toggle('hero-nav', atTop);
+if (mobileToggle && mobileMenu) {
+  mobileToggle.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
+
+  document.addEventListener('click', e => {
+    if (!mobileToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+      mobileMenu.classList.remove('open');
+    }
+  });
 }
 
-updateNav();
-window.addEventListener('scroll', updateNav, { passive: true });
+/* ============================================================
+   HERO — mouse parallax on blobs
+   ============================================================ */
+const blobs = document.querySelectorAll('.blob');
 
-burger.addEventListener('click', () => {
-  const open = mobileMenu.classList.toggle('open');
-  burger.setAttribute('aria-expanded', open);
-});
+document.addEventListener('mousemove', e => {
+  const cx = window.innerWidth  / 2;
+  const cy = window.innerHeight / 2;
+  const dx = (e.clientX - cx) / cx;
+  const dy = (e.clientY - cy) / cy;
 
-// close mobile menu when a link is clicked
-mobileMenu.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    mobileMenu.classList.remove('open');
-    burger.setAttribute('aria-expanded', false);
+  blobs.forEach((blob, i) => {
+    const depth = (i + 1) * 12;
+    blob.style.transform = `translate(${dx * depth}px, ${dy * depth}px)`;
   });
+}, { passive: true });
+
+/* ============================================================
+   SCROLL-DRIVEN FADE-IN
+   ============================================================ */
+const fadeEls = document.querySelectorAll('.card, .step, .benefit-item, .pricing-card, .faq-item');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+fadeEls.forEach((el, i) => {
+  el.style.setProperty('--delay', `${i * 60}ms`);
+  observer.observe(el);
 });
 
 /* ============================================================
