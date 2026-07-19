@@ -180,10 +180,10 @@ if (hero) {
   const particles = Array.from({ length: COUNT }, () => ({
     x:     Math.random() * W,
     pageY: Math.random() * pageH(),
-    r:     Math.random() * 2.0 + 0.5,
-    vx:    (Math.random() - 0.5) * 0.32,
-    vy:    (Math.random() - 0.5) * 0.32,
-    alpha: Math.random() * 0.45 + 0.2,
+    r:     Math.random() * 2.2 + 0.6,
+    vx:    (Math.random() - 0.5) * 0.35,
+    vy:    (Math.random() - 0.5) * 0.35,
+    alpha: Math.random() * 0.5 + 0.3,
     phase: Math.random() * Math.PI * 2,
     speed: Math.random() * 0.016 + 0.007,
   }));
@@ -220,7 +220,7 @@ if (hero) {
       ctx.arc(p.x, viewY, p.r, 0, Math.PI * 2);
       ctx.fillStyle = onDark
         ? `rgba(255,255,255,${flicker})`
-        : `rgba(10,30,60,${flicker})`;
+        : `rgba(10,30,60,${flicker * 2})`;
       ctx.fill();
     });
 
