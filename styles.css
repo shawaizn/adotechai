@@ -1540,7 +1540,7 @@ a:hover { text-decoration: underline; }
 
 .footer__wordmark {
   font-family: var(--font);
-  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-size: 1.125rem;
   font-weight: 700;
   letter-spacing: 0.22em;
   background: linear-gradient(135deg, #f5d97a 0%, #c9a84c 40%, #f5d97a 80%, #e8c96a 100%);
