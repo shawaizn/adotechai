@@ -369,11 +369,10 @@ a:hover { text-decoration: underline; }
 
 /* Chip stagger entrance */
 .frame__chip[data-pos="tl"] { animation: chipFadeIn 0.45s ease 1.0s both; }
-.frame__chip[data-pos="tr"] { animation: chipFadeIn 0.45s ease 1.1s both; }
-.frame__chip[data-pos="ml"] { animation: chipFadeIn 0.45s ease 1.2s both; }
-.frame__chip[data-pos="mr"] { animation: chipFadeIn 0.45s ease 1.2s both; }
-.frame__chip[data-pos="bl"] { animation: chipFadeIn 0.45s ease 1.3s both; }
-.frame__chip[data-pos="br"] { animation: chipFadeIn 0.45s ease 1.3s both; }
+.frame__chip[data-pos="tr"] { animation: chipFadeIn 0.45s ease 1.0s both; }
+.frame__chip[data-pos="bl"] { animation: chipFadeIn 0.45s ease 1.15s both; }
+.frame__chip[data-pos="br"] { animation: chipFadeIn 0.45s ease 1.15s both; }
+.frame__chip[data-pos="bc"] { animation: chipFadeIn 0.45s ease 1.3s both; }
 
 @keyframes chipFadeIn {
   from { opacity: 0; }
@@ -381,19 +380,17 @@ a:hover { text-decoration: underline; }
 }
 
 /* Chip positions — on the frame border */
-.frame__chip[data-pos="tl"] { top: 0;    left: 48px;   transform: translateY(-50%); }
-.frame__chip[data-pos="tr"] { top: 0;    right: 48px;  transform: translateY(-50%); }
-.frame__chip[data-pos="ml"] { top: 50%;  left: 0;      transform: translate(-50%, -50%); }
-.frame__chip[data-pos="mr"] { top: 50%;  right: 0;     transform: translate(50%, -50%); }
-.frame__chip[data-pos="bl"] { bottom: 0; left: 48px;   transform: translateY(50%); }
-.frame__chip[data-pos="br"] { bottom: 0; right: 48px;  transform: translateY(50%); }
+.frame__chip[data-pos="tl"] { top: 28%;   left: 0;  transform: translate(-50%, -50%); }
+.frame__chip[data-pos="tr"] { top: 28%;   right: 0; transform: translate(50%, -50%); }
+.frame__chip[data-pos="bl"] { top: 68%;   left: 0;  transform: translate(-50%, -50%); }
+.frame__chip[data-pos="br"] { top: 68%;   right: 0; transform: translate(50%, -50%); }
+.frame__chip[data-pos="bc"] { bottom: 0;  left: 50%; transform: translate(-50%, 50%); }
 
-.frame__chip[data-pos="tl"]:hover { transform: translateY(-50%) scale(1.05); }
-.frame__chip[data-pos="tr"]:hover { transform: translateY(-50%) scale(1.05); }
-.frame__chip[data-pos="ml"]:hover { transform: translate(-50%, -50%) scale(1.05); }
-.frame__chip[data-pos="mr"]:hover { transform: translate(50%, -50%) scale(1.05); }
-.frame__chip[data-pos="bl"]:hover { transform: translateY(50%) scale(1.05); }
-.frame__chip[data-pos="br"]:hover { transform: translateY(50%) scale(1.05); }
+.frame__chip[data-pos="tl"]:hover { transform: translate(-50%, -50%) scale(1.05); }
+.frame__chip[data-pos="tr"]:hover { transform: translate(50%, -50%) scale(1.05); }
+.frame__chip[data-pos="bl"]:hover { transform: translate(-50%, -50%) scale(1.05); }
+.frame__chip[data-pos="br"]:hover { transform: translate(50%, -50%) scale(1.05); }
+.frame__chip[data-pos="bc"]:hover { transform: translate(-50%, 50%) scale(1.05); }
 
 /* ---- Mobile nav ---- */
 .hero__mobile-nav {
