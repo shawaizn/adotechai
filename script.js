@@ -29,8 +29,8 @@ const hero  = document.querySelector('.hero');
 
 // Float: smooth sine wave bob in JS so tilt can stack on top
 let floatStart = null;
-const FLOAT_AMPLITUDE = 10; // px
-const FLOAT_PERIOD    = 6000; // ms
+const FLOAT_AMPLITUDE = 22; // px
+const FLOAT_PERIOD    = 3800; // ms
 
 let tiltX = 0, tiltY = 0;
 
@@ -72,6 +72,65 @@ document.addEventListener('mousemove', e => {
 if (hero) {
   hero.addEventListener('mouseleave', () => { tiltX = 0; tiltY = 0; });
 }
+
+/* ============================================================
+   PARTICLE FIELD
+   ============================================================ */
+(function () {
+  const canvas = document.getElementById('heroParticles');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  const COUNT = 90;
+
+  function resize() {
+    canvas.width  = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  const particles = Array.from({ length: COUNT }, () => ({
+    x:     Math.random() * canvas.width,
+    y:     Math.random() * canvas.height,
+    r:     Math.random() * 1.4 + 0.3,
+    vx:    (Math.random() - 0.5) * 0.35,
+    vy:    (Math.random() - 0.5) * 0.35,
+    alpha: Math.random() * 0.5 + 0.15,
+    // individual flicker phase
+    phase: Math.random() * Math.PI * 2,
+    speed: Math.random() * 0.02 + 0.008,
+  }));
+
+  function draw(ts) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach(p => {
+      // drift
+      p.x += p.vx;
+      p.y += p.vy;
+
+      // wrap around edges
+      if (p.x < 0) p.x = canvas.width;
+      if (p.x > canvas.width)  p.x = 0;
+      if (p.y < 0) p.y = canvas.height;
+      if (p.y > canvas.height) p.y = 0;
+
+      // flicker
+      p.phase += p.speed;
+      const flicker = p.alpha * (0.6 + 0.4 * Math.sin(p.phase));
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${flicker})`;
+      ctx.fill();
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  requestAnimationFrame(draw);
+})();
 
 /* ============================================================
    SCROLL-DRIVEN FADE-IN

@@ -181,15 +181,15 @@ a:hover { text-decoration: underline; }
     radial-gradient(ellipse 45% 45% at 8%  78%, rgba(93,202,165,0.22) 0%, transparent 50%),
     #07111e;
   z-index: 0;
-  animation: auroraDrift 20s ease-in-out infinite alternate;
+  animation: auroraDrift 12s ease-in-out infinite alternate;
 }
 
 @keyframes auroraDrift {
   0%   { transform: translate(0%, 0%)    scale(1); }
-  25%  { transform: translate(3%, -4%)   scale(1.04); }
-  50%  { transform: translate(-4%, 3%)   scale(1.02); }
-  75%  { transform: translate(2%, 5%)    scale(1.05); }
-  100% { transform: translate(-3%, -2%)  scale(1.03); }
+  25%  { transform: translate(6%, -8%)   scale(1.08); }
+  50%  { transform: translate(-7%, 6%)   scale(1.05); }
+  75%  { transform: translate(5%, 9%)    scale(1.10); }
+  100% { transform: translate(-6%, -5%)  scale(1.06); }
 }
 
 /* ---- Animated blobs ---- */
@@ -227,6 +227,16 @@ a:hover { text-decoration: underline; }
   0%, 100% { transform: translate(0, 0) scale(1); }
   33%       { transform: translate(30px, -40px) scale(1.06); }
   66%       { transform: translate(-20px, 25px) scale(0.96); }
+}
+
+/* ---- Particle canvas ---- */
+.hero__particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
 }
 
 /* ---- Grain overlay ---- */
