@@ -202,7 +202,7 @@ if (hero) {
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
-  const COUNT = 180;
+  const COUNT = 260;
 
   let W = window.innerWidth;
   let H = window.innerHeight;
@@ -239,10 +239,10 @@ if (hero) {
   const particles = Array.from({ length: COUNT }, () => ({
     x:     Math.random() * W,
     pageY: Math.random() * pageH(),
-    r:     Math.random() * 2.2 + 0.6,
+    r:     Math.random() * 3.5 + 1.2,
     vx:    (Math.random() - 0.5) * 0.35,
     vy:    (Math.random() - 0.5) * 0.35,
-    alpha: Math.random() * 0.5 + 0.3,
+    alpha: Math.random() * 0.4 + 0.55,
     phase: Math.random() * Math.PI * 2,
     speed: Math.random() * 0.016 + 0.007,
   }));
@@ -272,15 +272,21 @@ if (hero) {
       if (viewY < -4 || viewY > H + 4) return;
 
       p.phase += p.speed;
-      const flicker = p.alpha * (0.6 + 0.4 * Math.sin(p.phase));
+      const flicker = p.alpha * (0.7 + 0.3 * Math.sin(p.phase));
       const onDark  = isOverDark(p.pageY);
 
       ctx.beginPath();
       ctx.arc(p.x, viewY, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = onDark
-        ? `rgba(255,255,255,${flicker})`
-        : `rgba(55,138,221,${flicker * 1.8})`;
+      if (onDark) {
+        ctx.fillStyle = `rgba(255,255,255,${flicker})`;
+        ctx.shadowBlur = 0;
+      } else {
+        ctx.fillStyle = `rgba(55,138,221,${flicker})`;
+        ctx.shadowColor = 'rgba(55,138,221,0.8)';
+        ctx.shadowBlur = 8;
+      }
       ctx.fill();
+      ctx.shadowBlur = 0;
     });
 
     requestAnimationFrame(draw);
