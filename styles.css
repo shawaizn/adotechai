@@ -433,12 +433,12 @@ a:hover { text-decoration: underline; }
 }
 
 /* Chip positions — on the frame border */
-.frame__chip[data-pos="tl"] { top: -20px;  left: 48px; transform: translateY(-50%); }
-.frame__chip[data-pos="tr"] { top: -20px;  right: 48px; transform: translateY(-50%); }
-.frame__chip[data-pos="ml"] { top: 50%; left: 0; transform: translate(-50%, -50%); }
-.frame__chip[data-pos="mr"] { top: 50%; right: 0; transform: translate(50%, -50%); }
-.frame__chip[data-pos="bl"] { bottom: -20px; left: 48px; transform: translateY(50%); }
-.frame__chip[data-pos="br"] { bottom: -20px; right: 48px; transform: translateY(50%); }
+.frame__chip[data-pos="tl"] { top: 0;    left: 48px;   transform: translateY(-50%); }
+.frame__chip[data-pos="tr"] { top: 0;    right: 48px;  transform: translateY(-50%); }
+.frame__chip[data-pos="ml"] { top: 50%;  left: 0;      transform: translate(-50%, -50%); }
+.frame__chip[data-pos="mr"] { top: 50%;  right: 0;     transform: translate(50%, -50%); }
+.frame__chip[data-pos="bl"] { bottom: 0; left: 48px;   transform: translateY(50%); }
+.frame__chip[data-pos="br"] { bottom: 0; right: 48px;  transform: translateY(50%); }
 
 .frame__chip[data-pos="tl"]:hover { transform: translateY(-50%) scale(1.05); }
 .frame__chip[data-pos="tr"]:hover { transform: translateY(-50%) scale(1.05); }
