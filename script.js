@@ -1,4 +1,63 @@
 /* ============================================================
+   CUSTOM CURSOR
+   ============================================================ */
+(function () {
+  const dot  = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  if (!dot || !ring) return;
+
+  // Skip on touch devices
+  if (window.matchMedia('(hover: none)').matches) {
+    dot.style.display = 'none';
+    ring.style.display = 'none';
+    return;
+  }
+
+  let mouseX = -100, mouseY = -100;
+  let ringX  = -100, ringY  = -100;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  }, { passive: true });
+
+  // Lerp ring toward mouse
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function tick() {
+    ringX = lerp(ringX, mouseX, 0.12);
+    ringY = lerp(ringY, mouseY, 0.12);
+
+    dot.style.left  = mouseX + 'px';
+    dot.style.top   = mouseY + 'px';
+    ring.style.left = ringX + 'px';
+    ring.style.top  = ringY + 'px';
+
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  // Expand ring on interactive elements
+  const hoverEls = 'a, button, [role="button"], .bento-card, .process-card, .pricing-card, .faq-q, input, textarea';
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest(hoverEls)) document.body.classList.add('cursor-hover');
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest(hoverEls)) document.body.classList.remove('cursor-hover');
+  });
+
+  // Dot pulse on click
+  document.addEventListener('mousedown', () => {
+    dot.style.transform = 'translate(-50%, -50%) scale(2)';
+    ring.style.transform = 'translate(-50%, -50%) scale(0.7)';
+  });
+  document.addEventListener('mouseup', () => {
+    dot.style.transform = 'translate(-50%, -50%) scale(1)';
+    ring.style.transform = 'translate(-50%, -50%) scale(1)';
+  });
+})();
+
+/* ============================================================
    HERO MOBILE NAV
    ============================================================ */
 const mobileToggle = document.getElementById('heroMobileToggle');
