@@ -133,6 +133,55 @@ if (hero) {
 })();
 
 /* ============================================================
+   FULL-PAGE PARTICLE FIELD (dark particles on light sections)
+   ============================================================ */
+(function () {
+  const canvas = document.getElementById('pageParticles');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  const COUNT = 90;
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  const particles = Array.from({ length: COUNT }, () => ({
+    x:     Math.random() * canvas.width,
+    y:     Math.random() * canvas.height,
+    r:     Math.random() * 1.3 + 0.2,
+    vx:    (Math.random() - 0.5) * 0.28,
+    vy:    (Math.random() - 0.5) * 0.28,
+    alpha: Math.random() * 0.07 + 0.03,
+    phase: Math.random() * Math.PI * 2,
+    speed: Math.random() * 0.016 + 0.006,
+  }));
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0) p.x = canvas.width;
+      if (p.x > canvas.width)  p.x = 0;
+      if (p.y < 0) p.y = canvas.height;
+      if (p.y > canvas.height) p.y = 0;
+      p.phase += p.speed;
+      const flicker = p.alpha * (0.6 + 0.4 * Math.sin(p.phase));
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(20,50,90,${flicker})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+/* ============================================================
    SCROLL-DRIVEN FADE-IN
    ============================================================ */
 const fadeEls = document.querySelectorAll('.bento-card, .timeline__step, .pricing-card, .faq-item');
