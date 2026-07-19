@@ -1,5 +1,5 @@
 /* ============================================================
-   CUSTOM CURSOR — gold energy thread
+   CUSTOM CURSOR — gold aura spotlight
    ============================================================ */
 (function () {
   const dot  = document.getElementById('cursorDot');
@@ -18,9 +18,8 @@
   resize();
   window.addEventListener('resize', resize, { passive: true });
 
-  const HISTORY = 32; // number of positions kept
-  const points  = Array.from({ length: HISTORY }, () => ({ x: -500, y: -500 }));
   let mouseX = -500, mouseY = -500;
+  let auraX  = -500, auraY  = -500;
 
   document.addEventListener('mousemove', e => {
     mouseX = e.clientX;
@@ -32,42 +31,35 @@
   function tick() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Each point chases the one ahead with increasing lag
-    points[0].x = lerp(points[0].x, mouseX, 0.4);
-    points[0].y = lerp(points[0].y, mouseY, 0.4);
-    for (let i = 1; i < HISTORY; i++) {
-      points[i].x = lerp(points[i].x, points[i - 1].x, 0.5);
-      points[i].y = lerp(points[i].y, points[i - 1].y, 0.5);
-    }
+    // Aura lags gently behind cursor
+    auraX = lerp(auraX, mouseX, 0.08);
+    auraY = lerp(auraY, mouseY, 0.08);
 
-    // Draw the thread as a smooth bezier curve
-    if (points.length > 2) {
-      for (let i = 0; i < points.length - 1; i++) {
-        const t0 = 1 - i / HISTORY;         // 1 at head, 0 at tail
-        const t1 = 1 - (i + 1) / HISTORY;
-        const alpha = t0 * t0 * 0.9;
-        const width = t0 * 2.2 + 0.2;
-
-        ctx.beginPath();
-        ctx.moveTo(points[i].x, points[i].y);
-        ctx.lineTo(points[i + 1].x, points[i + 1].y);
-
-        // Outer glow pass
-        ctx.shadowColor = `rgba(245,217,122,${alpha * 0.7})`;
-        ctx.shadowBlur  = 12 * t0;
-        ctx.strokeStyle = `rgba(201,168,76,${alpha})`;
-        ctx.lineWidth   = width;
-        ctx.lineCap     = 'round';
-        ctx.stroke();
-      }
-      ctx.shadowBlur = 0;
-    }
-
-    // Bright dot at cursor tip
+    // Outer soft glow — large, very subtle
+    const outer = ctx.createRadialGradient(auraX, auraY, 0, auraX, auraY, 240);
+    outer.addColorStop(0,   'rgba(201,168,76,0.10)');
+    outer.addColorStop(0.4, 'rgba(201,168,76,0.04)');
+    outer.addColorStop(1,   'rgba(201,168,76,0)');
     ctx.beginPath();
-    ctx.arc(points[0].x, points[0].y, 3, 0, Math.PI * 2);
-    ctx.shadowColor = 'rgba(245,217,122,0.95)';
-    ctx.shadowBlur  = 18;
+    ctx.arc(auraX, auraY, 240, 0, Math.PI * 2);
+    ctx.fillStyle = outer;
+    ctx.fill();
+
+    // Inner core glow — tighter, brighter
+    const inner = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 80);
+    inner.addColorStop(0,   'rgba(245,217,122,0.22)');
+    inner.addColorStop(0.5, 'rgba(201,168,76,0.08)');
+    inner.addColorStop(1,   'rgba(201,168,76,0)');
+    ctx.beginPath();
+    ctx.arc(mouseX, mouseY, 80, 0, Math.PI * 2);
+    ctx.fillStyle = inner;
+    ctx.fill();
+
+    // Tiny bright dot at exact cursor position
+    ctx.beginPath();
+    ctx.arc(mouseX, mouseY, 3, 0, Math.PI * 2);
+    ctx.shadowColor = 'rgba(245,217,122,1)';
+    ctx.shadowBlur  = 16;
     ctx.fillStyle   = '#f5d97a';
     ctx.fill();
     ctx.shadowBlur  = 0;
