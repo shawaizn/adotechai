@@ -250,22 +250,15 @@ a:hover { text-decoration: underline; }
   -webkit-backdrop-filter: blur(14px);
 }
 
-/* Logo chip */
-.hero__chip--logo {
-  background: rgba(255,255,255,0.18);
-  border: 1px solid rgba(255,255,255,0.3);
-  color: #fff !important;
-  font-size: 0.9375rem;
-  font-weight: 700;
-  top: 36px; left: 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.25);
-}
-
-.hero__chip--logo:hover {
-  background: rgba(255,255,255,0.26);
-  transform: translateY(-2px);
-  text-decoration: none;
-  color: #fff;
+/* Origin wordmark inside card */
+.hero__origin {
+  font-family: var(--font);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.28);
+  margin-bottom: 28px;
 }
 
 /* Nav chips */
