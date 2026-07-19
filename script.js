@@ -133,14 +133,16 @@ if (hero) {
 })();
 
 /* ============================================================
-   FULL-PAGE PARTICLE FIELD (dark particles on light sections)
+   FULL-PAGE PARTICLE FIELD
+   Canvas sits above everything. Each particle is colored white
+   or dark-navy depending on whether it's over a dark or light section.
    ============================================================ */
 (function () {
   const canvas = document.getElementById('pageParticles');
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
-  const COUNT = 90;
+  const COUNT = 100;
 
   function resize() {
     canvas.width  = window.innerWidth;
@@ -149,15 +151,33 @@ if (hero) {
   resize();
   window.addEventListener('resize', resize, { passive: true });
 
+  // Dark sections: hero, demo, USP, footer
+  const DARK_SELECTORS = '.hero, .demo-section, .usp-section, .footer';
+  let darkRanges = [];
+
+  function buildDarkRanges() {
+    darkRanges = Array.from(document.querySelectorAll(DARK_SELECTORS)).map(el => {
+      const top = el.offsetTop;
+      return { top, bottom: top + el.offsetHeight };
+    });
+  }
+  buildDarkRanges();
+  window.addEventListener('resize', buildDarkRanges, { passive: true });
+
+  function isOverDark(viewportY) {
+    const pageY = window.scrollY + viewportY;
+    return darkRanges.some(r => pageY >= r.top && pageY <= r.bottom);
+  }
+
   const particles = Array.from({ length: COUNT }, () => ({
     x:     Math.random() * canvas.width,
     y:     Math.random() * canvas.height,
-    r:     Math.random() * 1.5 + 0.3,
-    vx:    (Math.random() - 0.5) * 0.28,
-    vy:    (Math.random() - 0.5) * 0.28,
-    alpha: Math.random() * 0.14 + 0.06,
+    r:     Math.random() * 1.4 + 0.3,
+    vx:    (Math.random() - 0.5) * 0.3,
+    vy:    (Math.random() - 0.5) * 0.3,
+    alpha: Math.random() * 0.35 + 0.1,
     phase: Math.random() * Math.PI * 2,
-    speed: Math.random() * 0.016 + 0.006,
+    speed: Math.random() * 0.016 + 0.007,
   }));
 
   function draw() {
@@ -171,9 +191,12 @@ if (hero) {
       if (p.y > canvas.height) p.y = 0;
       p.phase += p.speed;
       const flicker = p.alpha * (0.6 + 0.4 * Math.sin(p.phase));
+      const onDark = isOverDark(p.y);
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(20,50,90,${flicker})`;
+      ctx.fillStyle = onDark
+        ? `rgba(255,255,255,${flicker})`
+        : `rgba(20,50,90,${flicker})`;
       ctx.fill();
     });
     requestAnimationFrame(draw);
