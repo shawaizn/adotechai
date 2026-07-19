@@ -21,21 +21,42 @@ if (mobileToggle && mobileMenu) {
 }
 
 /* ============================================================
-   HERO — mouse parallax on blobs
+   HERO — mouse parallax on blobs + card tilt
    ============================================================ */
-const blobs = document.querySelectorAll('.blob');
+const blobs  = document.querySelectorAll('.blob');
+const card   = document.getElementById('heroCard');
+const hero   = document.querySelector('.hero');
 
 document.addEventListener('mousemove', e => {
   const cx = window.innerWidth  / 2;
   const cy = window.innerHeight / 2;
-  const dx = (e.clientX - cx) / cx;
-  const dy = (e.clientY - cy) / cy;
+  const dx = (e.clientX - cx) / cx; // -1 to 1
+  const dy = (e.clientY - cy) / cy; // -1 to 1
 
+  // Blob parallax
   blobs.forEach((blob, i) => {
     const depth = (i + 1) * 12;
     blob.style.transform = `translate(${dx * depth}px, ${dy * depth}px)`;
   });
+
+  // Card tilt — subtle 3D rotation toward cursor
+  if (card) {
+    const tiltX =  dy * 6;  // degrees
+    const tiltY = -dx * 6;
+    card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+  }
 }, { passive: true });
+
+// Reset tilt when mouse leaves hero
+if (hero && card) {
+  hero.addEventListener('mouseleave', () => {
+    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+    card.style.transition = 'transform 0.6s ease';
+  });
+  hero.addEventListener('mouseenter', () => {
+    card.style.transition = 'transform 0.1s ease';
+  });
+}
 
 /* ============================================================
    SCROLL-DRIVEN FADE-IN

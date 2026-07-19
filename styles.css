@@ -239,6 +239,65 @@ a:hover { text-decoration: underline; }
   height: calc(100vh - 80px);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 32px;
+  opacity: 0;
+  animation: frameEnter 0.6s ease 0.1s forwards;
+}
+
+@keyframes frameEnter {
+  to { opacity: 1; }
+}
+
+/* Corner bracket accents */
+.hero__frame::before,
+.hero__frame::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: rgba(255,255,255,0.35);
+  border-style: solid;
+}
+
+.hero__frame::before {
+  top: 12px; left: 12px;
+  border-width: 1px 0 0 1px;
+  border-radius: 3px 0 0 0;
+}
+
+.hero__frame::after {
+  bottom: 12px; right: 12px;
+  border-width: 0 1px 1px 0;
+  border-radius: 0 0 3px 0;
+}
+
+/* Extra corner brackets via child pseudo — top-right & bottom-left */
+.hero__frame-corners {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 32px;
+}
+
+.hero__frame-corners::before,
+.hero__frame-corners::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: rgba(255,255,255,0.35);
+  border-style: solid;
+}
+
+.hero__frame-corners::before {
+  top: 12px; right: 12px;
+  border-width: 1px 1px 0 0;
+  border-radius: 0 3px 0 0;
+}
+
+.hero__frame-corners::after {
+  bottom: 12px; left: 12px;
+  border-width: 0 0 1px 1px;
+  border-radius: 0 0 0 3px;
 }
 
 /* adotechai brand mark — top centre of frame */
@@ -279,11 +338,24 @@ a:hover { text-decoration: underline; }
   text-decoration: none !important;
 }
 
-/* Vertical connecting line: brand → card top */
+/* Vertical connecting line: brand → card top — draws itself in */
 .frame__brand-line {
   width: 1px;
   height: 28px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.35), transparent);
+  background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+  transform-origin: top;
+  transform: scaleY(0);
+  animation: lineGrow 0.5s cubic-bezier(0.22, 1, 0.36, 1) 1s forwards;
+}
+
+@keyframes lineGrow {
+  to { transform: scaleY(1); }
+}
+
+/* Brand mark entrance */
+.frame__brand {
+  opacity: 0;
+  animation: chipFadeIn 0.5s ease 0.9s forwards;
 }
 
 /* Frame chips */
@@ -327,6 +399,19 @@ a:hover { text-decoration: underline; }
   color: var(--blue-dark) !important;
   transform: scale(1.05);
 }
+
+/* Chip stagger entrance */
+@keyframes chipFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.frame__chip[data-pos="tl"] { animation: chipFadeIn 0.45s ease 1.0s both; }
+.frame__chip[data-pos="tr"] { animation: chipFadeIn 0.45s ease 1.1s both; }
+.frame__chip[data-pos="ml"] { animation: chipFadeIn 0.45s ease 1.2s both; }
+.frame__chip[data-pos="mr"] { animation: chipFadeIn 0.45s ease 1.2s both; }
+.frame__chip[data-pos="bl"] { animation: chipFadeIn 0.45s ease 1.3s both; }
+.frame__chip[data-pos="br"] { animation: chipFadeIn 0.45s ease 1.3s both; }
 
 /* Chip positions — on the frame border */
 .frame__chip[data-pos="tl"] { top: -16px;  left: 48px; }
@@ -418,12 +503,32 @@ a:hover { text-decoration: underline; }
   padding: 40px;
 }
 
+/* ---- Glow bloom behind card ---- */
+.hero__glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(93,202,165,0.18) 0%, rgba(55,138,221,0.12) 40%, transparent 70%);
+  pointer-events: none;
+  z-index: 4;
+  animation: glowBreath 5s ease-in-out infinite;
+  filter: blur(20px);
+}
+
+@keyframes glowBreath {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.1); }
+}
+
 /* ---- Glass panel — proper glassmorphism ---- */
 .hero__glass {
+  position: relative;
+  z-index: 6;
   width: 100%;
   max-width: 680px;
   text-align: center;
-  background: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.07);
   backdrop-filter: blur(32px) saturate(180%);
   -webkit-backdrop-filter: blur(32px) saturate(180%);
   border: 1px solid rgba(255,255,255,0.18);
@@ -432,8 +537,17 @@ a:hover { text-decoration: underline; }
   box-shadow:
     0 0 0 1px rgba(255,255,255,0.05) inset,
     0 2px 0 rgba(255,255,255,0.12) inset,
-    0 32px 80px rgba(0,0,0,0.35),
-    0 8px 24px rgba(0,0,0,0.2);
+    0 32px 80px rgba(0,0,0,0.4),
+    0 8px 24px rgba(0,0,0,0.25);
+  transform-style: preserve-3d;
+  will-change: transform;
+  opacity: 0;
+  transform: translateY(32px);
+  animation: cardEnter 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+}
+
+@keyframes cardEnter {
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .hero__eyebrow {
@@ -460,7 +574,7 @@ a:hover { text-decoration: underline; }
   letter-spacing: -0.02em;
   line-height: 1.08;
   margin-bottom: 24px;
-  background: linear-gradient(160deg, #ffffff 0%, rgba(255,255,255,0.75) 100%);
+  background: linear-gradient(140deg, #ffffff 0%, #d4f0e8 40%, #a8d8f0 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
