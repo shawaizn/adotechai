@@ -134,8 +134,9 @@ if (hero) {
 
 /* ============================================================
    FULL-PAGE PARTICLE FIELD
-   Canvas sits above everything. Each particle is colored white
-   or dark-navy depending on whether it's over a dark or light section.
+   Canvas is fixed z-index:-1, behind all content.
+   Particles live in page-space (pageY) so they don't drift
+   when scrolling — they're anchored to the document.
    ============================================================ */
 (function () {
   const canvas = document.getElementById('pageParticles');
@@ -144,61 +145,85 @@ if (hero) {
   const ctx = canvas.getContext('2d');
   const COUNT = 180;
 
+  let W = window.innerWidth;
+  let H = window.innerHeight;
+
   function resize() {
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width  = W;
+    canvas.height = H;
   }
   resize();
   window.addEventListener('resize', resize, { passive: true });
 
-  // Dark sections: hero, demo, USP, footer
+  // Determine dark section page-Y ranges
   const DARK_SELECTORS = '.hero, .demo-section, .usp-section, .footer';
   let darkRanges = [];
 
   function buildDarkRanges() {
-    darkRanges = Array.from(document.querySelectorAll(DARK_SELECTORS)).map(el => {
-      const top = el.offsetTop;
-      return { top, bottom: top + el.offsetHeight };
-    });
+    darkRanges = Array.from(document.querySelectorAll(DARK_SELECTORS)).map(el => ({
+      top:    el.offsetTop,
+      bottom: el.offsetTop + el.offsetHeight,
+    }));
   }
   buildDarkRanges();
   window.addEventListener('resize', buildDarkRanges, { passive: true });
 
-  function isOverDark(viewportY) {
-    const pageY = window.scrollY + viewportY;
+  function isOverDark(pageY) {
     return darkRanges.some(r => pageY >= r.top && pageY <= r.bottom);
   }
 
+  // Particles use pageY (document coordinates)
+  const pageH = () => document.documentElement.scrollHeight;
+
   const particles = Array.from({ length: COUNT }, () => ({
-    x:     Math.random() * canvas.width,
-    y:     Math.random() * canvas.height,
-    r:     Math.random() * 2.2 + 0.6,
-    vx:    (Math.random() - 0.5) * 0.35,
-    vy:    (Math.random() - 0.5) * 0.35,
-    alpha: Math.random() * 0.5 + 0.25,
+    x:     Math.random() * W,
+    pageY: Math.random() * pageH(),
+    r:     Math.random() * 2.0 + 0.5,
+    vx:    (Math.random() - 0.5) * 0.32,
+    vy:    (Math.random() - 0.5) * 0.32,
+    alpha: Math.random() * 0.45 + 0.2,
     phase: Math.random() * Math.PI * 2,
     speed: Math.random() * 0.016 + 0.007,
   }));
 
   function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, W, H);
+    const scrollY = window.scrollY;
+    const docH    = pageH();
+
     particles.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
-      if (p.x < 0) p.x = canvas.width;
-      if (p.x > canvas.width)  p.x = 0;
-      if (p.y < 0) p.y = canvas.height;
-      if (p.y > canvas.height) p.y = 0;
+      // Move in page space
+      p.x     += p.vx;
+      p.pageY += p.vy;
+
+      // Wrap horizontally
+      if (p.x < 0) p.x = W;
+      if (p.x > W) p.x = 0;
+
+      // Wrap vertically across full document height
+      if (p.pageY < 0)     p.pageY = docH;
+      if (p.pageY > docH)  p.pageY = 0;
+
+      // Convert to viewport Y for rendering
+      const viewY = p.pageY - scrollY;
+
+      // Skip if off screen
+      if (viewY < -4 || viewY > H + 4) return;
+
       p.phase += p.speed;
       const flicker = p.alpha * (0.6 + 0.4 * Math.sin(p.phase));
-      const onDark = isOverDark(p.y);
+      const onDark  = isOverDark(p.pageY);
+
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.arc(p.x, viewY, p.r, 0, Math.PI * 2);
       ctx.fillStyle = onDark
         ? `rgba(255,255,255,${flicker})`
-        : `rgba(10,30,60,${flicker * 2})`;
+        : `rgba(10,30,60,${flicker})`;
       ctx.fill();
     });
+
     requestAnimationFrame(draw);
   }
   requestAnimationFrame(draw);
