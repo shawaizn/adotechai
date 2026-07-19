@@ -1,59 +1,81 @@
 /* ============================================================
-   CUSTOM CURSOR
+   CUSTOM CURSOR — gold comet trail
    ============================================================ */
 (function () {
   const dot  = document.getElementById('cursorDot');
   const ring = document.getElementById('cursorRing');
-  if (!dot || !ring) return;
 
-  // Skip on touch devices
-  if (window.matchMedia('(hover: none)').matches) {
-    dot.style.display = 'none';
-    ring.style.display = 'none';
-    return;
+  // Hide the old ring/dot elements — trail replaces them
+  if (dot)  dot.style.display  = 'none';
+  if (ring) ring.style.display = 'none';
+
+  if (window.matchMedia('(hover: none)').matches) return;
+
+  const TRAIL_LENGTH = 28;
+  const GOLD_COLOR   = [245, 217, 122]; // #f5d97a
+
+  // Canvas overlay for the trail
+  const canvas = document.createElement('canvas');
+  canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999;';
+  document.body.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
   }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
 
-  let mouseX = -100, mouseY = -100;
-  let ringX  = -100, ringY  = -100;
+  let mouseX = -200, mouseY = -200;
+  const trail = Array.from({ length: TRAIL_LENGTH }, () => ({ x: -200, y: -200 }));
 
   document.addEventListener('mousemove', e => {
     mouseX = e.clientX;
     mouseY = e.clientY;
   }, { passive: true });
 
-  // Lerp ring toward mouse
   function lerp(a, b, t) { return a + (b - a) * t; }
 
   function tick() {
-    ringX = lerp(ringX, mouseX, 0.12);
-    ringY = lerp(ringY, mouseY, 0.12);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    dot.style.left  = mouseX + 'px';
-    dot.style.top   = mouseY + 'px';
-    ring.style.left = ringX + 'px';
-    ring.style.top  = ringY + 'px';
+    // Shift trail: each point chases the one ahead
+    trail[0].x = lerp(trail[0].x, mouseX, 0.35);
+    trail[0].y = lerp(trail[0].y, mouseY, 0.35);
+    for (let i = 1; i < TRAIL_LENGTH; i++) {
+      trail[i].x = lerp(trail[i].x, trail[i - 1].x, 0.55);
+      trail[i].y = lerp(trail[i].y, trail[i - 1].y, 0.55);
+    }
+
+    // Draw dots from tail → head so head is on top
+    for (let i = TRAIL_LENGTH - 1; i >= 0; i--) {
+      const t      = 1 - i / TRAIL_LENGTH;           // 0 (tail) → 1 (head)
+      const alpha  = t * t * 0.95;
+      const radius = t * 6 + 0.5;
+      const [r, g, b] = GOLD_COLOR;
+
+      ctx.beginPath();
+      ctx.arc(trail[i].x, trail[i].y, radius, 0, Math.PI * 2);
+
+      // Glow pass
+      ctx.shadowColor = `rgba(${r},${g},${b},${alpha * 0.8})`;
+      ctx.shadowBlur  = 14 * t;
+      ctx.fillStyle   = `rgba(${r},${g},${b},${alpha})`;
+      ctx.fill();
+    }
+    ctx.shadowBlur = 0;
 
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
 
-  // Expand ring on interactive elements
-  const hoverEls = 'a, button, [role="button"], .bento-card, .process-card, .pricing-card, .faq-q, input, textarea';
-  document.addEventListener('mouseover', e => {
-    if (e.target.closest(hoverEls)) document.body.classList.add('cursor-hover');
-  });
-  document.addEventListener('mouseout', e => {
-    if (e.target.closest(hoverEls)) document.body.classList.remove('cursor-hover');
-  });
-
-  // Dot pulse on click
+  // Click burst
   document.addEventListener('mousedown', () => {
-    dot.style.transform = 'translate(-50%, -50%) scale(2)';
-    ring.style.transform = 'translate(-50%, -50%) scale(0.7)';
-  });
-  document.addEventListener('mouseup', () => {
-    dot.style.transform = 'translate(-50%, -50%) scale(1)';
-    ring.style.transform = 'translate(-50%, -50%) scale(1)';
+    for (let i = 0; i < TRAIL_LENGTH; i++) {
+      trail[i].x = mouseX + (Math.random() - 0.5) * 20;
+      trail[i].y = mouseY + (Math.random() - 0.5) * 20;
+    }
   });
 })();
 
