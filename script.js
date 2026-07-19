@@ -135,7 +135,7 @@ if (hero) {
 /* ============================================================
    SCROLL-DRIVEN FADE-IN
    ============================================================ */
-const fadeEls = document.querySelectorAll('.card, .step, .benefit-item, .pricing-card, .faq-item');
+const fadeEls = document.querySelectorAll('.bento-card, .timeline__step, .pricing-card, .faq-item');
 
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
