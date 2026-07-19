@@ -142,7 +142,7 @@ if (hero) {
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
-  const COUNT = 100;
+  const COUNT = 180;
 
   function resize() {
     canvas.width  = window.innerWidth;
@@ -172,10 +172,10 @@ if (hero) {
   const particles = Array.from({ length: COUNT }, () => ({
     x:     Math.random() * canvas.width,
     y:     Math.random() * canvas.height,
-    r:     Math.random() * 1.4 + 0.3,
-    vx:    (Math.random() - 0.5) * 0.3,
-    vy:    (Math.random() - 0.5) * 0.3,
-    alpha: Math.random() * 0.35 + 0.1,
+    r:     Math.random() * 2.2 + 0.6,
+    vx:    (Math.random() - 0.5) * 0.35,
+    vy:    (Math.random() - 0.5) * 0.35,
+    alpha: Math.random() * 0.5 + 0.25,
     phase: Math.random() * Math.PI * 2,
     speed: Math.random() * 0.016 + 0.007,
   }));
