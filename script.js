@@ -196,7 +196,7 @@ if (hero) {
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
       ctx.fillStyle = onDark
         ? `rgba(255,255,255,${flicker})`
-        : `rgba(20,50,90,${flicker})`;
+        : `rgba(10,30,60,${flicker * 2})`;
       ctx.fill();
     });
     requestAnimationFrame(draw);
