@@ -1,67 +1,101 @@
 /* ============================================================
-   CUSTOM CURSOR — gold comet trail
+   CUSTOM CURSOR — gold stardust scatter
    ============================================================ */
 (function () {
   const dot  = document.getElementById('cursorDot');
   const ring = document.getElementById('cursorRing');
-
-  // Hide the old ring/dot elements — trail replaces them
   if (dot)  dot.style.display  = 'none';
   if (ring) ring.style.display = 'none';
 
   if (window.matchMedia('(hover: none)').matches) return;
 
-  const TRAIL_LENGTH = 28;
-  const GOLD_COLOR   = [201, 168, 76]; // #c9a84c — matches adotechai brand mark
-
-  // Canvas overlay for the trail
   const canvas = document.createElement('canvas');
   canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999;';
   document.body.appendChild(canvas);
   const ctx = canvas.getContext('2d');
 
-  function resize() {
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
   resize();
   window.addEventListener('resize', resize, { passive: true });
 
   let mouseX = -200, mouseY = -200;
-  const trail = Array.from({ length: TRAIL_LENGTH }, () => ({ x: -200, y: -200 }));
+  let lastX  = -200, lastY  = -200;
+  const particles = [];
+
+  // Gold palette: light → rich → deep
+  const GOLDS = [
+    [245, 217, 122],  // #f5d97a — bright
+    [232, 201, 106],  // #e8c96a — mid
+    [201, 168,  76],  // #c9a84c — rich
+    [255, 236, 160],  // #ffeca0 — pale shimmer
+  ];
 
   document.addEventListener('mousemove', e => {
     mouseX = e.clientX;
     mouseY = e.clientY;
+
+    const dx = mouseX - lastX;
+    const dy = mouseY - lastY;
+    const speed = Math.sqrt(dx * dx + dy * dy);
+
+    // Spawn more particles the faster you move
+    const count = Math.min(Math.floor(speed * 0.5) + 1, 6);
+    for (let i = 0; i < count; i++) {
+      const [r, g, b] = GOLDS[Math.floor(Math.random() * GOLDS.length)];
+      const angle = Math.atan2(dy, dx) + (Math.random() - 0.5) * 2.2;
+      const vel   = Math.random() * 2.2 + 0.6;
+      particles.push({
+        x:     mouseX + (Math.random() - 0.5) * 6,
+        y:     mouseY + (Math.random() - 0.5) * 6,
+        vx:    Math.cos(angle) * vel * 0.6 + (Math.random() - 0.5) * 1.2,
+        vy:    Math.sin(angle) * vel * 0.6 + (Math.random() - 0.5) * 1.2 - 0.4,
+        r:     Math.random() * 2.2 + 0.8,
+        alpha: Math.random() * 0.5 + 0.6,
+        decay: Math.random() * 0.022 + 0.018,
+        cr: r, cg: g, cb: b,
+      });
+    }
+
+    lastX = mouseX;
+    lastY = mouseY;
   }, { passive: true });
 
-  function lerp(a, b, t) { return a + (b - a) * t; }
+  // Click burst — spray 30 particles outward
+  document.addEventListener('mousedown', () => {
+    for (let i = 0; i < 30; i++) {
+      const [r, g, b] = GOLDS[Math.floor(Math.random() * GOLDS.length)];
+      const angle = Math.random() * Math.PI * 2;
+      const vel   = Math.random() * 4 + 1.5;
+      particles.push({
+        x: mouseX, y: mouseY,
+        vx: Math.cos(angle) * vel,
+        vy: Math.sin(angle) * vel - 1,
+        r:  Math.random() * 2.8 + 0.6,
+        alpha: Math.random() * 0.4 + 0.7,
+        decay: Math.random() * 0.018 + 0.012,
+        cr: r, cg: g, cb: b,
+      });
+    }
+  });
 
   function tick() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Shift trail: each point chases the one ahead
-    trail[0].x = lerp(trail[0].x, mouseX, 0.35);
-    trail[0].y = lerp(trail[0].y, mouseY, 0.35);
-    for (let i = 1; i < TRAIL_LENGTH; i++) {
-      trail[i].x = lerp(trail[i].x, trail[i - 1].x, 0.55);
-      trail[i].y = lerp(trail[i].y, trail[i - 1].y, 0.55);
-    }
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.x     += p.vx;
+      p.y     += p.vy;
+      p.vy    += 0.06; // gentle gravity
+      p.vx    *= 0.97;
+      p.alpha -= p.decay;
 
-    // Draw dots from tail → head so head is on top
-    for (let i = TRAIL_LENGTH - 1; i >= 0; i--) {
-      const t      = 1 - i / TRAIL_LENGTH;           // 0 (tail) → 1 (head)
-      const alpha  = t * t * 0.95;
-      const radius = t * 6 + 0.5;
-      const [r, g, b] = GOLD_COLOR;
+      if (p.alpha <= 0) { particles.splice(i, 1); continue; }
 
       ctx.beginPath();
-      ctx.arc(trail[i].x, trail[i].y, radius, 0, Math.PI * 2);
-
-      // Glow pass
-      ctx.shadowColor = `rgba(${r},${g},${b},${alpha * 0.8})`;
-      ctx.shadowBlur  = 14 * t;
-      ctx.fillStyle   = `rgba(${r},${g},${b},${alpha})`;
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.shadowColor = `rgba(${p.cr},${p.cg},${p.cb},${p.alpha * 0.9})`;
+      ctx.shadowBlur  = 8;
+      ctx.fillStyle   = `rgba(${p.cr},${p.cg},${p.cb},${p.alpha})`;
       ctx.fill();
     }
     ctx.shadowBlur = 0;
@@ -69,14 +103,6 @@
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
-
-  // Click burst
-  document.addEventListener('mousedown', () => {
-    for (let i = 0; i < TRAIL_LENGTH; i++) {
-      trail[i].x = mouseX + (Math.random() - 0.5) * 20;
-      trail[i].y = mouseY + (Math.random() - 0.5) * 20;
-    }
-  });
 })();
 
 /* ============================================================
