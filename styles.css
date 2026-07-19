@@ -674,7 +674,7 @@ a:hover { text-decoration: underline; }
   bottom: 0;
   left: 0;
   right: 0;
-  height: 140px;
+  height: 48px;
   background: linear-gradient(to bottom, transparent, #f8f9fb);
   z-index: 10;
   pointer-events: none;
