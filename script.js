@@ -281,9 +281,9 @@ if (hero) {
         ctx.fillStyle = `rgba(255,255,255,${flicker})`;
         ctx.shadowBlur = 0;
       } else {
-        ctx.fillStyle = `rgba(55,138,221,${flicker})`;
-        ctx.shadowColor = 'rgba(55,138,221,0.8)';
-        ctx.shadowBlur = 8;
+        ctx.fillStyle = `rgba(10,30,70,${flicker})`;
+        ctx.shadowColor = 'rgba(10,30,70,0.6)';
+        ctx.shadowBlur = 6;
       }
       ctx.fill();
       ctx.shadowBlur = 0;
