@@ -23,16 +23,6 @@
       <div class="hero__grain"></div>
     </div>
 
-    <!-- Logo chip removed — branding lives inside the card -->
-
-    <!-- Floating nav chips — desktop -->
-    <a href="#use-cases"  class="hero__chip hero__chip--nav" data-pos="tl">Use Cases</a>
-    <a href="#how-it-works" class="hero__chip hero__chip--nav" data-pos="tr">How It Works</a>
-    <a href="#demo"       class="hero__chip hero__chip--nav" data-pos="ml">Demo</a>
-    <a href="#pricing"    class="hero__chip hero__chip--nav" data-pos="mr">Pricing</a>
-    <a href="#faq"        class="hero__chip hero__chip--nav" data-pos="bl">FAQ</a>
-    <a href="#contact"    class="hero__chip hero__chip--cta" data-pos="br">Book a Call</a>
-
     <!-- Mobile nav -->
     <div class="hero__mobile-nav" id="heroMobileNav">
       <button class="hero__mobile-toggle" id="heroMobileToggle" aria-label="Open menu">
@@ -48,17 +38,37 @@
       </div>
     </div>
 
-    <!-- Centre glass panel -->
+    <!-- Centre stage: frame + card -->
     <div class="hero__stage">
-      <div class="hero__glass">
-        <p class="hero__origin">adotechai</p>
-        <p class="hero__eyebrow">AI Agents for Business</p>
-        <h1 class="hero__headline">AI Voice &amp;<br>Text Agents</h1>
-        <p class="hero__sub">Instant, always-on agents that answer calls and messages for your business — built and run for you by adotechai.</p>
-        <div class="hero__ctas">
-          <a href="#demo" class="btn btn--hero-primary">Try the Demo</a>
-          <a href="#contact" class="btn btn--hero-outline">Book a Call</a>
+
+      <!-- Rectangular frame wrapper -->
+      <div class="hero__frame">
+
+        <!-- adotechai — top centre, connected by line to card -->
+        <div class="frame__top-centre">
+          <a href="#" class="frame__brand">adotechai</a>
+          <div class="frame__brand-line"></div>
         </div>
+
+        <!-- Corner / side chips -->
+        <a href="#use-cases"    class="frame__chip" data-pos="tl">Use Cases</a>
+        <a href="#how-it-works" class="frame__chip" data-pos="tr">How It Works</a>
+        <a href="#demo"         class="frame__chip" data-pos="ml">Demo</a>
+        <a href="#pricing"      class="frame__chip" data-pos="mr">Pricing</a>
+        <a href="#faq"          class="frame__chip" data-pos="bl">FAQ</a>
+        <a href="#contact"      class="frame__chip frame__chip--cta" data-pos="br">Book a Call</a>
+
+        <!-- The card -->
+        <div class="hero__glass">
+          <p class="hero__eyebrow">AI Agents for Business</p>
+          <h1 class="hero__headline">AI Voice &amp;<br>Text Agents</h1>
+          <p class="hero__sub">Instant, always-on agents that answer calls and messages for your business — built and run for you by adotechai.</p>
+          <div class="hero__ctas">
+            <a href="#demo" class="btn btn--hero-primary">Try the Demo</a>
+            <a href="#contact" class="btn btn--hero-outline">Book a Call</a>
+          </div>
+        </div>
+
       </div>
     </div>
 
