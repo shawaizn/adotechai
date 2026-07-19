@@ -266,58 +266,6 @@ a:hover { text-decoration: underline; }
   to { opacity: 1; }
 }
 
-/* Corner bracket accents */
-.hero__frame::before,
-.hero__frame::after {
-  content: '';
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-color: rgba(255,255,255,0.35);
-  border-style: solid;
-}
-
-.hero__frame::before {
-  top: 12px; left: 12px;
-  border-width: 1px 0 0 1px;
-  border-radius: 3px 0 0 0;
-}
-
-.hero__frame::after {
-  bottom: 12px; right: 12px;
-  border-width: 0 1px 1px 0;
-  border-radius: 0 0 3px 0;
-}
-
-/* Extra corner brackets via child pseudo — top-right & bottom-left */
-.hero__frame-corners {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  border-radius: 32px;
-}
-
-.hero__frame-corners::before,
-.hero__frame-corners::after {
-  content: '';
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-color: rgba(255,255,255,0.35);
-  border-style: solid;
-}
-
-.hero__frame-corners::before {
-  top: 12px; right: 12px;
-  border-width: 1px 1px 0 0;
-  border-radius: 0 3px 0 0;
-}
-
-.hero__frame-corners::after {
-  bottom: 12px; left: 12px;
-  border-width: 0 0 1px 1px;
-  border-radius: 0 0 0 3px;
-}
 
 /* adotechai brand mark — top centre of frame */
 .frame__top-centre {
