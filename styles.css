@@ -282,7 +282,7 @@ a:hover { text-decoration: underline; }
 .frame__brand {
   display: block;
   font-family: var(--font);
-  font-size: 0.6rem;
+  font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.32em;
   text-transform: uppercase;
@@ -1606,7 +1606,7 @@ body.cursor-hover .cursor-dot {
 }
 
 .footer__tagline {
-  font-size: 0.875rem;
+  font-size: 1.125rem;
   color: rgba(255,255,255,0.35);
   letter-spacing: 0.04em;
   margin-bottom: 40px;
