@@ -132,45 +132,27 @@
     <div class="container">
       <div class="section__header">
         <p class="section__eyebrow">The Process</p>
-        <h2 class="section__display">From conversation<br>to live agent.</h2>
       </div>
-      <div class="journey">
-        <div class="journey__track"></div>
-        <div class="journey__step step">
-          <div class="journey__node">
-            <span class="journey__num">01</span>
-          </div>
-          <div class="journey__card">
-            <h4>Discovery Meeting</h4>
-            <p>We learn your business, your customers, and exactly what your agent needs to handle.</p>
-          </div>
+      <div class="process-grid">
+        <div class="process-card step">
+          <div class="process-card__num">01</div>
+          <h4>Discovery Meeting</h4>
+          <p>We learn your business, your customers, and exactly what your agent needs to handle.</p>
         </div>
-        <div class="journey__step step">
-          <div class="journey__node">
-            <span class="journey__num">02</span>
-          </div>
-          <div class="journey__card">
-            <h4>We Build Your Agent</h4>
-            <p>We configure and train your agent, refining it with your feedback along the way.</p>
-          </div>
+        <div class="process-card step">
+          <div class="process-card__num">02</div>
+          <h4>We Build Your Agent</h4>
+          <p>We configure and train your agent, refining it with your feedback along the way.</p>
         </div>
-        <div class="journey__step step">
-          <div class="journey__node">
-            <span class="journey__num">03</span>
-          </div>
-          <div class="journey__card">
-            <h4>Trial</h4>
-            <p>Test your agent in real conditions before it goes live — no surprises.</p>
-          </div>
+        <div class="process-card step">
+          <div class="process-card__num">03</div>
+          <h4>Trial</h4>
+          <p>Test your agent in real conditions before it goes live — no surprises.</p>
         </div>
-        <div class="journey__step step">
-          <div class="journey__node journey__node--end">
-            <span class="journey__num">04</span>
-          </div>
-          <div class="journey__card">
-            <h4>Full Implementation</h4>
-            <p>Your agent goes fully live, supported and maintained by adotechai.</p>
-          </div>
+        <div class="process-card step">
+          <div class="process-card__num">04</div>
+          <h4>Full Implementation</h4>
+          <p>Your agent goes fully live, supported and maintained by adotechai.</p>
         </div>
       </div>
     </div>
@@ -227,43 +209,35 @@
         <p class="section__eyebrow">The Difference</p>
         <h2 class="section__display">AI Agents vs Human Staff</h2>
       </div>
-      <div class="table-wrap">
-        <table class="comparison-table">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Human Staff</th>
-              <th class="highlight-col">adotechai Agents</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Availability</td>
-              <td>Business hours only</td>
-              <td class="highlight-col">24 / 7</td>
-            </tr>
-            <tr>
-              <td>Response time</td>
-              <td>Can be delayed</td>
-              <td class="highlight-col">Instant</td>
-            </tr>
-            <tr>
-              <td>Consistency</td>
-              <td>Varies</td>
-              <td class="highlight-col">Always consistent</td>
-            </tr>
-            <tr>
-              <td>Cost</td>
-              <td>Salary + overhead</td>
-              <td class="highlight-col">Fixed monthly fee</td>
-            </tr>
-            <tr>
-              <td>Scalability</td>
-              <td>Requires hiring more</td>
-              <td class="highlight-col">Scales instantly</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="compare-grid">
+        <div class="compare-col compare-col--label">
+          <div class="compare-col__header"></div>
+          <div class="compare-row__label">Availability</div>
+          <div class="compare-row__label">Response Time</div>
+          <div class="compare-row__label">Consistency</div>
+          <div class="compare-row__label">Cost</div>
+          <div class="compare-row__label">Scalability</div>
+        </div>
+        <div class="compare-col compare-col--human">
+          <div class="compare-col__header">
+            <span class="compare-col__tag">Human Staff</span>
+          </div>
+          <div class="compare-row__cell compare-row__cell--dim">Business hours only</div>
+          <div class="compare-row__cell compare-row__cell--dim">Can be delayed</div>
+          <div class="compare-row__cell compare-row__cell--dim">Varies</div>
+          <div class="compare-row__cell compare-row__cell--dim">Salary + overhead</div>
+          <div class="compare-row__cell compare-row__cell--dim">Requires hiring more</div>
+        </div>
+        <div class="compare-col compare-col--ai">
+          <div class="compare-col__header">
+            <span class="compare-col__tag compare-col__tag--ai">adotechai Agents</span>
+          </div>
+          <div class="compare-row__cell compare-row__cell--win">24 / 7</div>
+          <div class="compare-row__cell compare-row__cell--win">Instant</div>
+          <div class="compare-row__cell compare-row__cell--win">Always consistent</div>
+          <div class="compare-row__cell compare-row__cell--win">Fixed monthly fee</div>
+          <div class="compare-row__cell compare-row__cell--win">Scales instantly</div>
+        </div>
       </div>
     </div>
   </section>
@@ -277,7 +251,8 @@
       </div>
       <div class="pricing-cards">
         <!-- REPLACE: update placeholder pricing values before going live -->
-        <div class="pricing-card">
+        <div class="pricing-card pricing-card--starter">
+          <div class="pricing-card__accent pricing-card__accent--teal"></div>
           <div class="pricing-card__header">
             <h3>Starter</h3>
             <p>One channel — voice or text</p>
@@ -298,11 +273,11 @@
             <li>Setup &amp; onboarding</li>
             <li>Ongoing support</li>
           </ul>
-          <a href="#contact" class="btn btn--outline btn--full">Get Started</a>
+          <a href="#contact" class="btn btn--pricing btn--full">Get Started</a>
         </div>
 
-        <div class="pricing-card pricing-card--featured">
-          <div class="pricing-card__badge">Most Popular</div>
+        <div class="pricing-card pricing-card--growth">
+          <div class="pricing-card__accent pricing-card__accent--blue"></div>
           <div class="pricing-card__header">
             <h3>Growth</h3>
             <p>Both channels — voice and text</p>
@@ -323,7 +298,7 @@
             <li>Setup &amp; onboarding</li>
             <li>Ongoing support</li>
           </ul>
-          <a href="#contact" class="btn btn--primary btn--full">Get Started</a>
+          <a href="#contact" class="btn btn--pricing btn--full">Get Started</a>
         </div>
       </div>
     </div>
@@ -469,14 +444,19 @@
 
   <!-- ===================== FOOTER ===================== -->
   <footer class="footer">
+    <div class="footer__bg"></div>
     <div class="container footer__inner">
-      <p class="footer__logo">adotechai</p>
+      <p class="footer__wordmark">ADOTECHAI</p>
+      <p class="footer__tagline">AI Voice &amp; Text Agents — built and run for your business.</p>
       <nav class="footer__nav">
         <a href="#use-cases">Use Cases</a>
         <a href="#how-it-works">How It Works</a>
+        <a href="#demo">Demo</a>
         <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
         <a href="#contact">Contact</a>
       </nav>
+      <div class="footer__divider"></div>
       <p class="footer__copy">© 2025 adotechai. All rights reserved.</p>
     </div>
   </footer>
