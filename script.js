@@ -1,5 +1,5 @@
 /* ============================================================
-   CUSTOM CURSOR — gold neural spark
+   CUSTOM CURSOR — gold stardust scatter
    ============================================================ */
 (function () {
   const dot  = document.getElementById('cursorDot');
@@ -18,9 +18,16 @@
   resize();
   window.addEventListener('resize', resize, { passive: true });
 
-  let mouseX = -500, mouseY = -500;
-  let lastX  = -500, lastY  = -500;
-  const sparks = [];
+  let mouseX = -200, mouseY = -200;
+  let lastX  = -200, lastY  = -200;
+  const particles = [];
+
+  const GOLDS = [
+    [245, 217, 122],
+    [232, 201, 106],
+    [201, 168,  76],
+    [255, 236, 160],
+  ];
 
   document.addEventListener('mousemove', e => {
     mouseX = e.clientX;
@@ -29,107 +36,64 @@
     const dx = mouseX - lastX;
     const dy = mouseY - lastY;
     const speed = Math.sqrt(dx * dx + dy * dy);
+    const count = Math.min(Math.floor(speed * 0.5) + 1, 6);
 
-    // Spawn sparks proportional to speed
-    if (speed > 2) {
-      const count = Math.min(Math.floor(speed * 0.4) + 1, 4);
-      for (let i = 0; i < count; i++) {
-        spawnSpark(mouseX, mouseY, dx, dy);
-      }
+    for (let i = 0; i < count; i++) {
+      const [r, g, b] = GOLDS[Math.floor(Math.random() * GOLDS.length)];
+      const angle = Math.atan2(dy, dx) + (Math.random() - 0.5) * 2.2;
+      const vel   = Math.random() * 2.2 + 0.6;
+      particles.push({
+        x: mouseX + (Math.random() - 0.5) * 6,
+        y: mouseY + (Math.random() - 0.5) * 6,
+        vx: Math.cos(angle) * vel * 0.6 + (Math.random() - 0.5) * 1.2,
+        vy: Math.sin(angle) * vel * 0.6 + (Math.random() - 0.5) * 1.2 - 0.4,
+        r:  Math.random() * 2.2 + 0.8,
+        alpha: Math.random() * 0.5 + 0.6,
+        decay: Math.random() * 0.022 + 0.018,
+        cr: r, cg: g, cb: b,
+      });
     }
 
     lastX = mouseX;
     lastY = mouseY;
   }, { passive: true });
 
-  // Click — big burst of branching sparks
   document.addEventListener('mousedown', () => {
-    for (let i = 0; i < 12; i++) spawnSpark(mouseX, mouseY, 0, 0, true);
-  });
-
-  function spawnSpark(ox, oy, dx, dy, burst = false) {
-    const branches = burst ? Math.floor(Math.random() * 2) + 2 : Math.floor(Math.random() * 2) + 1;
-    const baseAngle = burst
-      ? Math.random() * Math.PI * 2
-      : Math.atan2(dy, dx) + (Math.random() - 0.5) * Math.PI;
-
-    sparks.push({
-      ox, oy,                          // origin
-      angle:  baseAngle,
-      len:    0,
-      maxLen: Math.random() * 28 + 12,
-      speed:  Math.random() * 3.5 + 2,
-      alpha:  1,
-      decay:  Math.random() * 0.03 + 0.02,
-      width:  Math.random() * 1.2 + 0.4,
-      branches,
-      children: [],                    // sub-branches spawned mid-flight
-      branched: false,
-    });
-  }
-
-  function drawSpark(s) {
-    if (s.alpha <= 0) return;
-
-    const ex = s.ox + Math.cos(s.angle) * s.len;
-    const ey = s.oy + Math.sin(s.angle) * s.len;
-
-    ctx.beginPath();
-    ctx.moveTo(s.ox, s.oy);
-    ctx.lineTo(ex, ey);
-    ctx.shadowColor = `rgba(245,217,122,${s.alpha * 0.8})`;
-    ctx.shadowBlur  = 10;
-    ctx.strokeStyle = `rgba(245,217,122,${s.alpha})`;
-    ctx.lineWidth   = s.width;
-    ctx.lineCap     = 'round';
-    ctx.stroke();
-
-    // Spawn children at midpoint once
-    if (!s.branched && s.len > s.maxLen * 0.45 && s.branches > 0) {
-      s.branched = true;
-      for (let b = 0; b < s.branches; b++) {
-        const spread = (Math.random() - 0.5) * 1.4;
-        s.children.push({
-          ox: ex, oy: ey,
-          angle:  s.angle + spread,
-          len:    0,
-          maxLen: s.maxLen * (Math.random() * 0.4 + 0.3),
-          speed:  s.speed * 0.8,
-          alpha:  s.alpha * 0.8,
-          decay:  s.decay * 1.4,
-          width:  s.width * 0.55,
-          branches: 0,
-          children: [],
-          branched: false,
-        });
-      }
+    for (let i = 0; i < 30; i++) {
+      const [r, g, b] = GOLDS[Math.floor(Math.random() * GOLDS.length)];
+      const angle = Math.random() * Math.PI * 2;
+      const vel   = Math.random() * 4 + 1.5;
+      particles.push({
+        x: mouseX, y: mouseY,
+        vx: Math.cos(angle) * vel,
+        vy: Math.sin(angle) * vel - 1,
+        r:  Math.random() * 2.8 + 0.6,
+        alpha: Math.random() * 0.4 + 0.7,
+        decay: Math.random() * 0.018 + 0.012,
+        cr: r, cg: g, cb: b,
+      });
     }
-
-    s.children.forEach(drawSpark);
-  }
-
-  function updateSpark(s) {
-    s.len   += s.speed;
-    s.alpha -= s.decay;
-    s.children.forEach(updateSpark);
-  }
+  });
 
   function tick() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Tiny gold dot at cursor
-    ctx.beginPath();
-    ctx.arc(mouseX, mouseY, 2.5, 0, Math.PI * 2);
-    ctx.shadowColor = 'rgba(245,217,122,1)';
-    ctx.shadowBlur  = 14;
-    ctx.fillStyle   = '#f5d97a';
-    ctx.fill();
-    ctx.shadowBlur  = 0;
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.x     += p.vx;
+      p.y     += p.vy;
+      p.vy    += 0.06;
+      p.vx    *= 0.97;
+      p.alpha -= p.decay;
 
-    for (let i = sparks.length - 1; i >= 0; i--) {
-      updateSpark(sparks[i]);
-      drawSpark(sparks[i]);
-      if (sparks[i].alpha <= 0) sparks.splice(i, 1);
+      if (p.alpha <= 0) { particles.splice(i, 1); continue; }
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.shadowColor = `rgba(${p.cr},${p.cg},${p.cb},${p.alpha * 0.9})`;
+      ctx.shadowBlur  = 8;
+      ctx.fillStyle   = `rgba(${p.cr},${p.cg},${p.cb},${p.alpha})`;
+      ctx.fill();
     }
     ctx.shadowBlur = 0;
 
