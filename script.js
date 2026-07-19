@@ -21,17 +21,41 @@ if (mobileToggle && mobileMenu) {
 }
 
 /* ============================================================
-   HERO — mouse parallax on blobs + card tilt
+   HERO — floating card + mouse tilt + blob parallax
    ============================================================ */
-const blobs  = document.querySelectorAll('.blob');
-const card   = document.getElementById('heroCard');
-const hero   = document.querySelector('.hero');
+const blobs = document.querySelectorAll('.blob');
+const card  = document.getElementById('heroCard');
+const hero  = document.querySelector('.hero');
 
+// Float: smooth sine wave bob in JS so tilt can stack on top
+let floatStart = null;
+const FLOAT_AMPLITUDE = 10; // px
+const FLOAT_PERIOD    = 6000; // ms
+
+let tiltX = 0, tiltY = 0;
+
+function animateCard(ts) {
+  if (!card) return;
+  if (!floatStart) floatStart = ts;
+
+  const elapsed = ts - floatStart;
+  const floatY  = Math.sin((elapsed / FLOAT_PERIOD) * Math.PI * 2) * FLOAT_AMPLITUDE;
+
+  card.style.transform =
+    `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(${floatY}px)`;
+
+  requestAnimationFrame(animateCard);
+}
+
+// Wait for card entrance animation to finish before starting float
+setTimeout(() => requestAnimationFrame(animateCard), 1100);
+
+// Mouse tilt
 document.addEventListener('mousemove', e => {
   const cx = window.innerWidth  / 2;
   const cy = window.innerHeight / 2;
-  const dx = (e.clientX - cx) / cx; // -1 to 1
-  const dy = (e.clientY - cy) / cy; // -1 to 1
+  const dx = (e.clientX - cx) / cx;
+  const dy = (e.clientY - cy) / cy;
 
   // Blob parallax
   blobs.forEach((blob, i) => {
@@ -39,23 +63,14 @@ document.addEventListener('mousemove', e => {
     blob.style.transform = `translate(${dx * depth}px, ${dy * depth}px)`;
   });
 
-  // Card tilt — subtle 3D rotation toward cursor
-  if (card) {
-    const tiltX =  dy * 6;  // degrees
-    const tiltY = -dx * 6;
-    card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
-  }
+  // Feed tilt values — animateCard picks them up on next frame
+  tiltX =  dy * 5;
+  tiltY = -dx * 5;
 }, { passive: true });
 
-// Reset tilt when mouse leaves hero
-if (hero && card) {
-  hero.addEventListener('mouseleave', () => {
-    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-    card.style.transition = 'transform 0.6s ease';
-  });
-  hero.addEventListener('mouseenter', () => {
-    card.style.transition = 'transform 0.1s ease';
-  });
+// Reset tilt on mouse leave
+if (hero) {
+  hero.addEventListener('mouseleave', () => { tiltX = 0; tiltY = 0; });
 }
 
 /* ============================================================

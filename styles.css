@@ -170,10 +170,10 @@ a:hover { text-decoration: underline; }
   overflow: hidden;
 }
 
-/* ---- Mesh gradient background ---- */
+/* ---- Mesh gradient background — aurora shimmer ---- */
 .hero__bg {
   position: absolute;
-  inset: 0;
+  inset: -20%;
   background:
     radial-gradient(ellipse 70% 55% at 15% 25%, rgba(29,158,117,0.38) 0%, transparent 60%),
     radial-gradient(ellipse 65% 65% at 82% 18%, rgba(55,138,221,0.42) 0%, transparent 55%),
@@ -181,6 +181,15 @@ a:hover { text-decoration: underline; }
     radial-gradient(ellipse 45% 45% at 8%  78%, rgba(93,202,165,0.22) 0%, transparent 50%),
     #07111e;
   z-index: 0;
+  animation: auroraDrift 20s ease-in-out infinite alternate;
+}
+
+@keyframes auroraDrift {
+  0%   { transform: translate(0%, 0%)    scale(1); }
+  25%  { transform: translate(3%, -4%)   scale(1.04); }
+  50%  { transform: translate(-4%, 3%)   scale(1.02); }
+  75%  { transform: translate(2%, 5%)    scale(1.05); }
+  100% { transform: translate(-3%, -2%)  scale(1.03); }
 }
 
 /* ---- Animated blobs ---- */
@@ -548,6 +557,12 @@ a:hover { text-decoration: underline; }
 
 @keyframes cardEnter {
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Floating card — zero gravity bob */
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
 }
 
 .hero__eyebrow {
