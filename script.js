@@ -1,5 +1,5 @@
 /* ============================================================
-   CUSTOM CURSOR — gold stardust scatter
+   CUSTOM CURSOR — gold energy thread
    ============================================================ */
 (function () {
   const dot  = document.getElementById('cursorDot');
@@ -18,87 +18,59 @@
   resize();
   window.addEventListener('resize', resize, { passive: true });
 
-  let mouseX = -200, mouseY = -200;
-  let lastX  = -200, lastY  = -200;
-  const particles = [];
-
-  // Gold palette: light → rich → deep
-  const GOLDS = [
-    [245, 217, 122],  // #f5d97a — bright
-    [232, 201, 106],  // #e8c96a — mid
-    [201, 168,  76],  // #c9a84c — rich
-    [255, 236, 160],  // #ffeca0 — pale shimmer
-  ];
+  const HISTORY = 32; // number of positions kept
+  const points  = Array.from({ length: HISTORY }, () => ({ x: -500, y: -500 }));
+  let mouseX = -500, mouseY = -500;
 
   document.addEventListener('mousemove', e => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-
-    const dx = mouseX - lastX;
-    const dy = mouseY - lastY;
-    const speed = Math.sqrt(dx * dx + dy * dy);
-
-    // Spawn more particles the faster you move
-    const count = Math.min(Math.floor(speed * 0.5) + 1, 6);
-    for (let i = 0; i < count; i++) {
-      const [r, g, b] = GOLDS[Math.floor(Math.random() * GOLDS.length)];
-      const angle = Math.atan2(dy, dx) + (Math.random() - 0.5) * 2.2;
-      const vel   = Math.random() * 2.2 + 0.6;
-      particles.push({
-        x:     mouseX + (Math.random() - 0.5) * 6,
-        y:     mouseY + (Math.random() - 0.5) * 6,
-        vx:    Math.cos(angle) * vel * 0.6 + (Math.random() - 0.5) * 1.2,
-        vy:    Math.sin(angle) * vel * 0.6 + (Math.random() - 0.5) * 1.2 - 0.4,
-        r:     Math.random() * 2.2 + 0.8,
-        alpha: Math.random() * 0.5 + 0.6,
-        decay: Math.random() * 0.022 + 0.018,
-        cr: r, cg: g, cb: b,
-      });
-    }
-
-    lastX = mouseX;
-    lastY = mouseY;
   }, { passive: true });
 
-  // Click burst — spray 30 particles outward
-  document.addEventListener('mousedown', () => {
-    for (let i = 0; i < 30; i++) {
-      const [r, g, b] = GOLDS[Math.floor(Math.random() * GOLDS.length)];
-      const angle = Math.random() * Math.PI * 2;
-      const vel   = Math.random() * 4 + 1.5;
-      particles.push({
-        x: mouseX, y: mouseY,
-        vx: Math.cos(angle) * vel,
-        vy: Math.sin(angle) * vel - 1,
-        r:  Math.random() * 2.8 + 0.6,
-        alpha: Math.random() * 0.4 + 0.7,
-        decay: Math.random() * 0.018 + 0.012,
-        cr: r, cg: g, cb: b,
-      });
-    }
-  });
+  function lerp(a, b, t) { return a + (b - a) * t; }
 
   function tick() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    for (let i = particles.length - 1; i >= 0; i--) {
-      const p = particles[i];
-      p.x     += p.vx;
-      p.y     += p.vy;
-      p.vy    += 0.06; // gentle gravity
-      p.vx    *= 0.97;
-      p.alpha -= p.decay;
-
-      if (p.alpha <= 0) { particles.splice(i, 1); continue; }
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.shadowColor = `rgba(${p.cr},${p.cg},${p.cb},${p.alpha * 0.9})`;
-      ctx.shadowBlur  = 8;
-      ctx.fillStyle   = `rgba(${p.cr},${p.cg},${p.cb},${p.alpha})`;
-      ctx.fill();
+    // Each point chases the one ahead with increasing lag
+    points[0].x = lerp(points[0].x, mouseX, 0.4);
+    points[0].y = lerp(points[0].y, mouseY, 0.4);
+    for (let i = 1; i < HISTORY; i++) {
+      points[i].x = lerp(points[i].x, points[i - 1].x, 0.5);
+      points[i].y = lerp(points[i].y, points[i - 1].y, 0.5);
     }
-    ctx.shadowBlur = 0;
+
+    // Draw the thread as a smooth bezier curve
+    if (points.length > 2) {
+      for (let i = 0; i < points.length - 1; i++) {
+        const t0 = 1 - i / HISTORY;         // 1 at head, 0 at tail
+        const t1 = 1 - (i + 1) / HISTORY;
+        const alpha = t0 * t0 * 0.9;
+        const width = t0 * 2.2 + 0.2;
+
+        ctx.beginPath();
+        ctx.moveTo(points[i].x, points[i].y);
+        ctx.lineTo(points[i + 1].x, points[i + 1].y);
+
+        // Outer glow pass
+        ctx.shadowColor = `rgba(245,217,122,${alpha * 0.7})`;
+        ctx.shadowBlur  = 12 * t0;
+        ctx.strokeStyle = `rgba(201,168,76,${alpha})`;
+        ctx.lineWidth   = width;
+        ctx.lineCap     = 'round';
+        ctx.stroke();
+      }
+      ctx.shadowBlur = 0;
+    }
+
+    // Bright dot at cursor tip
+    ctx.beginPath();
+    ctx.arc(points[0].x, points[0].y, 3, 0, Math.PI * 2);
+    ctx.shadowColor = 'rgba(245,217,122,0.95)';
+    ctx.shadowBlur  = 18;
+    ctx.fillStyle   = '#f5d97a';
+    ctx.fill();
+    ctx.shadowBlur  = 0;
 
     requestAnimationFrame(tick);
   }
