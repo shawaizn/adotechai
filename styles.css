@@ -232,12 +232,13 @@ a:hover { text-decoration: underline; }
 /* ---- Frame system ---- */
 .hero__frame {
   position: relative;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: calc(100vh - 80px);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 32px;
-  padding: 56px 80px;
 }
 
 /* adotechai brand mark — top centre of frame */
@@ -328,12 +329,12 @@ a:hover { text-decoration: underline; }
 }
 
 /* Chip positions — on the frame border */
-.frame__chip[data-pos="tl"] { top: -16px;  left: 32px; }
-.frame__chip[data-pos="tr"] { top: -16px;  right: 32px; }
+.frame__chip[data-pos="tl"] { top: -16px;  left: 48px; }
+.frame__chip[data-pos="tr"] { top: -16px;  right: 48px; }
 .frame__chip[data-pos="ml"] { top: 50%; left: 0; transform: translate(-50%, -50%); }
 .frame__chip[data-pos="mr"] { top: 50%; right: 0; transform: translate(50%, -50%); }
-.frame__chip[data-pos="bl"] { bottom: -16px; left: 32px; }
-.frame__chip[data-pos="br"] { bottom: -16px; right: 32px; }
+.frame__chip[data-pos="bl"] { bottom: -16px; left: 48px; }
+.frame__chip[data-pos="br"] { bottom: -16px; right: 48px; }
 
 .frame__chip[data-pos="ml"]:hover { transform: translate(-50%, -50%) scale(1.05); }
 .frame__chip[data-pos="mr"]:hover { transform: translate(50%, -50%) scale(1.05); }
@@ -414,7 +415,7 @@ a:hover { text-decoration: underline; }
   justify-content: center;
   width: 100%;
   min-height: 100vh;
-  padding: 80px 160px;
+  padding: 40px;
 }
 
 /* ---- Glass panel — proper glassmorphism ---- */
