@@ -279,7 +279,7 @@ if (hero) {
       ctx.arc(p.x, viewY, p.r, 0, Math.PI * 2);
       ctx.fillStyle = onDark
         ? `rgba(255,255,255,${flicker})`
-        : `rgba(10,30,60,${flicker * 2})`;
+        : `rgba(55,138,221,${flicker * 1.8})`;
       ctx.fill();
     });
 
