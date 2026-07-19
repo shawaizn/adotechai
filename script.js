@@ -152,10 +152,10 @@ if (hero) {
   const particles = Array.from({ length: COUNT }, () => ({
     x:     Math.random() * canvas.width,
     y:     Math.random() * canvas.height,
-    r:     Math.random() * 1.3 + 0.2,
+    r:     Math.random() * 1.5 + 0.3,
     vx:    (Math.random() - 0.5) * 0.28,
     vy:    (Math.random() - 0.5) * 0.28,
-    alpha: Math.random() * 0.07 + 0.03,
+    alpha: Math.random() * 0.14 + 0.06,
     phase: Math.random() * Math.PI * 2,
     speed: Math.random() * 0.016 + 0.006,
   }));

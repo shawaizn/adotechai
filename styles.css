@@ -255,7 +255,7 @@ a:hover { text-decoration: underline; }
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 180px);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 32px;
   opacity: 0;
@@ -678,15 +678,15 @@ a:hover { text-decoration: underline; }
   pointer-events: none;
 }
 
-/* Body sections sit above the fixed canvas, with slightly transparent bg so particles show through */
+/* Body sections sit above the fixed canvas, with transparent bg so particles show through */
 .section {
   position: relative;
   z-index: 1;
-  background: rgba(248,249,251,0.91);
+  background: rgba(248,249,251,0.84);
 }
 
 .section--alt {
-  background: rgba(238,241,246,0.91);
+  background: rgba(238,241,246,0.84);
 }
 
 /* Dark sections — opaque so they own their look */
