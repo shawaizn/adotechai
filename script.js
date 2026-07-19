@@ -12,7 +12,7 @@
   if (window.matchMedia('(hover: none)').matches) return;
 
   const TRAIL_LENGTH = 28;
-  const GOLD_COLOR   = [245, 217, 122]; // #f5d97a
+  const GOLD_COLOR   = [201, 168, 76]; // #c9a84c — matches adotechai brand mark
 
   // Canvas overlay for the trail
   const canvas = document.createElement('canvas');
