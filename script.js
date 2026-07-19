@@ -1,5 +1,5 @@
 /* ============================================================
-   CUSTOM CURSOR — gold aura spotlight
+   CUSTOM CURSOR — gold neural spark
    ============================================================ */
 (function () {
   const dot  = document.getElementById('cursorDot');
@@ -19,50 +19,119 @@
   window.addEventListener('resize', resize, { passive: true });
 
   let mouseX = -500, mouseY = -500;
-  let auraX  = -500, auraY  = -500;
+  let lastX  = -500, lastY  = -500;
+  const sparks = [];
 
   document.addEventListener('mousemove', e => {
     mouseX = e.clientX;
     mouseY = e.clientY;
+
+    const dx = mouseX - lastX;
+    const dy = mouseY - lastY;
+    const speed = Math.sqrt(dx * dx + dy * dy);
+
+    // Spawn sparks proportional to speed
+    if (speed > 2) {
+      const count = Math.min(Math.floor(speed * 0.4) + 1, 4);
+      for (let i = 0; i < count; i++) {
+        spawnSpark(mouseX, mouseY, dx, dy);
+      }
+    }
+
+    lastX = mouseX;
+    lastY = mouseY;
   }, { passive: true });
 
-  function lerp(a, b, t) { return a + (b - a) * t; }
+  // Click — big burst of branching sparks
+  document.addEventListener('mousedown', () => {
+    for (let i = 0; i < 12; i++) spawnSpark(mouseX, mouseY, 0, 0, true);
+  });
+
+  function spawnSpark(ox, oy, dx, dy, burst = false) {
+    const branches = burst ? Math.floor(Math.random() * 2) + 2 : Math.floor(Math.random() * 2) + 1;
+    const baseAngle = burst
+      ? Math.random() * Math.PI * 2
+      : Math.atan2(dy, dx) + (Math.random() - 0.5) * Math.PI;
+
+    sparks.push({
+      ox, oy,                          // origin
+      angle:  baseAngle,
+      len:    0,
+      maxLen: Math.random() * 28 + 12,
+      speed:  Math.random() * 3.5 + 2,
+      alpha:  1,
+      decay:  Math.random() * 0.03 + 0.02,
+      width:  Math.random() * 1.2 + 0.4,
+      branches,
+      children: [],                    // sub-branches spawned mid-flight
+      branched: false,
+    });
+  }
+
+  function drawSpark(s) {
+    if (s.alpha <= 0) return;
+
+    const ex = s.ox + Math.cos(s.angle) * s.len;
+    const ey = s.oy + Math.sin(s.angle) * s.len;
+
+    ctx.beginPath();
+    ctx.moveTo(s.ox, s.oy);
+    ctx.lineTo(ex, ey);
+    ctx.shadowColor = `rgba(245,217,122,${s.alpha * 0.8})`;
+    ctx.shadowBlur  = 10;
+    ctx.strokeStyle = `rgba(245,217,122,${s.alpha})`;
+    ctx.lineWidth   = s.width;
+    ctx.lineCap     = 'round';
+    ctx.stroke();
+
+    // Spawn children at midpoint once
+    if (!s.branched && s.len > s.maxLen * 0.45 && s.branches > 0) {
+      s.branched = true;
+      for (let b = 0; b < s.branches; b++) {
+        const spread = (Math.random() - 0.5) * 1.4;
+        s.children.push({
+          ox: ex, oy: ey,
+          angle:  s.angle + spread,
+          len:    0,
+          maxLen: s.maxLen * (Math.random() * 0.4 + 0.3),
+          speed:  s.speed * 0.8,
+          alpha:  s.alpha * 0.8,
+          decay:  s.decay * 1.4,
+          width:  s.width * 0.55,
+          branches: 0,
+          children: [],
+          branched: false,
+        });
+      }
+    }
+
+    s.children.forEach(drawSpark);
+  }
+
+  function updateSpark(s) {
+    s.len   += s.speed;
+    s.alpha -= s.decay;
+    s.children.forEach(updateSpark);
+  }
 
   function tick() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Aura lags gently behind cursor
-    auraX = lerp(auraX, mouseX, 0.08);
-    auraY = lerp(auraY, mouseY, 0.08);
-
-    // Outer soft glow — large, very subtle
-    const outer = ctx.createRadialGradient(auraX, auraY, 0, auraX, auraY, 240);
-    outer.addColorStop(0,   'rgba(201,168,76,0.10)');
-    outer.addColorStop(0.4, 'rgba(201,168,76,0.04)');
-    outer.addColorStop(1,   'rgba(201,168,76,0)');
+    // Tiny gold dot at cursor
     ctx.beginPath();
-    ctx.arc(auraX, auraY, 240, 0, Math.PI * 2);
-    ctx.fillStyle = outer;
-    ctx.fill();
-
-    // Inner core glow — tighter, brighter
-    const inner = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 80);
-    inner.addColorStop(0,   'rgba(245,217,122,0.22)');
-    inner.addColorStop(0.5, 'rgba(201,168,76,0.08)');
-    inner.addColorStop(1,   'rgba(201,168,76,0)');
-    ctx.beginPath();
-    ctx.arc(mouseX, mouseY, 80, 0, Math.PI * 2);
-    ctx.fillStyle = inner;
-    ctx.fill();
-
-    // Tiny bright dot at exact cursor position
-    ctx.beginPath();
-    ctx.arc(mouseX, mouseY, 3, 0, Math.PI * 2);
+    ctx.arc(mouseX, mouseY, 2.5, 0, Math.PI * 2);
     ctx.shadowColor = 'rgba(245,217,122,1)';
-    ctx.shadowBlur  = 16;
+    ctx.shadowBlur  = 14;
     ctx.fillStyle   = '#f5d97a';
     ctx.fill();
     ctx.shadowBlur  = 0;
+
+    for (let i = sparks.length - 1; i >= 0; i--) {
+      updateSpark(sparks[i]);
+      drawSpark(sparks[i]);
+      if (sparks[i].alpha <= 0) sparks.splice(i, 1);
+    }
+    ctx.shadowBlur = 0;
 
     requestAnimationFrame(tick);
   }
