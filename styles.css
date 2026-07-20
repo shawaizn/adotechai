@@ -289,12 +289,12 @@ a:hover { text-decoration: underline; }
 }
 
 .frame__brand-symbol {
-  filter: drop-shadow(0 0 6px rgba(245,217,122,0.5));
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.35));
   transition: filter 0.25s ease;
 }
 
 .frame__brand:hover .frame__brand-symbol {
-  filter: drop-shadow(0 0 12px rgba(245,217,122,0.85));
+  filter: drop-shadow(0 0 12px rgba(255,255,255,0.7));
 }
 
 .frame__brand-text {
@@ -306,27 +306,17 @@ a:hover { text-decoration: underline; }
 
 .frame__brand-ado {
   font-weight: 700;
-  background: linear-gradient(135deg, #f5d97a 0%, #c9a84c 50%, #f5d97a 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: rgba(255,255,255,1);
 }
 
 .frame__brand-tech {
   font-weight: 300;
-  background: linear-gradient(135deg, #f5d97a 0%, #c9a84c 50%, #f5d97a 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  opacity: 0.75;
+  color: rgba(255,255,255,0.6);
 }
 
 .frame__brand-ai {
   font-weight: 700;
-  background: linear-gradient(135deg, #f5d97a 0%, #e8c96a 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: rgba(255,255,255,1);
 }
 
 .frame__brand:hover {
