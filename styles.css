@@ -272,7 +272,7 @@ a:hover { text-decoration: underline; }
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translate(-50%, -100%);
+  transform: translate(-50%, -75%);
   padding-bottom: 16px;
   display: flex;
   flex-direction: column;
