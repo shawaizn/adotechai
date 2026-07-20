@@ -1,51 +1,55 @@
 /* ============================================================
-   CUSTOM CURSOR — inverted dot (mix-blend-mode: difference)
+   CUSTOM CURSOR — clean dot + lagging ring
    ============================================================ */
 (function () {
-  const dot  = document.getElementById('cursorDot');
-  const ring = document.getElementById('cursorRing');
-  if (dot)  dot.style.display  = 'none';
-  if (ring) ring.style.display = 'none';
-
   if (window.matchMedia('(hover: none)').matches) return;
 
-  const el = document.createElement('div');
-  el.style.cssText = `
-    position: fixed;
-    width: 12px;
-    height: 12px;
-    background: #fff;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    mix-blend-mode: difference;
-    transition: width 0.2s ease, height 0.2s ease;
-    will-change: left, top;
-  `;
-  document.body.appendChild(el);
+  const dot  = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  if (!dot || !ring) return;
+
+  dot.style.display  = 'block';
+  ring.style.display = 'block';
 
   let mouseX = -100, mouseY = -100;
+  let ringX  = -100, ringY  = -100;
 
   document.addEventListener('mousemove', e => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-    el.style.left = mouseX + 'px';
-    el.style.top  = mouseY + 'px';
   }, { passive: true });
 
-  // Expand on hover over interactive elements
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function tick() {
+    ringX = lerp(ringX, mouseX, 0.1);
+    ringY = lerp(ringY, mouseY, 0.1);
+
+    dot.style.left  = mouseX + 'px';
+    dot.style.top   = mouseY + 'px';
+    ring.style.left = ringX  + 'px';
+    ring.style.top  = ringY  + 'px';
+
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
   const hoverEls = 'a, button, [role="button"], .bento-card, .process-card, .pricing-card, .faq-q, input, textarea';
   document.addEventListener('mouseover', e => {
-    if (e.target.closest(hoverEls)) el.style.width = el.style.height = '40px';
+    if (e.target.closest(hoverEls)) document.body.classList.add('cursor-hover');
   });
   document.addEventListener('mouseout', e => {
-    if (e.target.closest(hoverEls)) el.style.width = el.style.height = '12px';
+    if (e.target.closest(hoverEls)) document.body.classList.remove('cursor-hover');
   });
 
-  // Shrink on click
-  document.addEventListener('mousedown', () => { el.style.width = el.style.height = '8px'; });
-  document.addEventListener('mouseup',   () => { el.style.width = el.style.height = '12px'; });
+  document.addEventListener('mousedown', () => {
+    dot.style.transform  = 'translate(-50%, -50%) scale(0.6)';
+    ring.style.transform = 'translate(-50%, -50%) scale(0.8)';
+  });
+  document.addEventListener('mouseup', () => {
+    dot.style.transform  = 'translate(-50%, -50%) scale(1)';
+    ring.style.transform = 'translate(-50%, -50%) scale(1)';
+  });
 })();
 
 /* ============================================================
