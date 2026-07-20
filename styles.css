@@ -1695,7 +1695,7 @@ p.section__eyebrow {
 }
 
 @media (max-width: 700px) {
-  .section { padding: 72px 0; }
+  .section { padding: 64px 0; }
 
   .hero__frame { padding: 40px 24px; border: none; }
   .frame__chip,
@@ -1703,9 +1703,21 @@ p.section__eyebrow {
 
   .hero__mobile-nav { display: block; }
 
-  .hero__stage { padding: 60px 20px; }
+  .hero__stage { padding: 48px 20px; }
 
-  .hero__glass { padding: 40px 28px; }
+  .hero__headline {
+    font-size: clamp(1.8rem, 8vw, 2.8rem);
+    white-space: normal;
+    text-align: center;
+  }
+
+  .hero__glass { padding: 32px 20px; width: 92%; }
+
+  p.section__eyebrow { font-size: 1rem; }
+
+  .section__display { font-size: clamp(1.75rem, 6vw, 2.5rem); }
+
+  .usp-statement { font-size: clamp(1.4rem, 5vw, 2rem); }
 
   .pricing-cards,
   .contact-grid {
@@ -1715,18 +1727,36 @@ p.section__eyebrow {
   .pricing-card--featured { transform: none; }
 
   .process-grid { grid-template-columns: 1fr; }
-  .compare-grid { grid-template-columns: 0.7fr 1fr 1fr; }
+
+  .compare-grid { grid-template-columns: 0.7fr 1fr 1fr; font-size: 0.8rem; }
   .compare-row__label,
-  .compare-row__cell { padding: 14px 16px; font-size: 0.8rem; }
-  .compare-col__header { padding: 20px 16px 16px; }
+  .compare-row__cell { padding: 12px 10px; font-size: 0.75rem; }
+  .compare-col__header { padding: 16px 10px 14px; }
+  .compare-col__tag { font-size: 0.7rem; }
 
   .contact-form-wrap,
-  .contact-calendar-wrap { padding: 28px 24px; }
+  .contact-calendar-wrap { padding: 28px 20px; }
+
+  .faq-q { font-size: 0.9rem; padding: 18px 16px; }
+
+  .footer__wordmark { font-size: 0.95rem; }
+  .footer__tagline { font-size: 0.9rem; }
 }
 
 @media (max-width: 480px) {
   .hero__ctas { flex-direction: column; }
   .hero__ctas .btn { width: 100%; justify-content: center; }
-  .bento-card { padding: 36px 28px; }
-  .footer__nav { gap: 16px; }
+
+  .bento-card { padding: 28px 20px; }
+  .bento-card__title { font-size: 1.4rem; }
+
+  .process-card { padding: 28px 20px; }
+
+  .pricing-card { padding: 28px 20px; }
+
+  .footer__nav { gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .footer__nav a { font-size: 0.8rem; }
+
+  p.section__eyebrow { font-size: 0.85rem; }
+  .section__display { font-size: clamp(1.5rem, 7vw, 2rem); }
 }
