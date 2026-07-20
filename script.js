@@ -1,5 +1,5 @@
 /* ============================================================
-   CUSTOM CURSOR — gold stardust scatter
+   CUSTOM CURSOR — inverted dot (mix-blend-mode: difference)
    ============================================================ */
 (function () {
   const dot  = document.getElementById('cursorDot');
@@ -9,97 +9,43 @@
 
   if (window.matchMedia('(hover: none)').matches) return;
 
-  const canvas = document.createElement('canvas');
-  canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999;';
-  document.body.appendChild(canvas);
-  const ctx = canvas.getContext('2d');
+  const el = document.createElement('div');
+  el.style.cssText = `
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+    transition: width 0.2s ease, height 0.2s ease;
+    will-change: left, top;
+  `;
+  document.body.appendChild(el);
 
-  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-  resize();
-  window.addEventListener('resize', resize, { passive: true });
-
-  let mouseX = -200, mouseY = -200;
-  let lastX  = -200, lastY  = -200;
-  const particles = [];
-
-  const GOLDS = [
-    [245, 217, 122],
-    [232, 201, 106],
-    [201, 168,  76],
-    [255, 236, 160],
-  ];
+  let mouseX = -100, mouseY = -100;
 
   document.addEventListener('mousemove', e => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-
-    const dx = mouseX - lastX;
-    const dy = mouseY - lastY;
-    const speed = Math.sqrt(dx * dx + dy * dy);
-    const count = Math.min(Math.floor(speed * 0.5) + 1, 6);
-
-    for (let i = 0; i < count; i++) {
-      const [r, g, b] = GOLDS[Math.floor(Math.random() * GOLDS.length)];
-      const angle = Math.atan2(dy, dx) + (Math.random() - 0.5) * 2.2;
-      const vel   = Math.random() * 2.2 + 0.6;
-      particles.push({
-        x: mouseX + (Math.random() - 0.5) * 6,
-        y: mouseY + (Math.random() - 0.5) * 6,
-        vx: Math.cos(angle) * vel * 0.6 + (Math.random() - 0.5) * 1.2,
-        vy: Math.sin(angle) * vel * 0.6 + (Math.random() - 0.5) * 1.2 - 0.4,
-        r:  Math.random() * 2.2 + 0.8,
-        alpha: Math.random() * 0.5 + 0.6,
-        decay: Math.random() * 0.022 + 0.018,
-        cr: r, cg: g, cb: b,
-      });
-    }
-
-    lastX = mouseX;
-    lastY = mouseY;
+    el.style.left = mouseX + 'px';
+    el.style.top  = mouseY + 'px';
   }, { passive: true });
 
-  document.addEventListener('mousedown', () => {
-    for (let i = 0; i < 30; i++) {
-      const [r, g, b] = GOLDS[Math.floor(Math.random() * GOLDS.length)];
-      const angle = Math.random() * Math.PI * 2;
-      const vel   = Math.random() * 4 + 1.5;
-      particles.push({
-        x: mouseX, y: mouseY,
-        vx: Math.cos(angle) * vel,
-        vy: Math.sin(angle) * vel - 1,
-        r:  Math.random() * 2.8 + 0.6,
-        alpha: Math.random() * 0.4 + 0.7,
-        decay: Math.random() * 0.018 + 0.012,
-        cr: r, cg: g, cb: b,
-      });
-    }
+  // Expand on hover over interactive elements
+  const hoverEls = 'a, button, [role="button"], .bento-card, .process-card, .pricing-card, .faq-q, input, textarea';
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest(hoverEls)) el.style.width = el.style.height = '40px';
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest(hoverEls)) el.style.width = el.style.height = '12px';
   });
 
-  function tick() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    for (let i = particles.length - 1; i >= 0; i--) {
-      const p = particles[i];
-      p.x     += p.vx;
-      p.y     += p.vy;
-      p.vy    += 0.06;
-      p.vx    *= 0.97;
-      p.alpha -= p.decay;
-
-      if (p.alpha <= 0) { particles.splice(i, 1); continue; }
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.shadowColor = `rgba(${p.cr},${p.cg},${p.cb},${p.alpha * 0.9})`;
-      ctx.shadowBlur  = 8;
-      ctx.fillStyle   = `rgba(${p.cr},${p.cg},${p.cb},${p.alpha})`;
-      ctx.fill();
-    }
-    ctx.shadowBlur = 0;
-
-    requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
+  // Shrink on click
+  document.addEventListener('mousedown', () => { el.style.width = el.style.height = '8px'; });
+  document.addEventListener('mouseup',   () => { el.style.width = el.style.height = '12px'; });
 })();
 
 /* ============================================================
