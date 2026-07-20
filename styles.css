@@ -783,7 +783,7 @@ body.cursor-hover .cursor-dot {
 
 p.section__eyebrow {
   display: inline-block;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.18em;
