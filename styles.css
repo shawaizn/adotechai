@@ -781,7 +781,7 @@ body.cursor-hover .cursor-dot {
   margin: 0 auto 64px;
 }
 
-.section__eyebrow {
+p.section__eyebrow {
   display: inline-block;
   font-size: 7rem;
   font-weight: 700;
