@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>adotechai — AI Employees For Business</title>
+  <meta name="description" content="Hire AI Employees for your business. AI Receptionists, Secretaries and Support Agents — voice and text, built and run by adotechai." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ============================================================
+       SITE NAV
+       ============================================================ */
+    .site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 48px;
+      transition: background 0.4s ease, padding 0.3s ease, border-color 0.4s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .site-nav.scrolled {
+      background: rgba(5,16,29,0.88);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      padding: 16px 48px;
+      border-color: rgba(255,255,255,0.06);
+    }
+    .site-nav__logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      text-decoration: none;
+    }
+    .site-nav__logo-text {
+      font-family: var(--font);
+      font-size: 0.72rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+    }
+    .n-ado  { font-weight: 700; color: #fff; }
+    .n-tech { font-weight: 300; color: rgba(255,255,255,0.5); }
+    .n-ai   { font-weight: 700; color: #fff; }
+
+    .site-nav__links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+      margin: 0; padding: 0;
+    }
+    .site-nav__links a {
+      font-family: var(--font);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .site-nav__links a:hover { color: #fff; }
+
+    .site-nav__buy {
+      font-family: var(--font);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #07111e !important;
+      background: linear-gradient(135deg, #f5d97a, #c9a84c);
+      padding: 10px 24px;
+      border-radius: 100px;
+      text-decoration: none !important;
+      transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 16px rgba(201,168,76,0.3);
+    }
+    .site-nav__buy:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(201,168,76,0.4);
+    }
+
+    /* Mobile nav toggle */
+    .site-nav__toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: none;
+      padding: 4px;
+    }
+    .site-nav__toggle span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: rgba(255,255,255,0.7);
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .site-nav__toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .site-nav__toggle.open span:nth-child(2) { opacity: 0; }
+    .site-nav__toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .site-nav__mobile {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(5,16,29,0.97);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      padding: 80px 32px 40px;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 999;
+    }
+    .site-nav__mobile.open { display: flex; }
+    .site-nav__mobile a {
+      font-family: var(--font);
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: color 0.2s ease;
+    }
+    .site-nav__mobile a:hover { color: #fff; }
+    .site-nav__mobile .site-nav__buy {
+      margin-top: 16px;
+      text-align: center;
+      display: block;
+      color: #07111e !important;
+    }
+
+    /* ============================================================
+       HERO — updated copy
+       ============================================================ */
+    .hero { padding-top: 0; }
+    .hero__eyebrow-new {
+      font-family: var(--font);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 20px;
+    }
+
+    /* ============================================================
+       CONCEPT SECTION
+       ============================================================ */
+    .concept-section {
+      position: relative;
+      padding: 160px 0;
+      background: linear-gradient(to bottom, #07111e 0%, #071520 100%);
+      text-align: center;
+      overflow: hidden;
+    }
+    .concept-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 50% 60% at 50% 50%, rgba(55,138,221,0.07), transparent 70%);
+    }
+    .concept-section .container { position: relative; z-index: 1; }
+    .concept-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 40px;
+    }
+    .concept-statement {
+      font-family: var(--font);
+      font-size: clamp(2.8rem, 5.5vw, 5.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.04;
+      color: #fff;
+      max-width: 820px;
+      margin: 0 auto 36px;
+    }
+    .concept-statement em {
+      font-style: normal;
+      background: linear-gradient(135deg, #5DCAA5 0%, #378ADD 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .concept-sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.42);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.75;
+    }
+
+    /* divider between dark and light */
+    .section-fade {
+      height: 100px;
+      pointer-events: none;
+    }
+    .section-fade--to-light {
+      background: linear-gradient(to bottom, #07111e, #f8f9fb);
+    }
+    .section-fade--to-dark {
+      background: linear-gradient(to bottom, #f8f9fb, #07111e);
+    }
+    .section-fade--alt-to-dark {
+      background: linear-gradient(to bottom, #eef1f6, #07111e);
+    }
+
+    /* ============================================================
+       LINEUP
+       ============================================================ */
+    .lineup-section {
+      position: relative;
+      padding: 120px 0 140px;
+      background: rgba(248,249,251,0.84);
+    }
+    .lineup-header {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+    .lineup-eyebrow {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #5DCAA5, #378ADD);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+    .lineup-title {
+      font-family: var(--font);
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      line-height: 1.1;
+    }
+    .lineup-sub {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-top: 12px;
+    }
+
+    .lineup-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .lineup-card {
+      position: relative;
+      background: #0d1a2a;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      padding: 40px 32px 44px;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(48px);
+      transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.3s ease;
+    }
+    .lineup-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .lineup-card:nth-child(2) { transition-delay: 0.14s; }
+    .lineup-card:nth-child(3) { transition-delay: 0.28s; }
+    .lineup-card:hover {
+      box-shadow: 0 24px 56px rgba(0,0,0,0.35);
+      transform: translateY(-4px);
+    }
+    .lineup-card.visible:hover { transform: translateY(-4px); }
+    .lineup-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(93,202,165,0.5), rgba(55,138,221,0.5), transparent);
+    }
+    .lineup-card__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+    }
+    .lineup-card__badge--voice {
+      background: rgba(93,202,165,0.1);
+      color: #5DCAA5;
+      border: 1px solid rgba(93,202,165,0.22);
+    }
+    .lineup-card__badge--text {
+      background: rgba(55,138,221,0.1);
+      color: #378ADD;
+      border: 1px solid rgba(55,138,221,0.22);
+    }
+    .lineup-card__role {
+      font-family: var(--font);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .lineup-card__tagline {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 32px;
+      line-height: 1.55;
+    }
+    .lineup-card__tasks {
+      list-style: none;
+      padding: 0; margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .lineup-card__tasks li {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.62);
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.45;
+    }
+    .lineup-card__tasks li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #5DCAA5, #378ADD);
+    }
+    .lineup-card__number {
+      position: absolute;
+      bottom: -20px;
+      right: 24px;
+      font-family: var(--font-display);
+      font-size: 8rem;
+      font-weight: 700;
+      font-style: italic;
+      color: rgba(255,255,255,0.025);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* ============================================================
+       COMPARISON — light bg
+       ============================================================ */
+    .difference-section {
+      background: rgba(238,241,246,0.84);
+      padding: 120px 0;
+      position: relative;
+    }
+
+    /* ============================================================
+       PROCESS — light bg
+       ============================================================ */
+    .process-section-new {
+      background: rgba(248,249,251,0.84);
+      padding: 120px 0;
+    }
+
+    /* ============================================================
+       ABOUT SECTION — dark
+       ============================================================ */
+    .about-section {
+      position: relative;
+      padding: 140px 0;
+      background: linear-gradient(to bottom, #07111e, #0d1a2a);
+      overflow: hidden;
+      text-align: center;
+    }
+    .about-section canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .about-section .container { position: relative; z-index: 1; }
+
+    .about-mission {
+      font-family: var(--font);
+      font-size: clamp(1.6rem, 3.2vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: #fff;
+      max-width: 680px;
+      margin: 0 auto 16px;
+      line-height: 1.2;
+    }
+    .about-mission em {
+      font-style: normal;
+      background: linear-gradient(135deg, #5DCAA5, #378ADD);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .about-sub {
+      color: rgba(255,255,255,0.4);
+      font-size: 1rem;
+      max-width: 460px;
+      margin: 0 auto 72px;
+      line-height: 1.75;
+    }
+
+    .founders-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+    .founder-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: background 0.25s ease;
+    }
+    .founder-card:hover { background: rgba(255,255,255,0.06); }
+    .founder-card__initials {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1D9E75, #185FA5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-family: var(--font);
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.04em;
+    }
+    .founder-card__name {
+      font-family: var(--font);
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .founder-card__title {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
+    }
+    .founder-card__bio {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       CONTACT — light section updates
+       ============================================================ */
+    .contact-direct {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 28px;
+    }
+    .contact-direct a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .contact-direct a:hover { color: var(--blue); }
+    .contact-direct__icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(55,138,221,0.08);
+      border: 1px solid rgba(55,138,221,0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    /* ============================================================
+       FOOTER updates
+       ============================================================ */
+    .footer__nav-new {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .footer__nav-new a {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: color 0.2s ease;
+    }
+    .footer__nav-new a:hover { color: rgba(255,255,255,0.7); }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 900px) {
+      .lineup-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .founders-grid { grid-template-columns: 1fr; max-width: 340px; }
+    }
+    @media (max-width: 768px) {
+      .site-nav { padding: 16px 20px; }
+      .site-nav.scrolled { padding: 14px 20px; }
+      .site-nav__links { display: none; }
+      .site-nav__buy.desktop-only { display: none; }
+      .site-nav__toggle { display: flex; }
+      .concept-statement { font-size: clamp(2rem, 7vw, 3rem); }
+      .about-mission { font-size: clamp(1.4rem, 5vw, 2rem); }
+      .section-fade { height: 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Full-page particle field -->
+  <canvas class="page-particles" id="pageParticles"></canvas>
+
+  <!-- Custom cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ===================== NAV ===================== -->
+  <nav class="site-nav" id="siteNav">
+    <a href="#hero" class="site-nav__logo">
+      <svg width="36" height="20" viewBox="0 0 28 16" fill="none" aria-hidden="true">
+        <path d="M2 15 Q14 -2 26 15" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <path d="M6 15 Q14 3 22 15"  stroke="rgba(255,255,255,0.6)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <path d="M10 15 Q14 8 18 15" stroke="rgba(255,255,255,0.95)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <circle cx="14" cy="15" r="1.5" fill="#ffffff"/>
+      </svg>
+      <span class="site-nav__logo-text">
+        <span class="n-ado">ado</span><span class="n-tech">tech</span><span class="n-ai">ai</span>
+      </span>
+    </a>
+
+    <ul class="site-nav__links">
+      <li><a href="#lineup">The Team</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://buy.stripe.com/5kQbJ25t59u0gL02es8IU01" class="site-nav__buy desktop-only" target="_blank" rel="noopener">Hire Now</a></li>
+    </ul>
+
+    <button class="site-nav__toggle" id="navToggle" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile nav -->
+  <div class="site-nav__mobile" id="mobileNav">
+    <a href="#lineup" onclick="closeMobileNav()">The Team</a>
+    <a href="#about" onclick="closeMobileNav()">About</a>
+    <a href="#contact" onclick="closeMobileNav()">Contact</a>
+    <a href="https://buy.stripe.com/5kQbJ25t59u0gL02es8IU01" class="site-nav__buy" target="_blank" rel="noopener">Hire Now</a>
+  </div>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="hero">
+    <canvas class="hero__particles" id="heroParticles"></canvas>
+    <div class="hero__bg">
+      <div class="blob blob--1"></div>
+      <div class="blob blob--2"></div>
+      <div class="blob blob--3"></div>
+      <div class="hero__grain"></div>
+    </div>
+
+    <div class="hero__stage">
+      <div class="hero__frame">
+        <div class="hero__frame-corners"></div>
+
+        <div class="frame__top-centre">
+          <a href="#" class="frame__brand">
+            <svg class="frame__brand-symbol" width="42" height="24" viewBox="0 0 28 16" fill="none" aria-hidden="true">
+              <path d="M2 15 Q14 -2 26 15" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M6 15 Q14 3 22 15"  stroke="rgba(255,255,255,0.65)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <path d="M10 15 Q14 8 18 15" stroke="rgba(255,255,255,0.95)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              <circle cx="14" cy="15" r="1.5" fill="#ffffff"/>
+            </svg>
+            <span class="frame__brand-text">
+              <span class="frame__brand-ado">ado</span><span class="frame__brand-tech">tech</span><span class="frame__brand-ai">ai</span>
+            </span>
+          </a>
+          <div class="frame__brand-line"></div>
+        </div>
+
+        <a href="#lineup"   class="frame__chip" data-pos="tl">The Team</a>
+        <a href="#about"    class="frame__chip" data-pos="tr">About</a>
+        <a href="#process"  class="frame__chip" data-pos="bl">How It Works</a>
+        <a href="#contact"  class="frame__chip" data-pos="br">Contact</a>
+        <a href="#comparison" class="frame__chip" data-pos="bc">Why AI</a>
+
+        <div class="hero__glow"></div>
+
+        <div class="hero__glass" id="heroCard">
+          <p class="hero__eyebrow">AI Employees For Business</p>
+          <h1 class="hero__headline">Hire Your First<br>AI Employee</h1>
+          <p class="hero__sub">Every business runs on tasks. AI Employees handle them — faster, cheaper, and without a day off.</p>
+          <div class="hero__ctas">
+            <a href="#lineup" class="btn btn--hero-primary">See The Team</a>
+            <a href="https://buy.stripe.com/5kQbJ25t59u0gL02es8IU01" class="btn btn--hero-outline" target="_blank" rel="noopener">Hire Now →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__fade"></div>
+  </section>
+
+  <!-- ===================== CONCEPT ===================== -->
+  <section class="concept-section">
+    <div class="container">
+      <span class="concept-label">The Idea</span>
+      <h2 class="concept-statement">Not a tool.<br><em>An employee.</em></h2>
+      <p class="concept-sub">AI Employees do the tasks your business runs on — answering calls, handling messages, booking appointments — continuously, instantly, and at a fraction of the cost.</p>
+    </div>
+  </section>
+
+  <!-- Dark → Light fade -->
+  <div class="section-fade section-fade--to-light"></div>
+
+  <!-- ===================== LINEUP ===================== -->
+  <section class="lineup-section" id="lineup">
+    <div class="container">
+      <div class="lineup-header">
+        <span class="lineup-eyebrow">The Team</span>
+        <h2 class="lineup-title">Your new AI Employees</h2>
+        <p class="lineup-sub">Pick the role your business needs. Each one is built, trained, and run for you.</p>
+      </div>
+
+      <div class="lineup-grid">
+
+        <!-- AI Receptionist -->
+        <div class="lineup-card">
+          <span class="lineup-card__badge lineup-card__badge--voice">🎙️ Voice</span>
+          <h3 class="lineup-card__role">AI Receptionist</h3>
+          <p class="lineup-card__tagline">Answers every call. Books appointments. Never misses a lead.</p>
+          <ul class="lineup-card__tasks">
+            <li>Answers calls 24/7 — no hold music, no voicemail</li>
+            <li>Books and confirms appointments automatically</li>
+            <li>Handles FAQs in a natural conversation</li>
+            <li>Escalates to you when a human is needed</li>
+          </ul>
+          <span class="lineup-card__number">01</span>
+        </div>
+
+        <!-- AI Secretary -->
+        <div class="lineup-card">
+          <span class="lineup-card__badge lineup-card__badge--text">💬 Text</span>
+          <h3 class="lineup-card__role">AI Secretary</h3>
+          <p class="lineup-card__tagline">Knows everything you tell it. Answers so you don't have to.</p>
+          <ul class="lineup-card__tasks">
+            <li>You feed it information — it answers questions instantly</li>
+            <li>Handles team and customer queries via chat</li>
+            <li>Always up to date, never forgets a detail</li>
+            <li>Frees you to focus on what actually matters</li>
+          </ul>
+          <span class="lineup-card__number">02</span>
+        </div>
+
+        <!-- AI Support Agent -->
+        <div class="lineup-card">
+          <span class="lineup-card__badge lineup-card__badge--text">💬 Text</span>
+          <h3 class="lineup-card__role">AI Support Agent</h3>
+          <p class="lineup-card__tagline">Handles every customer query. Day and night, without fail.</p>
+          <ul class="lineup-card__tasks">
+            <li>Responds to WhatsApp, SMS, and live chat instantly</li>
+            <li>Resolves common issues without human input</li>
+            <li>Qualifies and routes leads automatically</li>
+            <li>Full transcript handed over on escalation</li>
+          </ul>
+          <span class="lineup-card__number">03</span>
+        </div>
+
+      </div>
+
+      <div style="text-align:center; margin-top: 56px;">
+        <a href="https://buy.stripe.com/5kQbJ25t59u0gL02es8IU01" class="btn btn--primary" target="_blank" rel="noopener">Hire Your AI Employee →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Light → Dark fade -->
+  <div class="section-fade section-fade--to-dark"></div>
+
+  <!-- ===================== COMPARISON ===================== -->
+  <section class="section" id="comparison" style="background: rgba(238,241,246,0.84); padding: 120px 0;">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__eyebrow">The Difference</p>
+        <h2 class="section__display">AI Employee vs Human Staff</h2>
+      </div>
+      <div class="compare-grid">
+        <div class="compare-col compare-col--label">
+          <div class="compare-col__header"></div>
+          <div class="compare-row__label">Availability</div>
+          <div class="compare-row__label">Response Time</div>
+          <div class="compare-row__label">Consistency</div>
+          <div class="compare-row__label">Cost</div>
+          <div class="compare-row__label">Scalability</div>
+        </div>
+        <div class="compare-col compare-col--human">
+          <div class="compare-col__header">
+            <span class="compare-col__tag">Human Staff</span>
+          </div>
+          <div class="compare-row__cell compare-row__cell--dim">Business hours only</div>
+          <div class="compare-row__cell compare-row__cell--dim">Can be delayed</div>
+          <div class="compare-row__cell compare-row__cell--dim">Varies</div>
+          <div class="compare-row__cell compare-row__cell--dim">Salary + overhead</div>
+          <div class="compare-row__cell compare-row__cell--dim">Requires hiring more</div>
+        </div>
+        <div class="compare-col compare-col--ai">
+          <div class="compare-col__header">
+            <span class="compare-col__tag compare-col__tag--ai">AI Employee</span>
+          </div>
+          <div class="compare-row__cell compare-row__cell--win">24 / 7</div>
+          <div class="compare-row__cell compare-row__cell--win">Instant</div>
+          <div class="compare-row__cell compare-row__cell--win">Always consistent</div>
+          <div class="compare-row__cell compare-row__cell--win">Fixed monthly fee</div>
+          <div class="compare-row__cell compare-row__cell--win">Scales instantly</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROCESS ===================== -->
+  <section class="section section--alt" id="process">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__eyebrow">How It Works</p>
+      </div>
+      <div class="process-grid">
+        <div class="process-card step">
+          <div class="process-card__num">01</div>
+          <h4>Discovery</h4>
+          <p>We learn your business, your customers, and what your AI Employee needs to handle.</p>
+        </div>
+        <div class="process-card step">
+          <div class="process-card__num">02</div>
+          <h4>We Build</h4>
+          <p>We configure and train your AI Employee, refining it with your feedback.</p>
+        </div>
+        <div class="process-card step">
+          <div class="process-card__num">03</div>
+          <h4>Trial</h4>
+          <p>Test in real conditions before going live — no surprises, no rush.</p>
+        </div>
+        <div class="process-card step">
+          <div class="process-card__num">04</div>
+          <h4>Go Live</h4>
+          <p>Your AI Employee goes fully live — supported and maintained by adotechai.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Light/alt → Dark fade -->
+  <div class="section-fade section-fade--alt-to-dark"></div>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section class="about-section" id="about">
+    <canvas class="section-particles" id="aboutParticles"></canvas>
+    <div class="container">
+      <div class="about-header">
+        <p class="section__eyebrow section__eyebrow--light" style="font-size: 1.5rem; margin-bottom: 32px;">About adotechai</p>
+        <h2 class="about-mission">We don't replace your people.<br>We <em>optimise</em> what they do.</h2>
+        <p class="about-sub">AI handles the repetitive work — the calls, the messages, the FAQs. Your team focuses on what actually moves the business forward. That's the adotechai model.</p>
+      </div>
+
+      <div class="founders-grid">
+        <div class="founder-card">
+          <div class="founder-card__initials">HO</div>
+          <p class="founder-card__name">Harry Ocran</p>
+          <p class="founder-card__title">Co-Founder</p>
+          <p class="founder-card__bio">Building the business side of adotechai — strategy, clients, and growth.</p>
+        </div>
+        <div class="founder-card">
+          <div class="founder-card__initials">SN</div>
+          <p class="founder-card__name">Shawaiz Naeem</p>
+          <p class="founder-card__title">Co-Founder · AI Engineer</p>
+          <p class="founder-card__bio">ML engineer with 10+ AI agents built and 5+ products shipped. He builds the AI Employees.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dark → Light fade -->
+  <div class="section-fade section-fade--to-light"></div>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__eyebrow">Get In Touch</p>
+        <h2 class="section__display">Let's talk about your business.</h2>
+        <p class="section__lead">Tell us what you need — we'll build the right AI Employee for you.</p>
+      </div>
+      <div class="contact-grid">
+
+        <div class="contact-form-wrap">
+          <h3>Send a Message</h3>
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" placeholder="Tell us about your business and what tasks you'd like your AI Employee to handle..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary btn--full">Send Message</button>
+          </form>
+
+          <div class="contact-direct">
+            <a href="https://wa.me/77368979016" target="_blank" rel="noopener">
+              <span class="contact-direct__icon">📱</span>
+              WhatsApp: +7 736 897 9016
+            </a>
+            <a href="mailto:shawaiznaeem.104@gmail.com">
+              <span class="contact-direct__icon">✉️</span>
+              shawaiznaeem.104@gmail.com
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-calendar-wrap">
+          <h3>Book a Call</h3>
+          <div class="calendar-placeholder">
+            <span>📅</span>
+            <p>Calendar booking coming soon</p>
+            <p class="calendar-sub">In the meantime, send a message or WhatsApp us and we'll get back to you quickly.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="footer__bg"></div>
+    <div class="container footer__inner">
+      <p class="footer__wordmark">ADOTECHAI</p>
+      <p class="footer__tagline">AI Employees For Business — Voice &amp; Text</p>
+      <nav class="footer__nav-new">
+        <a href="#lineup">The Team</a>
+        <a href="#comparison">Why AI</a>
+        <a href="#process">How It Works</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="https://buy.stripe.com/5kQbJ25t59u0gL02es8IU01" target="_blank" rel="noopener">Hire Now</a>
+      </nav>
+      <div class="footer__divider"></div>
+      <p class="footer__copy">© 2025 adotechai. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Nav scroll behaviour
+    const siteNav = document.getElementById('siteNav');
+    window.addEventListener('scroll', () => {
+      siteNav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    navToggle.addEventListener('click', () => {
+      const open = mobileNav.classList.toggle('open');
+      navToggle.classList.toggle('open', open);
+    });
+    function closeMobileNav() {
+      mobileNav.classList.remove('open');
+      navToggle.classList.remove('open');
+    }
+
+    // Lineup card reveal
+    const lineupCards = document.querySelectorAll('.lineup-card');
+    const lineupObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          lineupObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    lineupCards.forEach(card => lineupObserver.observe(card));
+
+    // About particles (same as hero)
+    (function () {
+      const canvas = document.getElementById('aboutParticles');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const COUNT = 90;
+      function resize() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
+      resize();
+      window.addEventListener('resize', resize, { passive: true });
+      const particles = Array.from({ length: COUNT }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.4 + 0.3,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        alpha: Math.random() * 0.5 + 0.15,
+        phase: Math.random() * Math.PI * 2,
+        speed: Math.random() * 0.02 + 0.008,
+      }));
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0) p.x = canvas.width;
+          if (p.x > canvas.width) p.x = 0;
+          if (p.y < 0) p.y = canvas.height;
+          if (p.y > canvas.height) p.y = 0;
+          p.phase += p.speed;
+          const flicker = p.alpha * (0.6 + 0.4 * Math.sin(p.phase));
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255,255,255,${flicker})`;
+          ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+      requestAnimationFrame(draw);
+    })();
+  </script>
+</body>
+</html>
