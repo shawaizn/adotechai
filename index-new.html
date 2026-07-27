@@ -154,33 +154,19 @@
     }
 
     /* ============================================================
-       HERO CARD — bigger, two-beat layout
+       HERO CARD — fills the frame, frame acts as border
        ============================================================ */
     .hero__glass {
-      max-width: 680px !important;
-      width: 92vw !important;
-      padding: 52px 56px !important;
+      max-width: calc(100% - 32px) !important;
+      width: calc(100% - 32px) !important;
+      padding: 60px 72px !important;
+      border-radius: 26px !important;
     }
-    .hero__card-divider {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
-      margin: 32px 0;
+    @media (max-width: 768px) {
+      .hero__glass { padding: 40px 32px !important; max-width: calc(100% - 20px) !important; width: calc(100% - 20px) !important; }
     }
-    .hero__concept-line {
-      font-family: var(--font);
-      font-size: clamp(1.15rem, 2.2vw, 1.45rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #5DCAA5 0%, #378ADD 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 10px;
-      line-height: 1.25;
-    }
-    @media (max-width: 600px) {
-      .hero__glass { padding: 36px 28px !important; }
+    @media (max-width: 480px) {
+      .hero__glass { padding: 32px 20px !important; }
     }
 
     /* ============================================================
@@ -1124,9 +1110,6 @@
           <p class="hero__eyebrow">AI Employees For Business</p>
           <h1 class="hero__headline">Hire Your First<br>AI Employee</h1>
 
-          <div class="hero__card-divider"></div>
-
-          <p class="hero__concept-line">Your team has better things to do.</p>
           <p class="hero__sub">AI Employees handle the calls, messages, and admin — so your people can focus on the work that actually needs them.</p>
 
           <div class="hero__ctas">
