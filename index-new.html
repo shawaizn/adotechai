@@ -501,6 +501,153 @@
     .lineup-card__tagline, .lineup-card__badge { display: none; }
 
     /* ============================================================
+       ROI CALCULATOR — dark section
+       ============================================================ */
+    .roi-section {
+      background: #07111e;
+      padding: 120px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .roi-section::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 800px; height: 400px;
+      background: radial-gradient(ellipse at center, rgba(55,138,221,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .roi-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .roi-left {}
+    .roi-headline {
+      font-family: var(--font);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .roi-headline em {
+      font-style: normal;
+      color: #f5d97a;
+    }
+    .roi-lead {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+      max-width: 420px;
+    }
+
+    /* Calculator card */
+    .roi-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 40px;
+    }
+    .roi-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      margin-bottom: 36px;
+    }
+    .roi-field label {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 12px;
+    }
+    .roi-field__row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .roi-field input[type="range"] {
+      flex: 1;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.1);
+      outline: none;
+      cursor: pointer;
+    }
+    .roi-field input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #5DCAA5, #378ADD);
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(55,138,221,0.4);
+    }
+    .roi-field__val {
+      font-family: var(--font);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      min-width: 60px;
+      text-align: right;
+    }
+
+    /* Output numbers */
+    .roi-outputs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 32px;
+    }
+    .roi-out {
+      text-align: center;
+      padding: 16px 8px;
+    }
+    .roi-out__period {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 8px;
+    }
+    .roi-out__num {
+      font-family: var(--font);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #f5d97a;
+      letter-spacing: -0.02em;
+      transition: transform 0.2s ease;
+    }
+    .roi-out__sub {
+      font-size: 0.62rem;
+      color: rgba(255,255,255,0.3);
+      margin-top: 4px;
+    }
+    .roi-out--highlight .roi-out__num {
+      font-size: 2rem;
+      color: #f5d97a;
+    }
+    .roi-disclaimer {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.2);
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 860px) {
+      .roi-inner { grid-template-columns: 1fr; gap: 48px; }
+    }
+
+    /* ============================================================
        COMPARISON — light bg
        ============================================================ */
     .difference-section {
@@ -1301,6 +1448,68 @@
     </div>
   </section>
 
+  <!-- ===================== ROI CALCULATOR ===================== -->
+  <div class="section-fade" style="background: linear-gradient(to bottom, rgba(238,241,246,0.84), #07111e);"></div>
+  <section class="roi-section" id="roi">
+    <div class="container">
+      <div class="roi-inner">
+
+        <div class="roi-left">
+          <p class="section__eyebrow section__eyebrow--light" style="margin-bottom:24px;">The Real Cost of Admin</p>
+          <h2 class="roi-headline">Every hour spent on admin<br>is an hour <em>not spent</em> growing.</h2>
+          <p class="roi-lead">AI Employees handle the repetitive tasks — calls, scheduling, follow-ups, support. That time goes back to your staff, every single day. It's like adding an hour to everyone's working day without increasing headcount.</p>
+        </div>
+
+        <div class="roi-card">
+          <div class="roi-inputs">
+            <div class="roi-field">
+              <label>Number of employees</label>
+              <div class="roi-field__row">
+                <input type="range" id="roiEmployees" min="1" max="50" value="5" step="1">
+                <span class="roi-field__val" id="roiEmployeesVal">5</span>
+              </div>
+            </div>
+            <div class="roi-field">
+              <label>Average hourly wage (£)</label>
+              <div class="roi-field__row">
+                <input type="range" id="roiWage" min="8" max="60" value="10" step="1">
+                <span class="roi-field__val" id="roiWageVal">£10</span>
+              </div>
+            </div>
+            <div class="roi-field">
+              <label>Admin hours saved per person, per day</label>
+              <div class="roi-field__row">
+                <input type="range" id="roiHours" min="0.5" max="3" value="1" step="0.5">
+                <span class="roi-field__val" id="roiHoursVal">1h</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="roi-outputs">
+            <div class="roi-out">
+              <p class="roi-out__period">Per Day</p>
+              <p class="roi-out__num" id="roiDay">£50</p>
+              <p class="roi-out__sub">saved</p>
+            </div>
+            <div class="roi-out">
+              <p class="roi-out__period">Per Month</p>
+              <p class="roi-out__num" id="roiMonth">£1,500</p>
+              <p class="roi-out__sub">saved</p>
+            </div>
+            <div class="roi-out roi-out--highlight">
+              <p class="roi-out__period">Per Year</p>
+              <p class="roi-out__num" id="roiYear">£18,000</p>
+              <p class="roi-out__sub">worth of time recovered</p>
+            </div>
+          </div>
+
+          <p class="roi-disclaimer">Based on 1 hour saved per employee per working day (22 days/month)</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ===================== PROCESS ===================== -->
   <section class="section section--alt" id="process">
     <div class="container">
@@ -1750,6 +1959,36 @@
       document.getElementById('lineupNext').addEventListener('click', () => {
         carousel.scrollBy({ left: CARD_W, behavior: 'smooth' });
       });
+    })();
+
+    // ROI calculator
+    (function () {
+      const empSlider  = document.getElementById('roiEmployees');
+      const wageSlider = document.getElementById('roiWage');
+      const hrSlider   = document.getElementById('roiHours');
+      if (!empSlider) return;
+
+      function fmt(n) {
+        return '£' + Math.round(n).toLocaleString('en-GB');
+      }
+
+      function update() {
+        const emp  = +empSlider.value;
+        const wage = +wageSlider.value;
+        const hrs  = +hrSlider.value;
+        document.getElementById('roiEmployeesVal').textContent = emp;
+        document.getElementById('roiWageVal').textContent = '£' + wage;
+        document.getElementById('roiHoursVal').textContent = hrs + 'h';
+        const day   = emp * wage * hrs;
+        const month = day * 22;
+        const year  = day * 264;
+        document.getElementById('roiDay').textContent   = fmt(day);
+        document.getElementById('roiMonth').textContent = fmt(month);
+        document.getElementById('roiYear').textContent  = fmt(year);
+      }
+
+      [empSlider, wageSlider, hrSlider].forEach(s => s.addEventListener('input', update));
+      update();
     })();
 
     // About particles (same as hero)
