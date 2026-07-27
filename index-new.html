@@ -757,6 +757,185 @@
     /* ============================================================
        RESPONSIVE
        ============================================================ */
+    /* Lineup card icon + "more" link */
+    .lineup-card__icon {
+      font-size: 2.4rem;
+      margin-bottom: 20px;
+      display: block;
+      filter: drop-shadow(0 0 12px rgba(93,202,165,0.3));
+    }
+    .lineup-card__more {
+      display: inline-block;
+      margin-top: 24px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: #5DCAA5;
+      transition: color 0.2s ease;
+    }
+    .lineup-card:hover .lineup-card__more { color: #fff; }
+
+    /* Remove bullets since they moved to modals */
+    .lineup-card__tasks { display: none; }
+
+    /* About stats row */
+    .about-stats {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin: 32px auto 64px;
+      max-width: 560px;
+    }
+    .about-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+    }
+    .about-stat__num {
+      font-family: var(--font);
+      font-size: 2.6rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #fff;
+      line-height: 1;
+    }
+    .about-stat__label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+    .about-stat__divider {
+      width: 1px;
+      height: 48px;
+      background: rgba(255,255,255,0.1);
+      flex-shrink: 0;
+    }
+
+    /* Founder "more" link */
+    .founder-card__more {
+      display: block;
+      margin-top: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.3);
+      transition: color 0.2s ease;
+    }
+    .founder-card:hover .founder-card__more { color: rgba(255,255,255,0.7); }
+
+    /* Shared modal — reuse process modal styles, add lineup/founder variant */
+    .info-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(7,17,30,0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .info-modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .info-modal {
+      background: #0d1a2a;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 40px 36px;
+      max-width: 480px;
+      width: 100%;
+      position: relative;
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.28s ease;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+    }
+    .info-modal-overlay.open .info-modal {
+      transform: translateY(0) scale(1);
+    }
+    .info-modal__close {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      transition: background 0.2s ease;
+    }
+    .info-modal__close:hover { background: rgba(255,255,255,0.12); }
+    .info-modal__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .info-modal__badge--voice { background: rgba(93,202,165,0.1); color: #5DCAA5; border: 1px solid rgba(93,202,165,0.22); }
+    .info-modal__badge--text  { background: rgba(55,138,221,0.1); color: #378ADD; border: 1px solid rgba(55,138,221,0.22); }
+    .info-modal__badge--person { background: rgba(245,217,122,0.1); color: #f5d97a; border: 1px solid rgba(245,217,122,0.22); }
+    .info-modal__title {
+      font-family: var(--font);
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .info-modal__tagline {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .info-modal__list {
+      list-style: none;
+      padding: 0; margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .info-modal__list li {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .info-modal__list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #5DCAA5, #378ADD);
+    }
+    .info-modal__cta {
+      display: block;
+      margin-top: 28px;
+      text-align: center;
+    }
+
     /* Mobile step list (shown below 700px, ring hidden) */
     .process-steps-mobile {
       display: none;
@@ -911,7 +1090,7 @@
     <div class="container">
       <span class="concept-label">The Idea</span>
       <h2 class="concept-statement">Not a tool.<br><em>An employee.</em></h2>
-      <p class="concept-sub">AI Employees do the tasks your business runs on — answering calls, handling messages, booking appointments — continuously, instantly, and at a fraction of the cost.</p>
+      <p class="concept-sub">One monthly fee. No salary. No sick days. No overhead.</p>
     </div>
   </section>
 
@@ -930,44 +1109,32 @@
       <div class="lineup-grid">
 
         <!-- AI Receptionist -->
-        <div class="lineup-card">
+        <div class="lineup-card" onclick="openLineupModal(0)" style="cursor:pointer;">
           <span class="lineup-card__badge lineup-card__badge--voice">🎙️ Voice</span>
+          <div class="lineup-card__icon">📞</div>
           <h3 class="lineup-card__role">AI Receptionist</h3>
           <p class="lineup-card__tagline">Answers every call. Books appointments. Never misses a lead.</p>
-          <ul class="lineup-card__tasks">
-            <li>Answers calls 24/7 — no hold music, no voicemail</li>
-            <li>Books and confirms appointments automatically</li>
-            <li>Handles FAQs in a natural conversation</li>
-            <li>Escalates to you when a human is needed</li>
-          </ul>
+          <span class="lineup-card__more">See what they handle →</span>
           <span class="lineup-card__number">01</span>
         </div>
 
         <!-- AI Secretary -->
-        <div class="lineup-card">
+        <div class="lineup-card" onclick="openLineupModal(1)" style="cursor:pointer;">
           <span class="lineup-card__badge lineup-card__badge--text">💬 Text</span>
+          <div class="lineup-card__icon">🗂️</div>
           <h3 class="lineup-card__role">AI Secretary</h3>
           <p class="lineup-card__tagline">Knows everything you tell it. Answers so you don't have to.</p>
-          <ul class="lineup-card__tasks">
-            <li>You feed it information — it answers questions instantly</li>
-            <li>Handles team and customer queries via chat</li>
-            <li>Always up to date, never forgets a detail</li>
-            <li>Frees you to focus on what actually matters</li>
-          </ul>
+          <span class="lineup-card__more">See what they handle →</span>
           <span class="lineup-card__number">02</span>
         </div>
 
         <!-- AI Support Agent -->
-        <div class="lineup-card">
+        <div class="lineup-card" onclick="openLineupModal(2)" style="cursor:pointer;">
           <span class="lineup-card__badge lineup-card__badge--text">💬 Text</span>
+          <div class="lineup-card__icon">⚡</div>
           <h3 class="lineup-card__role">AI Support Agent</h3>
           <p class="lineup-card__tagline">Handles every customer query. Day and night, without fail.</p>
-          <ul class="lineup-card__tasks">
-            <li>Responds to WhatsApp, SMS, and live chat instantly</li>
-            <li>Resolves common issues without human input</li>
-            <li>Qualifies and routes leads automatically</li>
-            <li>Full transcript handed over on escalation</li>
-          </ul>
+          <span class="lineup-card__more">See what they handle →</span>
           <span class="lineup-card__number">03</span>
         </div>
 
@@ -1123,22 +1290,39 @@
     <div class="container">
       <div class="about-header">
         <p class="section__eyebrow section__eyebrow--light" style="font-size: 1.5rem; margin-bottom: 32px;">About adotechai</p>
-        <h2 class="about-mission">We don't replace your people.<br>We <em>optimise</em> what they do.</h2>
-        <p class="about-sub">AI handles the repetitive work — the calls, the messages, the FAQs. Your team focuses on what actually moves the business forward. That's the adotechai model.</p>
+        <h2 class="about-mission">Built by engineers.<br>Run for <em>business owners.</em></h2>
+      </div>
+
+      <!-- Visual stat row -->
+      <div class="about-stats">
+        <div class="about-stat">
+          <span class="about-stat__num">10+</span>
+          <span class="about-stat__label">AI agents built</span>
+        </div>
+        <div class="about-stat__divider"></div>
+        <div class="about-stat">
+          <span class="about-stat__num">5+</span>
+          <span class="about-stat__label">products shipped</span>
+        </div>
+        <div class="about-stat__divider"></div>
+        <div class="about-stat">
+          <span class="about-stat__num">24/7</span>
+          <span class="about-stat__label">support & maintenance</span>
+        </div>
       </div>
 
       <div class="founders-grid">
-        <div class="founder-card">
+        <div class="founder-card" onclick="openFounderModal(0)" style="cursor:pointer;">
           <div class="founder-card__initials">HO</div>
           <p class="founder-card__name">Harry Ocran</p>
           <p class="founder-card__title">Co-Founder</p>
-          <p class="founder-card__bio">Building the business side of adotechai — strategy, clients, and growth.</p>
+          <span class="founder-card__more">About Harry →</span>
         </div>
-        <div class="founder-card">
+        <div class="founder-card" onclick="openFounderModal(1)" style="cursor:pointer;">
           <div class="founder-card__initials">SN</div>
           <p class="founder-card__name">Shawaiz Naeem</p>
           <p class="founder-card__title">Co-Founder · AI Engineer</p>
-          <p class="founder-card__bio">ML engineer with 10+ AI agents built and 5+ products shipped. He builds the AI Employees.</p>
+          <span class="founder-card__more">About Shawaiz →</span>
         </div>
       </div>
     </div>
@@ -1200,6 +1384,31 @@
     </div>
   </section>
 
+  <!-- ===================== LINEUP MODAL ===================== -->
+  <div class="info-modal-overlay" id="lineupModal" onclick="closeInfoModal('lineupModal', event)">
+    <div class="info-modal">
+      <button class="info-modal__close" onclick="document.getElementById('lineupModal').classList.remove('open'); document.body.style.overflow='';" aria-label="Close">✕</button>
+      <span class="info-modal__badge" id="lineupModalBadge"></span>
+      <h3 class="info-modal__title" id="lineupModalTitle"></h3>
+      <p class="info-modal__tagline" id="lineupModalTagline"></p>
+      <ul class="info-modal__list" id="lineupModalList"></ul>
+      <div class="info-modal__cta">
+        <a href="https://buy.stripe.com/5kQbJ25t59u0gL02es8IU01" class="btn btn--primary" target="_blank" rel="noopener" onclick="document.getElementById('lineupModal').classList.remove('open'); document.body.style.overflow='';">Hire This AI Employee →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== FOUNDER MODAL ===================== -->
+  <div class="info-modal-overlay" id="founderModal" onclick="closeInfoModal('founderModal', event)">
+    <div class="info-modal">
+      <button class="info-modal__close" onclick="document.getElementById('founderModal').classList.remove('open'); document.body.style.overflow='';" aria-label="Close">✕</button>
+      <span class="info-modal__badge info-modal__badge--person" id="founderModalBadge"></span>
+      <h3 class="info-modal__title" id="founderModalTitle"></h3>
+      <p class="info-modal__tagline" id="founderModalTagline"></p>
+      <ul class="info-modal__list" id="founderModalList"></ul>
+    </div>
+  </div>
+
   <!-- ===================== FOOTER ===================== -->
   <footer class="footer">
     <div class="footer__bg"></div>
@@ -1237,6 +1446,113 @@
     function closeMobileNav() {
       mobileNav.classList.remove('open');
       navToggle.classList.remove('open');
+    }
+
+    // Generic modal close helper
+    function closeInfoModal(id, e) {
+      if (e.target === document.getElementById(id)) {
+        document.getElementById(id).classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        ['lineupModal','founderModal','processModal'].forEach(id => {
+          document.getElementById(id).classList.remove('open');
+        });
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Lineup modal data
+    const lineupData = [
+      {
+        badge: '🎙️ Voice',
+        badgeClass: 'info-modal__badge--voice',
+        title: 'AI Receptionist',
+        tagline: 'Answers every call. Books appointments. Never misses a lead.',
+        bullets: [
+          'Answers calls 24/7 — no hold music, no voicemail',
+          'Books and confirms appointments automatically',
+          'Handles FAQs in a natural, human-sounding conversation',
+          'Escalates to you instantly when a human is needed',
+          'Every call logged and summarised for your review',
+        ]
+      },
+      {
+        badge: '💬 Text',
+        badgeClass: 'info-modal__badge--text',
+        title: 'AI Secretary',
+        tagline: 'Knows everything you tell it. Answers so you don\'t have to.',
+        bullets: [
+          'You feed it your products, services, and FAQs — it handles the rest',
+          'Responds to team and customer queries via chat instantly',
+          'Always up to date — update it once, it knows immediately',
+          'Integrates with your existing tools and workflows',
+          'Frees you to focus on what actually moves the business',
+        ]
+      },
+      {
+        badge: '💬 Text',
+        badgeClass: 'info-modal__badge--text',
+        title: 'AI Support Agent',
+        tagline: 'Handles every customer query. Day and night, without fail.',
+        bullets: [
+          'Responds to WhatsApp, SMS, and live chat instantly',
+          'Resolves common issues without any human input',
+          'Qualifies leads and routes them to the right person',
+          'Full conversation transcript handed over on escalation',
+          'Never leaves a customer waiting or ignored',
+        ]
+      },
+    ];
+
+    function openLineupModal(index) {
+      const d = lineupData[index];
+      const badge = document.getElementById('lineupModalBadge');
+      badge.textContent = d.badge;
+      badge.className = 'info-modal__badge ' + d.badgeClass;
+      document.getElementById('lineupModalTitle').textContent = d.title;
+      document.getElementById('lineupModalTagline').textContent = d.tagline;
+      document.getElementById('lineupModalList').innerHTML = d.bullets.map(b => `<li>${b}</li>`).join('');
+      document.getElementById('lineupModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Founder modal data
+    const founderData = [
+      {
+        initials: 'HO',
+        title: 'Harry Ocran',
+        tagline: 'Co-Founder — Business & Growth',
+        bullets: [
+          'Leads client strategy, sales, and business development',
+          'Bridges the gap between AI capability and real business need',
+          'Focuses on making AI accessible and practical for every business owner',
+          'Responsible for growing the adotechai client base',
+        ]
+      },
+      {
+        initials: 'SN',
+        title: 'Shawaiz Naeem',
+        tagline: 'Co-Founder · AI Engineer',
+        bullets: [
+          'Machine learning engineer who builds every AI Employee from the ground up',
+          '10+ AI agents shipped across voice, text, and automation',
+          '5+ products taken from concept to live deployment',
+          'Ensures every AI Employee is reliable, accurate, and continuously improving',
+        ]
+      },
+    ];
+
+    function openFounderModal(index) {
+      const d = founderData[index];
+      document.getElementById('founderModalBadge').textContent = d.initials;
+      document.getElementById('founderModalTitle').textContent = d.title;
+      document.getElementById('founderModalTagline').textContent = d.tagline;
+      document.getElementById('founderModalList').innerHTML = d.bullets.map(b => `<li>${b}</li>`).join('');
+      document.getElementById('founderModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
     }
 
     // Process modal data
@@ -1315,9 +1631,6 @@
       document.getElementById('processModal').classList.remove('open');
       document.body.style.overflow = '';
     }
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeProcessModalDirect();
-    });
 
     // Lineup card reveal
     const lineupCards = document.querySelectorAll('.lineup-card');
