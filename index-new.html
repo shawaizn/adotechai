@@ -1310,6 +1310,69 @@
     <div class="hero__fade"></div>
   </section>
 
+  <!-- ===================== ROI CALCULATOR ===================== -->
+  <div class="section-fade" style="background: linear-gradient(to bottom, #07111e, #07111e);"></div>
+  <section class="roi-section" id="roi">
+    <div class="container">
+      <div class="roi-inner">
+
+        <div class="roi-left">
+          <p class="section__eyebrow section__eyebrow--light" style="margin-bottom:24px;">The Real Cost of Admin</p>
+          <h2 class="roi-headline">Every hour spent on admin<br>is an hour <em>not spent</em> growing.</h2>
+          <p class="roi-lead">AI Employees handle the repetitive tasks — calls, scheduling, follow-ups, support. That time goes back to your staff, every single day. It's like adding an hour to everyone's working day without increasing headcount.</p>
+        </div>
+
+        <div class="roi-card">
+          <div class="roi-inputs">
+            <div class="roi-field">
+              <label>Number of employees</label>
+              <div class="roi-field__row">
+                <input type="range" id="roiEmployees" min="1" max="50" value="5" step="1">
+                <span class="roi-field__val" id="roiEmployeesVal">5</span>
+              </div>
+            </div>
+            <div class="roi-field">
+              <label>Average hourly wage (£)</label>
+              <div class="roi-field__row">
+                <input type="range" id="roiWage" min="8" max="60" value="10" step="1">
+                <span class="roi-field__val" id="roiWageVal">£10</span>
+              </div>
+            </div>
+            <div class="roi-field">
+              <label>Admin hours saved per person, per day</label>
+              <div class="roi-field__row">
+                <input type="range" id="roiHours" min="0.5" max="3" value="1" step="0.5">
+                <span class="roi-field__val" id="roiHoursVal">1h</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="roi-outputs">
+            <div class="roi-out">
+              <p class="roi-out__period">Per Day</p>
+              <p class="roi-out__num" id="roiDay">£50</p>
+              <p class="roi-out__sub">saved</p>
+            </div>
+            <div class="roi-out">
+              <p class="roi-out__period">Per Month</p>
+              <p class="roi-out__num" id="roiMonth">£1,500</p>
+              <p class="roi-out__sub">saved</p>
+            </div>
+            <div class="roi-out roi-out--highlight">
+              <p class="roi-out__period">Per Year</p>
+              <p class="roi-out__num" id="roiYear">£18,000</p>
+              <p class="roi-out__sub">worth of time recovered</p>
+            </div>
+          </div>
+
+          <p class="roi-disclaimer">Based on 1 hour saved per employee per working day (22 days/month)</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <div class="section-fade" style="background: linear-gradient(to bottom, #07111e, rgba(238,241,246,0.84));"></div>
+
   <!-- ===================== COMPARISON ===================== -->
   <section class="section" id="comparison" style="background: rgba(238,241,246,0.84); padding: 120px 0;">
     <div class="container">
@@ -1437,68 +1500,6 @@
 
       <div style="text-align:center; margin-top: 48px;">
         <a href="https://buy.stripe.com/5kQbJ25t59u0gL02es8IU01" class="btn btn--primary" target="_blank" rel="noopener">Hire Your AI Employee →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== ROI CALCULATOR ===================== -->
-  <div class="section-fade" style="background: linear-gradient(to bottom, rgba(238,241,246,0.84), #07111e);"></div>
-  <section class="roi-section" id="roi">
-    <div class="container">
-      <div class="roi-inner">
-
-        <div class="roi-left">
-          <p class="section__eyebrow section__eyebrow--light" style="margin-bottom:24px;">The Real Cost of Admin</p>
-          <h2 class="roi-headline">Every hour spent on admin<br>is an hour <em>not spent</em> growing.</h2>
-          <p class="roi-lead">AI Employees handle the repetitive tasks — calls, scheduling, follow-ups, support. That time goes back to your staff, every single day. It's like adding an hour to everyone's working day without increasing headcount.</p>
-        </div>
-
-        <div class="roi-card">
-          <div class="roi-inputs">
-            <div class="roi-field">
-              <label>Number of employees</label>
-              <div class="roi-field__row">
-                <input type="range" id="roiEmployees" min="1" max="50" value="5" step="1">
-                <span class="roi-field__val" id="roiEmployeesVal">5</span>
-              </div>
-            </div>
-            <div class="roi-field">
-              <label>Average hourly wage (£)</label>
-              <div class="roi-field__row">
-                <input type="range" id="roiWage" min="8" max="60" value="10" step="1">
-                <span class="roi-field__val" id="roiWageVal">£10</span>
-              </div>
-            </div>
-            <div class="roi-field">
-              <label>Admin hours saved per person, per day</label>
-              <div class="roi-field__row">
-                <input type="range" id="roiHours" min="0.5" max="3" value="1" step="0.5">
-                <span class="roi-field__val" id="roiHoursVal">1h</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="roi-outputs">
-            <div class="roi-out">
-              <p class="roi-out__period">Per Day</p>
-              <p class="roi-out__num" id="roiDay">£50</p>
-              <p class="roi-out__sub">saved</p>
-            </div>
-            <div class="roi-out">
-              <p class="roi-out__period">Per Month</p>
-              <p class="roi-out__num" id="roiMonth">£1,500</p>
-              <p class="roi-out__sub">saved</p>
-            </div>
-            <div class="roi-out roi-out--highlight">
-              <p class="roi-out__period">Per Year</p>
-              <p class="roi-out__num" id="roiYear">£18,000</p>
-              <p class="roi-out__sub">worth of time recovered</p>
-            </div>
-          </div>
-
-          <p class="roi-disclaimer">Based on 1 hour saved per employee per working day (22 days/month)</p>
-        </div>
-
       </div>
     </div>
   </section>
