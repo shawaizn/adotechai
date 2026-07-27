@@ -661,19 +661,19 @@
        ============================================================ */
     .process-flow-wrap {
       position: relative;
-      padding: 24px 0 16px;
+      padding: 32px 0 24px;
     }
 
     /* Connecting gradient line behind nodes */
     .process-flow-wrap::before {
       content: '';
       position: absolute;
-      top: 76px; /* vertically centred on the node */
-      left: calc(10% + 48px);
-      right: calc(10% + 48px);
+      top: 90px; /* vertically centred on node */
+      left: calc(10% + 60px);
+      right: calc(10% + 60px);
       height: 2px;
       background: linear-gradient(to right, #5DCAA5, #378ADD, #5DCAA5);
-      opacity: 0.3;
+      opacity: 0.25;
     }
 
     .process-flow {
@@ -700,29 +700,29 @@
     }
 
     .process-step__node {
-      width: 88px; height: 88px;
-      border-radius: 16px;
+      width: 116px; height: 116px;
+      border-radius: 20px;
       background: #fff;
       border: 1.5px solid rgba(55,138,221,0.14);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.05);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.05);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 4px;
-      margin-bottom: 18px;
+      gap: 5px;
+      margin-bottom: 20px;
       transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
       position: relative;
       z-index: 2;
     }
     .process-step:hover .process-step__node {
-      transform: translateY(-5px);
+      transform: translateY(-6px);
       border-color: #378ADD;
-      box-shadow: 0 16px 40px rgba(55,138,221,0.18), 0 2px 8px rgba(0,0,0,0.06);
+      box-shadow: 0 20px 48px rgba(55,138,221,0.18), 0 2px 8px rgba(0,0,0,0.06);
     }
 
     .process-step__num {
-      font-size: 0.55rem;
+      font-size: 0.6rem;
       font-weight: 700;
       letter-spacing: 0.14em;
       color: #378ADD;
@@ -730,15 +730,15 @@
     }
     .process-step__label {
       font-family: var(--font);
-      font-size: 0.78rem;
+      font-size: 0.9rem;
       font-weight: 700;
       color: var(--text);
       letter-spacing: -0.01em;
     }
     /* Small "tap" hint */
     .process-step__hint {
-      font-size: 0.58rem;
-      color: rgba(55,138,221,0.5);
+      font-size: 0.6rem;
+      color: rgba(55,138,221,0.45);
       font-weight: 600;
       letter-spacing: 0.04em;
     }
@@ -746,11 +746,11 @@
 
     /* Sub-label below node */
     .process-step__sub {
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       color: var(--text-muted);
       text-align: center;
-      line-height: 1.5;
-      max-width: 110px;
+      line-height: 1.55;
+      max-width: 130px;
     }
 
     /* Arrow between steps */
@@ -759,14 +759,35 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 88px; /* match node height */
-      padding: 0 4px;
+      height: 116px; /* match node height */
+      padding: 0 2px;
       position: relative;
       z-index: 1;
     }
     .process-arrow svg {
-      width: 20px; height: 20px;
-      opacity: 0.35;
+      width: 24px; height: 24px;
+      opacity: 0.4;
+    }
+
+    /* Circular ring around step 5 (Ongoing) */
+    .process-step--ongoing .process-step__node {
+      border-color: rgba(55,138,221,0.22);
+    }
+    .process-step--ongoing::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, calc(-50% - 10px)); /* offset to centre on node */
+      width: 148px; height: 148px;
+      border-radius: 50%;
+      border: 2px dashed rgba(55,138,221,0.28);
+      pointer-events: none;
+      z-index: 1;
+      animation: spin-slow 18s linear infinite;
+    }
+    @keyframes spin-slow {
+      to { transform: translate(-50%, calc(-50% - 10px)) rotate(360deg); }
     }
 
     /* Hide old elements */
@@ -1578,7 +1599,7 @@
           </div>
 
           <div class="process-step-wrap">
-            <div class="process-step" onclick="openProcessModal(4)">
+            <div class="process-step process-step--ongoing" onclick="openProcessModal(4)">
               <div class="process-step__node">
                 <span class="process-step__num">05</span>
                 <span class="process-step__label">Ongoing</span>
