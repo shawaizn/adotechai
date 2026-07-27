@@ -277,109 +277,192 @@
     .lineup-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
+      gap: 16px;
+      align-items: stretch;
     }
+
+    /* ---- Base card ---- */
     .lineup-card {
       position: relative;
-      background: #0d1a2a;
+      background: #0b1829;
       border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 20px;
-      padding: 40px 32px 44px;
+      border-radius: 24px;
+      padding: 32px 28px 36px;
       overflow: hidden;
       opacity: 0;
-      transform: translateY(48px);
-      transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.3s ease;
+      transform: translateY(40px);
+      transition: opacity 0.65s ease, transform 0.65s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
     }
-    .lineup-card.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .lineup-card.visible { opacity: 1; transform: translateY(0); }
+    .lineup-card:nth-child(2) { transition-delay: 0.1s; }
+    .lineup-card:nth-child(3) { transition-delay: 0.2s; }
+    .lineup-card:nth-child(4) { transition-delay: 0.3s; }
+
+    /* Per-card accent colour via CSS var */
+    .lineup-card--aria  { --accent: #5DCAA5; --accent-glow: rgba(93,202,165,0.18); }
+    .lineup-card--max   { --accent: #378ADD; --accent-glow: rgba(55,138,221,0.18); }
+    .lineup-card--nova  { --accent: #7B6FE8; --accent-glow: rgba(123,111,232,0.18); }
+    .lineup-card--custom { --accent: #f5d97a; --accent-glow: rgba(245,217,122,0.12); }
+
+    /* Coloured top glow */
+    .lineup-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 70%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--accent), transparent);
+      opacity: 0.6;
+      transition: opacity 0.3s ease, width 0.3s ease;
     }
-    .lineup-card:nth-child(2) { transition-delay: 0.14s; }
-    .lineup-card:nth-child(3) { transition-delay: 0.28s; }
-    .lineup-card:hover {
-      box-shadow: 0 24px 56px rgba(0,0,0,0.35);
-      transform: translateY(-4px);
-    }
-    .lineup-card.visible:hover { transform: translateY(-4px); }
+    /* Radial glow behind the top edge */
     .lineup-card::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(93,202,165,0.5), rgba(55,138,221,0.5), transparent);
+      top: -60px; left: 50%; transform: translateX(-50%);
+      width: 200px;
+      height: 120px;
+      background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
     }
-    .lineup-card__badge {
+    .lineup-card:hover {
+      border-color: rgba(255,255,255,0.14);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.04);
+      transform: translateY(-6px);
+    }
+    .lineup-card.visible:hover { transform: translateY(-6px); }
+    .lineup-card:hover::after { opacity: 1; width: 90%; }
+
+    /* Avatar */
+    .lineup-card__avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 40%, #07111e));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 24px var(--accent-glow);
+      letter-spacing: -0.02em;
+      flex-shrink: 0;
+    }
+    .lineup-card--custom .lineup-card__avatar {
+      background: rgba(245,217,122,0.08);
+      border: 1.5px dashed rgba(245,217,122,0.3);
+      box-shadow: none;
+      font-size: 1.5rem;
+    }
+
+    /* Status pill */
+    .lineup-card__status {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font-size: 0.62rem;
+      font-size: 0.6rem;
       font-weight: 700;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      padding: 5px 12px;
-      border-radius: 100px;
-      margin-bottom: 32px;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 14px;
     }
-    .lineup-card__badge--voice {
-      background: rgba(93,202,165,0.1);
-      color: #5DCAA5;
-      border: 1px solid rgba(93,202,165,0.22);
-    }
-    .lineup-card__badge--text {
-      background: rgba(55,138,221,0.1);
-      color: #378ADD;
-      border: 1px solid rgba(55,138,221,0.22);
-    }
-    .lineup-card__headline {
-      font-family: var(--font);
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: -0.02em;
-      margin-bottom: 10px;
-    }
-    .lineup-card__tagline {
-      font-size: 0.875rem;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 32px;
-      line-height: 1.55;
-    }
-    .lineup-card__tasks {
-      list-style: none;
-      padding: 0; margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .lineup-card__tasks li {
-      font-size: 0.875rem;
-      color: rgba(255,255,255,0.62);
-      padding-left: 20px;
-      position: relative;
-      line-height: 1.45;
-    }
-    .lineup-card__tasks li::before {
+    .lineup-card__status::before {
       content: '';
-      position: absolute;
-      left: 0;
-      top: 6px;
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #5DCAA5, #378ADD);
+      background: #4ade80;
+      box-shadow: 0 0 6px #4ade80;
+      flex-shrink: 0;
     }
-    .lineup-card__number {
-      position: absolute;
-      bottom: -20px;
-      right: 24px;
-      font-family: var(--font-display);
-      font-size: 8rem;
+    .lineup-card--custom .lineup-card__status::before {
+      background: rgba(245,217,122,0.6);
+      box-shadow: 0 0 6px rgba(245,217,122,0.4);
+    }
+
+    /* Name + role */
+    .lineup-card__name {
+      font-family: var(--font);
+      font-size: 1.45rem;
       font-weight: 700;
-      font-style: italic;
-      color: rgba(255,255,255,0.025);
-      line-height: 1;
-      pointer-events: none;
-      user-select: none;
+      color: #fff;
+      letter-spacing: -0.025em;
+      margin-bottom: 4px;
+      line-height: 1.1;
+    }
+    .lineup-card__role {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: 0.75;
+      margin-bottom: 16px;
+    }
+    .lineup-card__tagline {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.38);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .lineup-card__more {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 24px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      opacity: 0.7;
+      transition: opacity 0.2s ease, gap 0.2s ease;
+    }
+    .lineup-card:hover .lineup-card__more { opacity: 1; gap: 10px; }
+
+    /* Badge — keep but repurpose as type tag top-right */
+    .lineup-card__badge {
+      position: absolute;
+      top: 20px; right: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+    .lineup-card__badge--voice {
+      background: rgba(93,202,165,0.08);
+      color: #5DCAA5;
+      border: 1px solid rgba(93,202,165,0.2);
+    }
+    .lineup-card__badge--text {
+      background: rgba(55,138,221,0.08);
+      color: #378ADD;
+      border: 1px solid rgba(55,138,221,0.2);
+    }
+    .lineup-card__tasks { display: none; }
+    .lineup-card__number { display: none; }
+
+    /* Custom card */
+    .lineup-card--custom {
+      border: 1.5px dashed rgba(245,217,122,0.15);
+      background: rgba(245,217,122,0.02);
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .lineup-card--custom:hover {
+      border-color: rgba(245,217,122,0.35);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px rgba(245,217,122,0.06);
     }
 
     /* ============================================================
@@ -773,66 +856,6 @@
     /* ============================================================
        RESPONSIVE
        ============================================================ */
-    /* Employee name on card */
-    .lineup-card__name {
-      font-family: var(--font);
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: rgba(255,255,255,0.9);
-      letter-spacing: -0.01em;
-      margin-bottom: 2px;
-    }
-    .lineup-card__role {
-      font-size: 0.72rem;
-      font-weight: 500;
-      color: rgba(255,255,255,0.35);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    /* Custom card variant */
-    .lineup-card--custom {
-      background: transparent;
-      border: 1.5px dashed rgba(255,255,255,0.12);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      min-height: 280px;
-    }
-    .lineup-card--custom:hover {
-      border-color: rgba(245,217,122,0.4);
-      box-shadow: 0 16px 48px rgba(245,217,122,0.08);
-    }
-    .lineup-card--custom .lineup-card__icon { filter: none; margin-bottom: 16px; }
-    .lineup-card--custom .lineup-card__name { font-size: 1.2rem; margin-bottom: 8px; }
-    .lineup-card--custom .lineup-card__tagline { color: rgba(255,255,255,0.35); }
-    .lineup-card--custom .lineup-card__more { color: #f5d97a; margin-top: 20px; }
-    .lineup-card--custom:hover .lineup-card__more { color: #fff; }
-    .lineup-card--custom::before { display: none; }
-
-    /* Lineup card icon + "more" link */
-    .lineup-card__icon {
-      font-size: 2.4rem;
-      margin-bottom: 20px;
-      display: block;
-      filter: drop-shadow(0 0 12px rgba(93,202,165,0.3));
-    }
-    .lineup-card__more {
-      display: inline-block;
-      margin-top: 24px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      color: #5DCAA5;
-      transition: color 0.2s ease;
-    }
-    .lineup-card:hover .lineup-card__more { color: #fff; }
-
-    /* Remove bullets since they moved to modals */
-    .lineup-card__tasks { display: none; }
 
     /* About stats row */
     .about-stats {
@@ -1029,8 +1052,8 @@
     @media (max-width: 1100px) {
       .lineup-grid { grid-template-columns: repeat(2, 1fr); }
     }
-    @media (max-width: 900px) {
-      .lineup-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+    @media (max-width: 620px) {
+      .lineup-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
       .founders-grid { grid-template-columns: 1fr; max-width: 340px; }
     }
     @media (max-width: 700px) {
@@ -1134,44 +1157,46 @@
       <div class="lineup-grid">
 
         <!-- Aria — AI Receptionist -->
-        <div class="lineup-card" onclick="openLineupModal(0)" style="cursor:pointer;">
-          <span class="lineup-card__badge lineup-card__badge--voice">🎙️ Voice</span>
-          <div class="lineup-card__icon">📞</div>
+        <div class="lineup-card lineup-card--aria" onclick="openLineupModal(0)">
+          <span class="lineup-card__badge lineup-card__badge--voice">🎙 Voice</span>
+          <div class="lineup-card__avatar">A</div>
+          <span class="lineup-card__status">Active 24/7</span>
           <p class="lineup-card__name">Aria</p>
           <p class="lineup-card__role">AI Receptionist</p>
           <p class="lineup-card__tagline">Answers every call. Books appointments. Never misses a lead.</p>
           <span class="lineup-card__more">Meet Aria →</span>
-          <span class="lineup-card__number">01</span>
         </div>
 
         <!-- Max — AI Secretary -->
-        <div class="lineup-card" onclick="openLineupModal(1)" style="cursor:pointer;">
+        <div class="lineup-card lineup-card--max" onclick="openLineupModal(1)">
           <span class="lineup-card__badge lineup-card__badge--text">💬 Text</span>
-          <div class="lineup-card__icon">🗂️</div>
+          <div class="lineup-card__avatar">M</div>
+          <span class="lineup-card__status">Active 24/7</span>
           <p class="lineup-card__name">Max</p>
           <p class="lineup-card__role">AI Secretary</p>
           <p class="lineup-card__tagline">Knows everything you tell it. Answers so you don't have to.</p>
           <span class="lineup-card__more">Meet Max →</span>
-          <span class="lineup-card__number">02</span>
         </div>
 
         <!-- Nova — AI Support Agent -->
-        <div class="lineup-card" onclick="openLineupModal(2)" style="cursor:pointer;">
+        <div class="lineup-card lineup-card--nova" onclick="openLineupModal(2)">
           <span class="lineup-card__badge lineup-card__badge--text">💬 Text</span>
-          <div class="lineup-card__icon">⚡</div>
+          <div class="lineup-card__avatar">N</div>
+          <span class="lineup-card__status">Active 24/7</span>
           <p class="lineup-card__name">Nova</p>
           <p class="lineup-card__role">AI Support Agent</p>
           <p class="lineup-card__tagline">Handles every customer query. Day and night, without fail.</p>
           <span class="lineup-card__more">Meet Nova →</span>
-          <span class="lineup-card__number">03</span>
         </div>
 
         <!-- Custom AI Employee -->
-        <div class="lineup-card lineup-card--custom" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;">
-          <div class="lineup-card__icon">✦</div>
+        <div class="lineup-card lineup-card--custom" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+          <div class="lineup-card__avatar">+</div>
+          <span class="lineup-card__status">Available now</span>
           <p class="lineup-card__name">Your Employee</p>
-          <p class="lineup-card__tagline">Need something specific? We'll build the exact role your business needs.</p>
-          <span class="lineup-card__more">Build a custom AI →</span>
+          <p class="lineup-card__role">Custom AI Role</p>
+          <p class="lineup-card__tagline">Need something specific? We'll build the exact AI Employee your business needs.</p>
+          <span class="lineup-card__more">Build yours →</span>
         </div>
 
       </div>
