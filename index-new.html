@@ -376,11 +376,236 @@
     }
 
     /* ============================================================
-       PROCESS — light bg
+       PROCESS — circular design
        ============================================================ */
     .process-section-new {
       background: rgba(248,249,251,0.84);
       padding: 120px 0;
+    }
+
+    /* Circular process ring */
+    .process-ring {
+      position: relative;
+      width: min(560px, 90vw);
+      height: min(560px, 90vw);
+      margin: 0 auto 56px;
+    }
+    .process-ring__track {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1px solid rgba(55,138,221,0.12);
+    }
+    .process-ring__track--inner {
+      inset: 80px;
+      border-color: rgba(93,202,165,0.08);
+    }
+    .process-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0d1a2a, #071520);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(55,138,221,0.12);
+    }
+    .process-center__label {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 4px;
+    }
+    .process-center__word {
+      font-family: var(--font);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+
+    /* Step nodes positioned around the ring */
+    .process-node {
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+    }
+    /* Positions: 5 nodes on a circle. top=12°, right=84°, bottom-right=156°, bottom-left=228°, left=300° */
+    .process-node[data-step="1"] { top: 2%;  left: 50%; }
+    .process-node[data-step="2"] { top: 28%; left: 93%; }
+    .process-node[data-step="3"] { top: 78%; left: 79%; }
+    .process-node[data-step="4"] { top: 78%; left: 21%; }
+    .process-node[data-step="5"] { top: 28%; left: 7%;  }
+
+    .process-node__bubble {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid rgba(55,138,221,0.15);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+      z-index: 2;
+    }
+    .process-node:hover .process-node__bubble,
+    .process-node.active .process-node__bubble {
+      transform: scale(1.08);
+      border-color: #378ADD;
+      box-shadow: 0 12px 36px rgba(55,138,221,0.22);
+    }
+    .process-node__num {
+      font-family: var(--font);
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: #378ADD;
+      letter-spacing: 0.1em;
+    }
+    .process-node__title {
+      font-family: var(--font);
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      text-align: center;
+      padding: 0 6px;
+      line-height: 1.3;
+      margin-top: 3px;
+    }
+    /* "+" tap indicator */
+    .process-node__plus {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #5DCAA5, #378ADD);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    /* Connecting arc lines (SVG overlay) */
+    .process-ring__svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* ============================================================
+       PROCESS POP-UP MODAL
+       ============================================================ */
+    .process-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(7,17,30,0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .process-modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .process-modal {
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px 36px;
+      max-width: 460px;
+      width: 100%;
+      position: relative;
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.28s ease;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.22);
+    }
+    .process-modal-overlay.open .process-modal {
+      transform: translateY(0) scale(1);
+    }
+    .process-modal__close {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.06);
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      transition: background 0.2s ease;
+    }
+    .process-modal__close:hover { background: rgba(0,0,0,0.12); }
+    .process-modal__step {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #378ADD;
+      margin-bottom: 10px;
+    }
+    .process-modal__title {
+      font-family: var(--font);
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .process-modal__body {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+    .process-modal__body ul {
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .process-modal__body ul li {
+      padding-left: 20px;
+      position: relative;
+    }
+    .process-modal__body ul li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 7px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #5DCAA5, #378ADD);
     }
 
     /* ============================================================
@@ -532,9 +757,47 @@
     /* ============================================================
        RESPONSIVE
        ============================================================ */
+    /* Mobile step list (shown below 700px, ring hidden) */
+    .process-steps-mobile {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .process-step-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      background: #fff;
+      border: 1px solid rgba(55,138,221,0.14);
+      border-radius: 12px;
+      font-family: var(--font);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .process-step-btn span:last-child {
+      font-size: 1.2rem;
+      color: #378ADD;
+      font-weight: 700;
+    }
+    .process-step-btn:hover {
+      border-color: #378ADD;
+      box-shadow: 0 4px 16px rgba(55,138,221,0.12);
+    }
+
     @media (max-width: 900px) {
       .lineup-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
       .founders-grid { grid-template-columns: 1fr; max-width: 340px; }
+    }
+    @media (max-width: 700px) {
+      .process-ring { display: none; }
+      .process-steps-mobile { display: flex; }
     }
     @media (max-width: 768px) {
       .site-nav { padding: 16px 20px; }
@@ -764,31 +1027,92 @@
     <div class="container">
       <div class="section__header">
         <p class="section__eyebrow">How It Works</p>
+        <h2 class="section__display">From zero to running in days</h2>
+        <p class="section__lead" style="margin-top:8px;">Tap any step to see what's involved.</p>
       </div>
-      <div class="process-grid">
-        <div class="process-card step">
-          <div class="process-card__num">01</div>
-          <h4>Discovery</h4>
-          <p>We learn your business, your customers, and what your AI Employee needs to handle.</p>
+
+      <!-- Circular process diagram -->
+      <div class="process-ring">
+        <!-- Track rings -->
+        <div class="process-ring__track"></div>
+        <div class="process-ring__track process-ring__track--inner"></div>
+
+        <!-- Connecting arcs SVG -->
+        <svg class="process-ring__svg" viewBox="0 0 560 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="280" cy="280" r="230" stroke="url(#arcGrad)" stroke-width="1.5" stroke-dasharray="8 6" opacity="0.35"/>
+          <defs>
+            <linearGradient id="arcGrad" x1="0" y1="0" x2="560" y2="560" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#5DCAA5"/>
+              <stop offset="1" stop-color="#378ADD"/>
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <!-- Center label -->
+        <div class="process-center">
+          <span class="process-center__label">Your</span>
+          <span class="process-center__word">AI Employee</span>
         </div>
-        <div class="process-card step">
-          <div class="process-card__num">02</div>
-          <h4>We Build</h4>
-          <p>We configure and train your AI Employee, refining it with your feedback.</p>
+
+        <!-- Step nodes -->
+        <div class="process-node" data-step="1" onclick="openProcessModal(0)">
+          <div class="process-node__bubble">
+            <span class="process-node__num">01</span>
+            <span class="process-node__title">Discovery</span>
+          </div>
+          <span class="process-node__plus">+</span>
         </div>
-        <div class="process-card step">
-          <div class="process-card__num">03</div>
-          <h4>Trial</h4>
-          <p>Test in real conditions before going live — no surprises, no rush.</p>
+        <div class="process-node" data-step="2" onclick="openProcessModal(1)">
+          <div class="process-node__bubble">
+            <span class="process-node__num">02</span>
+            <span class="process-node__title">We Build</span>
+          </div>
+          <span class="process-node__plus">+</span>
         </div>
-        <div class="process-card step">
-          <div class="process-card__num">04</div>
-          <h4>Go Live</h4>
-          <p>Your AI Employee goes fully live — supported and maintained by adotechai.</p>
+        <div class="process-node" data-step="3" onclick="openProcessModal(2)">
+          <div class="process-node__bubble">
+            <span class="process-node__num">03</span>
+            <span class="process-node__title">Trial</span>
+          </div>
+          <span class="process-node__plus">+</span>
         </div>
+        <div class="process-node" data-step="4" onclick="openProcessModal(3)">
+          <div class="process-node__bubble">
+            <span class="process-node__num">04</span>
+            <span class="process-node__title">Go Live</span>
+          </div>
+          <span class="process-node__plus">+</span>
+        </div>
+        <div class="process-node" data-step="5" onclick="openProcessModal(4)">
+          <div class="process-node__bubble">
+            <span class="process-node__num">05</span>
+            <span class="process-node__title">Ongoing</span>
+          </div>
+          <span class="process-node__plus">+</span>
+        </div>
+      </div><!-- /.process-ring -->
+
+      <!-- Mobile fallback: simple step list (hidden on desktop) -->
+      <div class="process-steps-mobile">
+        <button class="process-step-btn" onclick="openProcessModal(0)"><span>01 — Discovery</span><span>+</span></button>
+        <button class="process-step-btn" onclick="openProcessModal(1)"><span>02 — We Build</span><span>+</span></button>
+        <button class="process-step-btn" onclick="openProcessModal(2)"><span>03 — Trial</span><span>+</span></button>
+        <button class="process-step-btn" onclick="openProcessModal(3)"><span>04 — Go Live</span><span>+</span></button>
+        <button class="process-step-btn" onclick="openProcessModal(4)"><span>05 — Ongoing Maintenance</span><span>+</span></button>
       </div>
+
     </div>
   </section>
+
+  <!-- ===================== PROCESS MODAL ===================== -->
+  <div class="process-modal-overlay" id="processModal" onclick="closeProcessModal(event)">
+    <div class="process-modal">
+      <button class="process-modal__close" onclick="closeProcessModalDirect()" aria-label="Close">✕</button>
+      <p class="process-modal__step" id="modalStep"></p>
+      <h3 class="process-modal__title" id="modalTitle"></h3>
+      <div class="process-modal__body" id="modalBody"></div>
+    </div>
+  </div>
 
   <!-- Light/alt → Dark fade -->
   <div class="section-fade section-fade--alt-to-dark"></div>
@@ -914,6 +1238,86 @@
       mobileNav.classList.remove('open');
       navToggle.classList.remove('open');
     }
+
+    // Process modal data
+    const processSteps = [
+      {
+        step: 'Step 01',
+        title: 'Discovery',
+        body: `We start by understanding your business inside out — before writing a single line of code.`,
+        bullets: [
+          'Walk through your daily tasks and pain points',
+          'Map the calls, messages, and queries your AI Employee will handle',
+          'Define tone, brand voice, and escalation rules',
+          'Agree on what success looks like from day one',
+        ]
+      },
+      {
+        step: 'Step 02',
+        title: 'We Build',
+        body: `We configure, train, and refine your AI Employee — with your feedback at every stage.`,
+        bullets: [
+          'Build and connect the AI to your chosen channels (phone, WhatsApp, chat)',
+          'Train it on your products, services, FAQs, and processes',
+          'Iterate rapidly based on your review sessions',
+          'Stress-test edge cases and failure modes before trial',
+        ]
+      },
+      {
+        step: 'Step 03',
+        title: 'Trial',
+        body: `Run in real conditions before you commit. No surprises, no pressure.`,
+        bullets: [
+          'Live trial period with real customers or test scenarios',
+          'Identify gaps and tune responses in real time',
+          'You stay fully in control with instant override access',
+          'Sign off only when you\'re satisfied it\'s ready',
+        ]
+      },
+      {
+        step: 'Step 04',
+        title: 'Go Live',
+        body: `Full deployment. Your AI Employee is now on the clock — 24/7.`,
+        bullets: [
+          'Seamless handover with zero downtime',
+          'Dashboard access so you can see every conversation',
+          'Human escalation paths tested and confirmed',
+          'We stay on hand for the first week of live running',
+        ]
+      },
+      {
+        step: 'Step 05',
+        title: 'Ongoing Maintenance & Improvement',
+        body: `Your AI Employee doesn't just run — it gets better over time. We handle everything.`,
+        bullets: [
+          'Regular performance reviews and conversation audits',
+          'Update knowledge base as your business evolves',
+          'Tune responses based on real customer feedback',
+          'Add new capabilities and channels as your needs grow',
+          'Priority support whenever something needs adjusting',
+        ]
+      },
+    ];
+
+    function openProcessModal(index) {
+      const step = processSteps[index];
+      document.getElementById('modalStep').textContent = step.step;
+      document.getElementById('modalTitle').textContent = step.title;
+      const ul = step.bullets.map(b => `<li>${b}</li>`).join('');
+      document.getElementById('modalBody').innerHTML = `<p>${step.body}</p><ul>${ul}</ul>`;
+      document.getElementById('processModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeProcessModal(e) {
+      if (e.target === document.getElementById('processModal')) closeProcessModalDirect();
+    }
+    function closeProcessModalDirect() {
+      document.getElementById('processModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeProcessModalDirect();
+    });
 
     // Lineup card reveal
     const lineupCards = document.querySelectorAll('.lineup-card');
