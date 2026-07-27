@@ -237,117 +237,184 @@
     }
 
     /* ============================================================
-       LINEUP
+       LINEUP — carousel
        ============================================================ */
     .lineup-section {
       position: relative;
-      padding: 120px 0 140px;
+      padding: 100px 0 120px;
       background: rgba(248,249,251,0.84);
+      overflow: hidden;
     }
     .lineup-header {
       text-align: center;
-      margin-bottom: 72px;
-    }
-    .lineup-eyebrow {
-      display: block;
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      background: linear-gradient(135deg, #5DCAA5, #378ADD);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 12px;
+      margin-bottom: 56px;
+      padding: 0 24px;
     }
     .lineup-title {
       font-family: var(--font);
-      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-size: clamp(2.6rem, 5vw, 4.5rem);
       font-weight: 700;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.035em;
       color: var(--text);
-      line-height: 1.1;
+      line-height: 1.0;
+      margin-bottom: 14px;
     }
     .lineup-sub {
       font-size: 1rem;
       color: var(--text-muted);
-      margin-top: 12px;
     }
 
-    .lineup-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-
-    .lineup-card {
+    /* Carousel wrapper */
+    .lineup-carousel-wrap {
       position: relative;
-      background: #0d1a2a;
+    }
+    .lineup-carousel {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      padding: 16px 0 40px calc((100vw - 980px) / 2);
+    }
+    .lineup-carousel::-webkit-scrollbar { display: none; }
+
+    /* Fade edges */
+    .lineup-carousel-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0;
+      width: 120px;
+      background: linear-gradient(to right, transparent, rgba(248,249,251,0.95));
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* ---- Card ---- */
+    .lineup-card {
+      flex: 0 0 300px;
+      scroll-snap-align: start;
+      background: #0b1829;
       border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 20px;
-      padding: 32px 28px;
+      border-radius: 24px;
       overflow: hidden;
+      cursor: pointer;
       opacity: 0;
-      transform: translateY(32px);
-      transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease, border-color 0.3s ease;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      cursor: pointer;
     }
+    .lineup-card:last-child { margin-right: calc((100vw - 980px) / 2); }
     .lineup-card.visible { opacity: 1; transform: translateY(0); }
     .lineup-card:nth-child(2) { transition-delay: 0.1s; }
     .lineup-card:nth-child(3) { transition-delay: 0.2s; }
     .lineup-card:nth-child(4) { transition-delay: 0.3s; }
+    .lineup-card:hover {
+      border-color: rgba(255,255,255,0.14);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.45);
+      transform: translateY(-6px);
+    }
+    .lineup-card.visible:hover { transform: translateY(-6px); }
 
-    /* Subtle top line — same gradient as rest of site */
-    .lineup-card::before {
+    /* Card header — ambient glow visual area */
+    .lineup-card__header {
+      position: relative;
+      height: 160px;
+      background: linear-gradient(160deg, #071520 0%, #0d1f35 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 24px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .lineup-card__header::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0;
+      top: -40px; left: 50%;
+      transform: translateX(-50%);
+      width: 240px; height: 200px;
+      background: radial-gradient(ellipse at center, var(--card-glow) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .lineup-card__header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
       height: 1px;
-      background: linear-gradient(to right, transparent, rgba(93,202,165,0.4), rgba(55,138,221,0.4), transparent);
-      opacity: 0;
-      transition: opacity 0.25s ease;
+      background: linear-gradient(to right, transparent, var(--card-line), transparent);
     }
-    .lineup-card:hover {
-      border-color: rgba(255,255,255,0.13);
-      box-shadow: 0 16px 48px rgba(0,0,0,0.3);
-      transform: translateY(-4px);
-    }
-    .lineup-card.visible:hover { transform: translateY(-4px); }
-    .lineup-card:hover::before { opacity: 1; }
 
-    /* Avatar — unified site gradient for all */
+    /* Per-card glow colours — all within site palette */
+    .lineup-card:nth-child(1) { --card-glow: rgba(93,202,165,0.22); --card-line: rgba(93,202,165,0.4); --card-accent: #5DCAA5; }
+    .lineup-card:nth-child(2) { --card-glow: rgba(55,138,221,0.22); --card-line: rgba(55,138,221,0.4); --card-accent: #378ADD; }
+    .lineup-card:nth-child(3) { --card-glow: rgba(55,138,221,0.18); --card-line: rgba(55,138,221,0.35); --card-accent: #6aaee8; }
+    .lineup-card:nth-child(4) { --card-glow: rgba(245,217,122,0.15); --card-line: rgba(245,217,122,0.3); --card-accent: #f5d97a; }
+
+    /* Avatar — large, centred in header */
     .lineup-card__avatar {
-      width: 52px;
-      height: 52px;
+      width: 68px;
+      height: 68px;
       border-radius: 50%;
       background: linear-gradient(135deg, #1D9E75, #185FA5);
+      border: 2px solid rgba(255,255,255,0.12);
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: var(--font);
-      font-size: 1.1rem;
+      font-size: 1.5rem;
       font-weight: 700;
       color: #fff;
-      margin-bottom: 20px;
-      flex-shrink: 0;
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -60%);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
     }
     .lineup-card--custom .lineup-card__avatar {
       background: rgba(245,217,122,0.06);
-      border: 1.5px dashed rgba(245,217,122,0.25);
-      color: rgba(245,217,122,0.7);
-      font-size: 1.3rem;
+      border: 1.5px dashed rgba(245,217,122,0.3);
+      color: rgba(245,217,122,0.8);
     }
 
-    /* Name + role — minimal */
+    /* Status dot */
+    .lineup-card__status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      position: absolute;
+      bottom: 20px; right: 20px;
+    }
+    .lineup-card__status::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 8px #4ade80;
+    }
+    .lineup-card--custom .lineup-card__status::before {
+      background: #f5d97a;
+      box-shadow: 0 0 8px rgba(245,217,122,0.6);
+    }
+
+    /* Card body */
+    .lineup-card__body {
+      padding: 24px 24px 28px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
     .lineup-card__name {
       font-family: var(--font);
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       font-weight: 700;
       color: #fff;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.025em;
       margin-bottom: 4px;
     }
     .lineup-card__role {
@@ -355,26 +422,83 @@
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.3);
+      color: var(--card-accent);
+      opacity: 0.8;
+      margin-bottom: 18px;
     }
 
-    /* Custom card */
-    .lineup-card--custom {
-      border: 1px dashed rgba(255,255,255,0.1);
-      background: transparent;
+    /* Capability chips */
+    .lineup-card__chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 24px;
     }
-    .lineup-card--custom:hover {
-      border-color: rgba(245,217,122,0.3);
-      box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+    .lineup-card__chip {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.45);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 100px;
+      padding: 4px 11px;
     }
-    .lineup-card--custom .lineup-card__role { color: rgba(245,217,122,0.5); }
 
-    .lineup-card__tasks { display: none; }
-    .lineup-card__tagline { display: none; }
-    .lineup-card__more { display: none; }
-    .lineup-card__badge { display: none; }
-    .lineup-card__number { display: none; }
-    .lineup-card__status { display: none; }
+    /* CTA row */
+    .lineup-card__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .lineup-card__more {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--card-accent);
+      opacity: 0.7;
+      letter-spacing: 0.04em;
+      transition: opacity 0.2s ease;
+    }
+    .lineup-card:hover .lineup-card__more { opacity: 1; }
+    .lineup-card__num {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      font-style: italic;
+      color: rgba(255,255,255,0.06);
+    }
+
+    /* Carousel nav arrows */
+    .lineup-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .lineup-nav__btn {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.1);
+      background: #fff;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      font-size: 1rem;
+      color: var(--text);
+    }
+    .lineup-nav__btn:hover {
+      box-shadow: 0 6px 20px rgba(0,0,0,0.14);
+      transform: scale(1.06);
+    }
+
+    /* Hide old elements */
+    .lineup-card__tasks, .lineup-card__number,
+    .lineup-card__tagline, .lineup-card__badge { display: none; }
 
     /* ============================================================
        COMPARISON — light bg
@@ -1069,39 +1193,105 @@
         <p class="lineup-sub">Real roles. Real names. Built, trained, and run for your business.</p>
       </div>
 
-      <div class="lineup-grid">
+      <div class="lineup-carousel-wrap">
+        <div class="lineup-carousel" id="lineupCarousel">
 
-        <!-- Aria — AI Receptionist -->
-        <div class="lineup-card" onclick="openLineupModal(0)">
-          <div class="lineup-card__avatar">A</div>
-          <p class="lineup-card__name">Aria</p>
-          <p class="lineup-card__role">AI Receptionist</p>
-        </div>
+          <!-- Aria — AI Receptionist -->
+          <div class="lineup-card" onclick="openLineupModal(0)">
+            <div class="lineup-card__header">
+              <div class="lineup-card__avatar">A</div>
+              <span class="lineup-card__status">Online</span>
+            </div>
+            <div class="lineup-card__body">
+              <p class="lineup-card__name">Aria</p>
+              <p class="lineup-card__role">AI Receptionist</p>
+              <div class="lineup-card__chips">
+                <span class="lineup-card__chip">Inbound Calls</span>
+                <span class="lineup-card__chip">Lead Capture</span>
+                <span class="lineup-card__chip">Appointment Booking</span>
+                <span class="lineup-card__chip">24 / 7</span>
+              </div>
+              <div class="lineup-card__footer">
+                <span class="lineup-card__more">Meet Aria →</span>
+                <span class="lineup-card__num">01</span>
+              </div>
+            </div>
+          </div>
 
-        <!-- Max — AI Secretary -->
-        <div class="lineup-card" onclick="openLineupModal(1)">
-          <div class="lineup-card__avatar">M</div>
-          <p class="lineup-card__name">Max</p>
-          <p class="lineup-card__role">AI Secretary</p>
-        </div>
+          <!-- Max — AI Secretary -->
+          <div class="lineup-card" onclick="openLineupModal(1)">
+            <div class="lineup-card__header">
+              <div class="lineup-card__avatar">M</div>
+              <span class="lineup-card__status">Online</span>
+            </div>
+            <div class="lineup-card__body">
+              <p class="lineup-card__name">Max</p>
+              <p class="lineup-card__role">AI Secretary</p>
+              <div class="lineup-card__chips">
+                <span class="lineup-card__chip">Scheduling</span>
+                <span class="lineup-card__chip">Follow-Ups</span>
+                <span class="lineup-card__chip">Email Drafts</span>
+                <span class="lineup-card__chip">Reminders</span>
+              </div>
+              <div class="lineup-card__footer">
+                <span class="lineup-card__more">Meet Max →</span>
+                <span class="lineup-card__num">02</span>
+              </div>
+            </div>
+          </div>
 
-        <!-- Nova — AI Support Agent -->
-        <div class="lineup-card" onclick="openLineupModal(2)">
-          <div class="lineup-card__avatar">N</div>
-          <p class="lineup-card__name">Nova</p>
-          <p class="lineup-card__role">AI Support Agent</p>
-        </div>
+          <!-- Nova — AI Support Agent -->
+          <div class="lineup-card" onclick="openLineupModal(2)">
+            <div class="lineup-card__header">
+              <div class="lineup-card__avatar">N</div>
+              <span class="lineup-card__status">Online</span>
+            </div>
+            <div class="lineup-card__body">
+              <p class="lineup-card__name">Nova</p>
+              <p class="lineup-card__role">AI Support Agent</p>
+              <div class="lineup-card__chips">
+                <span class="lineup-card__chip">Live Chat</span>
+                <span class="lineup-card__chip">FAQ Handling</span>
+                <span class="lineup-card__chip">Ticket Routing</span>
+                <span class="lineup-card__chip">Escalation</span>
+              </div>
+              <div class="lineup-card__footer">
+                <span class="lineup-card__more">Meet Nova →</span>
+                <span class="lineup-card__num">03</span>
+              </div>
+            </div>
+          </div>
 
-        <!-- Custom AI Employee -->
-        <div class="lineup-card lineup-card--custom" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
-          <div class="lineup-card__avatar">+</div>
-          <p class="lineup-card__name">Your Employee</p>
-          <p class="lineup-card__role">Custom AI Role</p>
-        </div>
+          <!-- Custom AI Employee -->
+          <div class="lineup-card lineup-card--custom" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+            <div class="lineup-card__header">
+              <div class="lineup-card__avatar">+</div>
+              <span class="lineup-card__status">Available</span>
+            </div>
+            <div class="lineup-card__body">
+              <p class="lineup-card__name">Your Employee</p>
+              <p class="lineup-card__role">Custom AI Role</p>
+              <div class="lineup-card__chips">
+                <span class="lineup-card__chip">Any Channel</span>
+                <span class="lineup-card__chip">Your Workflow</span>
+                <span class="lineup-card__chip">Built to Spec</span>
+              </div>
+              <div class="lineup-card__footer">
+                <span class="lineup-card__more">Build Yours →</span>
+                <span class="lineup-card__num">04</span>
+              </div>
+            </div>
+          </div>
 
+        </div><!-- /.lineup-carousel -->
+      </div><!-- /.lineup-carousel-wrap -->
+
+      <div class="lineup-nav">
+        <button class="lineup-nav__btn" id="lineupPrev" aria-label="Previous">&#8592;</button>
+        <button class="lineup-nav__btn" id="lineupNext" aria-label="Next">&#8594;</button>
       </div>
 
-      <div style="text-align:center; margin-top: 56px;">
+      <div style="text-align:center; margin-top: 48px;">
         <a href="https://buy.stripe.com/5kQbJ25t59u0gL02es8IU01" class="btn btn--primary" target="_blank" rel="noopener">Hire Your AI Employee →</a>
       </div>
     </div>
@@ -1571,6 +1761,19 @@
       });
     }, { threshold: 0.15 });
     lineupCards.forEach(card => lineupObserver.observe(card));
+
+    // Carousel nav
+    (function () {
+      const carousel = document.getElementById('lineupCarousel');
+      if (!carousel) return;
+      const CARD_W = 320; // card width + gap
+      document.getElementById('lineupPrev').addEventListener('click', () => {
+        carousel.scrollBy({ left: -CARD_W, behavior: 'smooth' });
+      });
+      document.getElementById('lineupNext').addEventListener('click', () => {
+        carousel.scrollBy({ left: CARD_W, behavior: 'smooth' });
+      });
+    })();
 
     // About particles (same as hero)
     (function () {
