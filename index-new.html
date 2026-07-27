@@ -657,105 +657,121 @@
     }
 
     /* ============================================================
-       PROCESS — circular design
+       PROCESS — horizontal flow
        ============================================================ */
-    .process-section-new {
-      background: rgba(248,249,251,0.84);
-      padding: 120px 0;
-    }
-
-    /* Pentagon process ring */
-    .process-ring {
+    .process-flow-wrap {
       position: relative;
-      width: min(420px, 88vw);
-      height: min(420px, 88vw);
-      margin: 0 auto 56px;
+      padding: 24px 0 16px;
     }
 
-    /* Step nodes — square, at pentagon vertices */
-    .process-node {
+    /* Connecting gradient line behind nodes */
+    .process-flow-wrap::before {
+      content: '';
       position: absolute;
-      width: 80px;
-      height: 80px;
-      transform: translate(-50%, -50%);
-      cursor: pointer;
+      top: 76px; /* vertically centred on the node */
+      left: calc(10% + 48px);
+      right: calc(10% + 48px);
+      height: 2px;
+      background: linear-gradient(to right, #5DCAA5, #378ADD, #5DCAA5);
+      opacity: 0.3;
     }
-    /* Pentagon vertices: r=155, cx=50%, cy=50% inside 420px container */
-    .process-node[data-step="1"] { top: 13.1%; left: 50%;   }
-    .process-node[data-step="2"] { top: 38.6%; left: 85%;   }
-    .process-node[data-step="3"] { top: 79.8%; left: 71.7%; }
-    .process-node[data-step="4"] { top: 79.8%; left: 28.3%; }
-    .process-node[data-step="5"] { top: 38.6%; left: 15%;   }
 
-    .process-node__bubble {
-      width: 80px;
-      height: 80px;
-      border-radius: 12px;
+    .process-flow {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0;
+    }
+
+    /* Each step + arrow wrapper */
+    .process-step-wrap {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .process-step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .process-step__node {
+      width: 88px; height: 88px;
+      border-radius: 16px;
       background: #fff;
-      border: 2px solid rgba(55,138,221,0.15);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+      border: 1.5px solid rgba(55,138,221,0.14);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.05);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      gap: 4px;
+      margin-bottom: 18px;
+      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
       position: relative;
       z-index: 2;
     }
-    .process-node:hover .process-node__bubble,
-    .process-node.active .process-node__bubble {
-      transform: scale(1.08);
+    .process-step:hover .process-step__node {
+      transform: translateY(-5px);
       border-color: #378ADD;
-      box-shadow: 0 12px 32px rgba(55,138,221,0.22);
+      box-shadow: 0 16px 40px rgba(55,138,221,0.18), 0 2px 8px rgba(0,0,0,0.06);
     }
-    .process-node__num {
-      font-family: var(--font);
-      font-size: 0.58rem;
+
+    .process-step__num {
+      font-size: 0.55rem;
       font-weight: 700;
+      letter-spacing: 0.14em;
       color: #378ADD;
-      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
-    .process-node__title {
+    .process-step__label {
       font-family: var(--font);
-      font-size: 0.62rem;
+      font-size: 0.78rem;
       font-weight: 700;
       color: var(--text);
       letter-spacing: -0.01em;
-      text-align: center;
-      padding: 0 6px;
-      line-height: 1.3;
-      margin-top: 3px;
     }
-    /* "+" tap indicator */
-    .process-node__plus {
-      position: absolute;
-      bottom: -6px;
-      right: -6px;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #5DCAA5, #378ADD);
-      color: #fff;
-      font-size: 0.75rem;
-      font-weight: 700;
+    /* Small "tap" hint */
+    .process-step__hint {
+      font-size: 0.58rem;
+      color: rgba(55,138,221,0.5);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .process-step:hover .process-step__hint { color: #378ADD; }
+
+    /* Sub-label below node */
+    .process-step__sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.5;
+      max-width: 110px;
+    }
+
+    /* Arrow between steps */
+    .process-arrow {
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      line-height: 1;
+      height: 88px; /* match node height */
+      padding: 0 4px;
+      position: relative;
+      z-index: 1;
+    }
+    .process-arrow svg {
+      width: 20px; height: 20px;
+      opacity: 0.35;
     }
 
-    /* SVG overlay — pentagon track + arrows */
-    .process-ring__svg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-
-    /* Hide old centre piece */
-    .process-center { display: none; }
-    .process-ring__track { display: none; }
+    /* Hide old elements */
+    .process-ring { display: none; }
+    .process-steps-mobile { display: none !important; }
 
     /* ============================================================
        PROCESS POP-UP MODAL
@@ -1496,79 +1512,83 @@
         <p class="section__lead" style="margin-top:8px;">Tap any step to see what's involved.</p>
       </div>
 
-      <!-- Pentagon process diagram -->
-      <div class="process-ring">
+      <!-- Horizontal process flow -->
+      <div class="process-flow-wrap">
+        <div class="process-flow">
 
-        <!-- Pentagon track + arrow connectors (viewBox matches 420px container) -->
-        <svg class="process-ring__svg" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <!-- Arrowhead marker -->
-            <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L8,3 z" fill="url(#arrowGrad)" opacity="0.7"/>
-            </marker>
-            <linearGradient id="pentaGrad" x1="0" y1="0" x2="420" y2="420" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#5DCAA5"/>
-              <stop offset="1" stop-color="#378ADD"/>
-            </linearGradient>
-            <linearGradient id="arrowGrad" x1="0" y1="0" x2="420" y2="420" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#5DCAA5"/>
-              <stop offset="1" stop-color="#378ADD"/>
-            </linearGradient>
-          </defs>
+          <div class="process-step-wrap">
+            <div class="process-step" onclick="openProcessModal(0)">
+              <div class="process-step__node">
+                <span class="process-step__num">01</span>
+                <span class="process-step__label">Discovery</span>
+                <span class="process-step__hint">tap +</span>
+              </div>
+              <p class="process-step__sub">We learn your business, workflows and goals</p>
+            </div>
+          </div>
 
-          <!-- Pentagon outline (dashed, subtle) -->
-          <polygon points="210,55 357,162 301,335 119,335 63,162"
-            stroke="url(#pentaGrad)" stroke-width="1.5" stroke-dasharray="6 5" opacity="0.25" fill="none"/>
+          <div class="process-arrow">
+            <svg viewBox="0 0 20 20" fill="none"><path d="M4 10h12M12 6l4 4-4 4" stroke="url(#ag1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="ag1" x1="4" y1="10" x2="16" y2="10" gradientUnits="userSpaceOnUse"><stop stop-color="#5DCAA5"/><stop offset="1" stop-color="#378ADD"/></linearGradient></defs></svg>
+          </div>
 
-          <!-- Arrow: 1→2 (V1 to V2, trimmed 44px from each node centre) -->
-          <line x1="242" y1="79" x2="323" y2="138" stroke="url(#arrowGrad)" stroke-width="1.5" opacity="0.55" marker-end="url(#arrow)"/>
-          <!-- Arrow: 2→3 -->
-          <line x1="345" y1="200" x2="314" y2="297" stroke="url(#arrowGrad)" stroke-width="1.5" opacity="0.55" marker-end="url(#arrow)"/>
-          <!-- Arrow: 3→4 -->
-          <line x1="261" y1="335" x2="159" y2="335" stroke="url(#arrowGrad)" stroke-width="1.5" opacity="0.55" marker-end="url(#arrow)"/>
-          <!-- Arrow: 4→5 -->
-          <line x1="107" y1="297" x2="76" y2="200" stroke="url(#arrowGrad)" stroke-width="1.5" opacity="0.55" marker-end="url(#arrow)"/>
-          <!-- Arrow: 5→1 -->
-          <line x1="96" y1="139" x2="178" y2="79" stroke="url(#arrowGrad)" stroke-width="1.5" opacity="0.55" marker-end="url(#arrow)"/>
-        </svg>
+          <div class="process-step-wrap">
+            <div class="process-step" onclick="openProcessModal(1)">
+              <div class="process-step__node">
+                <span class="process-step__num">02</span>
+                <span class="process-step__label">We Build</span>
+                <span class="process-step__hint">tap +</span>
+              </div>
+              <p class="process-step__sub">We configure, train and test your AI employee</p>
+            </div>
+          </div>
 
-        <!-- Step nodes (square) -->
-        <div class="process-node" data-step="1" onclick="openProcessModal(0)">
-          <div class="process-node__bubble">
-            <span class="process-node__num">01</span>
-            <span class="process-node__title">Discovery</span>
+          <div class="process-arrow">
+            <svg viewBox="0 0 20 20" fill="none"><path d="M4 10h12M12 6l4 4-4 4" stroke="url(#ag2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="ag2" x1="4" y1="10" x2="16" y2="10" gradientUnits="userSpaceOnUse"><stop stop-color="#5DCAA5"/><stop offset="1" stop-color="#378ADD"/></linearGradient></defs></svg>
           </div>
-          <span class="process-node__plus">+</span>
-        </div>
-        <div class="process-node" data-step="2" onclick="openProcessModal(1)">
-          <div class="process-node__bubble">
-            <span class="process-node__num">02</span>
-            <span class="process-node__title">We Build</span>
+
+          <div class="process-step-wrap">
+            <div class="process-step" onclick="openProcessModal(2)">
+              <div class="process-step__node">
+                <span class="process-step__num">03</span>
+                <span class="process-step__label">Trial</span>
+                <span class="process-step__hint">tap +</span>
+              </div>
+              <p class="process-step__sub">You review and approve before anything goes live</p>
+            </div>
           </div>
-          <span class="process-node__plus">+</span>
-        </div>
-        <div class="process-node" data-step="3" onclick="openProcessModal(2)">
-          <div class="process-node__bubble">
-            <span class="process-node__num">03</span>
-            <span class="process-node__title">Trial</span>
+
+          <div class="process-arrow">
+            <svg viewBox="0 0 20 20" fill="none"><path d="M4 10h12M12 6l4 4-4 4" stroke="url(#ag3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="ag3" x1="4" y1="10" x2="16" y2="10" gradientUnits="userSpaceOnUse"><stop stop-color="#5DCAA5"/><stop offset="1" stop-color="#378ADD"/></linearGradient></defs></svg>
           </div>
-          <span class="process-node__plus">+</span>
-        </div>
-        <div class="process-node" data-step="4" onclick="openProcessModal(3)">
-          <div class="process-node__bubble">
-            <span class="process-node__num">04</span>
-            <span class="process-node__title">Go Live</span>
+
+          <div class="process-step-wrap">
+            <div class="process-step" onclick="openProcessModal(3)">
+              <div class="process-step__node">
+                <span class="process-step__num">04</span>
+                <span class="process-step__label">Go Live</span>
+                <span class="process-step__hint">tap +</span>
+              </div>
+              <p class="process-step__sub">Your AI employee starts working immediately</p>
+            </div>
           </div>
-          <span class="process-node__plus">+</span>
-        </div>
-        <div class="process-node" data-step="5" onclick="openProcessModal(4)">
-          <div class="process-node__bubble">
-            <span class="process-node__num">05</span>
-            <span class="process-node__title">Ongoing</span>
+
+          <div class="process-arrow">
+            <svg viewBox="0 0 20 20" fill="none"><path d="M4 10h12M12 6l4 4-4 4" stroke="url(#ag4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="ag4" x1="4" y1="10" x2="16" y2="10" gradientUnits="userSpaceOnUse"><stop stop-color="#5DCAA5"/><stop offset="1" stop-color="#378ADD"/></linearGradient></defs></svg>
           </div>
-          <span class="process-node__plus">+</span>
+
+          <div class="process-step-wrap">
+            <div class="process-step" onclick="openProcessModal(4)">
+              <div class="process-step__node">
+                <span class="process-step__num">05</span>
+                <span class="process-step__label">Ongoing</span>
+                <span class="process-step__hint">tap +</span>
+              </div>
+              <p class="process-step__sub">We monitor, maintain and improve continuously</p>
+            </div>
+          </div>
+
         </div>
-      </div><!-- /.process-ring -->
+      </div><!-- /.process-flow-wrap -->
 
       <!-- Mobile fallback: simple step list (hidden on desktop) -->
       <div class="process-steps-mobile">
