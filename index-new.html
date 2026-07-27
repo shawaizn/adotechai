@@ -517,78 +517,36 @@
       padding: 120px 0;
     }
 
-    /* Circular process ring */
+    /* Pentagon process ring */
     .process-ring {
       position: relative;
-      width: min(560px, 90vw);
-      height: min(560px, 90vw);
+      width: min(420px, 88vw);
+      height: min(420px, 88vw);
       margin: 0 auto 56px;
     }
-    .process-ring__track {
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      border: 1px solid rgba(55,138,221,0.12);
-    }
-    .process-ring__track--inner {
-      inset: 80px;
-      border-color: rgba(93,202,165,0.08);
-    }
-    .process-center {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #0d1a2a, #071520);
-      border: 1px solid rgba(255,255,255,0.08);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      box-shadow: 0 0 40px rgba(55,138,221,0.12);
-    }
-    .process-center__label {
-      font-size: 0.58rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
-      margin-bottom: 4px;
-    }
-    .process-center__word {
-      font-family: var(--font);
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: -0.01em;
-    }
 
-    /* Step nodes positioned around the ring */
+    /* Step nodes — square, at pentagon vertices */
     .process-node {
       position: absolute;
-      width: 90px;
-      height: 90px;
+      width: 80px;
+      height: 80px;
       transform: translate(-50%, -50%);
       cursor: pointer;
     }
-    /* Positions: 5 nodes on a circle. top=12°, right=84°, bottom-right=156°, bottom-left=228°, left=300° */
-    .process-node[data-step="1"] { top: 2%;  left: 50%; }
-    .process-node[data-step="2"] { top: 28%; left: 93%; }
-    .process-node[data-step="3"] { top: 78%; left: 79%; }
-    .process-node[data-step="4"] { top: 78%; left: 21%; }
-    .process-node[data-step="5"] { top: 28%; left: 7%;  }
+    /* Pentagon vertices: r=155, cx=50%, cy=50% inside 420px container */
+    .process-node[data-step="1"] { top: 13.1%; left: 50%;   }
+    .process-node[data-step="2"] { top: 38.6%; left: 85%;   }
+    .process-node[data-step="3"] { top: 79.8%; left: 71.7%; }
+    .process-node[data-step="4"] { top: 79.8%; left: 28.3%; }
+    .process-node[data-step="5"] { top: 38.6%; left: 15%;   }
 
     .process-node__bubble {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
       background: #fff;
       border: 2px solid rgba(55,138,221,0.15);
-      box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.09);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -601,18 +559,18 @@
     .process-node.active .process-node__bubble {
       transform: scale(1.08);
       border-color: #378ADD;
-      box-shadow: 0 12px 36px rgba(55,138,221,0.22);
+      box-shadow: 0 12px 32px rgba(55,138,221,0.22);
     }
     .process-node__num {
       font-family: var(--font);
-      font-size: 0.62rem;
+      font-size: 0.58rem;
       font-weight: 700;
       color: #378ADD;
       letter-spacing: 0.1em;
     }
     .process-node__title {
       font-family: var(--font);
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 700;
       color: var(--text);
       letter-spacing: -0.01em;
@@ -624,14 +582,14 @@
     /* "+" tap indicator */
     .process-node__plus {
       position: absolute;
-      bottom: -2px;
-      right: -2px;
-      width: 22px;
-      height: 22px;
+      bottom: -6px;
+      right: -6px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       background: linear-gradient(135deg, #5DCAA5, #378ADD);
       color: #fff;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 700;
       display: flex;
       align-items: center;
@@ -639,7 +597,7 @@
       line-height: 1;
     }
 
-    /* Connecting arc lines (SVG overlay) */
+    /* SVG overlay — pentagon track + arrows */
     .process-ring__svg {
       position: absolute;
       inset: 0;
@@ -647,6 +605,10 @@
       height: 100%;
       pointer-events: none;
     }
+
+    /* Hide old centre piece */
+    .process-center { display: none; }
+    .process-ring__track { display: none; }
 
     /* ============================================================
        PROCESS POP-UP MODAL
@@ -1348,30 +1310,43 @@
         <p class="section__lead" style="margin-top:8px;">Tap any step to see what's involved.</p>
       </div>
 
-      <!-- Circular process diagram -->
+      <!-- Pentagon process diagram -->
       <div class="process-ring">
-        <!-- Track rings -->
-        <div class="process-ring__track"></div>
-        <div class="process-ring__track process-ring__track--inner"></div>
 
-        <!-- Connecting arcs SVG -->
-        <svg class="process-ring__svg" viewBox="0 0 560 560" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="280" cy="280" r="230" stroke="url(#arcGrad)" stroke-width="1.5" stroke-dasharray="8 6" opacity="0.35"/>
+        <!-- Pentagon track + arrow connectors (viewBox matches 420px container) -->
+        <svg class="process-ring__svg" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="arcGrad" x1="0" y1="0" x2="560" y2="560" gradientUnits="userSpaceOnUse">
+            <!-- Arrowhead marker -->
+            <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="url(#arrowGrad)" opacity="0.7"/>
+            </marker>
+            <linearGradient id="pentaGrad" x1="0" y1="0" x2="420" y2="420" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#5DCAA5"/>
+              <stop offset="1" stop-color="#378ADD"/>
+            </linearGradient>
+            <linearGradient id="arrowGrad" x1="0" y1="0" x2="420" y2="420" gradientUnits="userSpaceOnUse">
               <stop stop-color="#5DCAA5"/>
               <stop offset="1" stop-color="#378ADD"/>
             </linearGradient>
           </defs>
+
+          <!-- Pentagon outline (dashed, subtle) -->
+          <polygon points="210,55 357,162 301,335 119,335 63,162"
+            stroke="url(#pentaGrad)" stroke-width="1.5" stroke-dasharray="6 5" opacity="0.25" fill="none"/>
+
+          <!-- Arrow: 1→2 (V1 to V2, trimmed 44px from each node centre) -->
+          <line x1="242" y1="79" x2="323" y2="138" stroke="url(#arrowGrad)" stroke-width="1.5" opacity="0.55" marker-end="url(#arrow)"/>
+          <!-- Arrow: 2→3 -->
+          <line x1="345" y1="200" x2="314" y2="297" stroke="url(#arrowGrad)" stroke-width="1.5" opacity="0.55" marker-end="url(#arrow)"/>
+          <!-- Arrow: 3→4 -->
+          <line x1="261" y1="335" x2="159" y2="335" stroke="url(#arrowGrad)" stroke-width="1.5" opacity="0.55" marker-end="url(#arrow)"/>
+          <!-- Arrow: 4→5 -->
+          <line x1="107" y1="297" x2="76" y2="200" stroke="url(#arrowGrad)" stroke-width="1.5" opacity="0.55" marker-end="url(#arrow)"/>
+          <!-- Arrow: 5→1 -->
+          <line x1="96" y1="139" x2="178" y2="79" stroke="url(#arrowGrad)" stroke-width="1.5" opacity="0.55" marker-end="url(#arrow)"/>
         </svg>
 
-        <!-- Center label -->
-        <div class="process-center">
-          <span class="process-center__label">Your</span>
-          <span class="process-center__word">AI Employee</span>
-        </div>
-
-        <!-- Step nodes -->
+        <!-- Step nodes (square) -->
         <div class="process-node" data-step="1" onclick="openProcessModal(0)">
           <div class="process-node__bubble">
             <span class="process-node__num">01</span>
