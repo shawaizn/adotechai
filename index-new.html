@@ -260,8 +260,8 @@
 
     .lineup-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
     }
     .lineup-card {
       position: relative;
@@ -314,7 +314,7 @@
       color: #378ADD;
       border: 1px solid rgba(55,138,221,0.22);
     }
-    .lineup-card__role {
+    .lineup-card__headline {
       font-family: var(--font);
       font-size: 1.5rem;
       font-weight: 700;
@@ -757,6 +757,46 @@
     /* ============================================================
        RESPONSIVE
        ============================================================ */
+    /* Employee name on card */
+    .lineup-card__name {
+      font-family: var(--font);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: -0.01em;
+      margin-bottom: 2px;
+    }
+    .lineup-card__role {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    /* Custom card variant */
+    .lineup-card--custom {
+      background: transparent;
+      border: 1.5px dashed rgba(255,255,255,0.12);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 280px;
+    }
+    .lineup-card--custom:hover {
+      border-color: rgba(245,217,122,0.4);
+      box-shadow: 0 16px 48px rgba(245,217,122,0.08);
+    }
+    .lineup-card--custom .lineup-card__icon { filter: none; margin-bottom: 16px; }
+    .lineup-card--custom .lineup-card__name { font-size: 1.2rem; margin-bottom: 8px; }
+    .lineup-card--custom .lineup-card__tagline { color: rgba(255,255,255,0.35); }
+    .lineup-card--custom .lineup-card__more { color: #f5d97a; margin-top: 20px; }
+    .lineup-card--custom:hover .lineup-card__more { color: #fff; }
+    .lineup-card--custom::before { display: none; }
+
     /* Lineup card icon + "more" link */
     .lineup-card__icon {
       font-size: 2.4rem;
@@ -970,6 +1010,9 @@
       box-shadow: 0 4px 16px rgba(55,138,221,0.12);
     }
 
+    @media (max-width: 1100px) {
+      .lineup-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 900px) {
       .lineup-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
       .founders-grid { grid-template-columns: 1fr; max-width: 340px; }
@@ -1050,7 +1093,7 @@
         <div class="hero__glass" id="heroCard">
           <p class="hero__eyebrow">AI Employees For Business</p>
           <h1 class="hero__headline">Hire Your First<br>AI Employee</h1>
-          <p class="hero__sub">Every business runs on tasks. AI Employees handle them — faster, cheaper, and without a day off.</p>
+          <p class="hero__sub">Free your team for the work only humans can do. AI Employees handle the rest.</p>
           <div class="hero__ctas">
             <a href="#lineup" class="btn btn--hero-primary">See The Team</a>
             <a href="https://buy.stripe.com/5kQbJ25t59u0gL02es8IU01" class="btn btn--hero-outline" target="_blank" rel="noopener">Hire Now →</a>
@@ -1066,8 +1109,8 @@
   <section class="concept-section">
     <div class="container">
       <span class="concept-label">The Idea</span>
-      <h2 class="concept-statement">Not a tool.<br><em>An employee.</em></h2>
-      <p class="concept-sub">One monthly fee. No salary. No sick days. No overhead.</p>
+      <h2 class="concept-statement">Your team has<br><em>better things to do.</em></h2>
+      <p class="concept-sub">AI Employees handle the calls, messages, and admin.<br>Your people focus on the work that actually needs them.</p>
     </div>
   </section>
 
@@ -1079,40 +1122,51 @@
     <div class="container">
       <div class="lineup-header">
         <span class="lineup-eyebrow">The Team</span>
-        <h2 class="lineup-title">Your new AI Employees</h2>
-        <p class="lineup-sub">Pick the role your business needs. Each one is built, trained, and run for you.</p>
+        <h2 class="lineup-title">Meet the team</h2>
+        <p class="lineup-sub">Real roles. Real names. Built, trained, and run for your business.</p>
       </div>
 
       <div class="lineup-grid">
 
-        <!-- AI Receptionist -->
+        <!-- Aria — AI Receptionist -->
         <div class="lineup-card" onclick="openLineupModal(0)" style="cursor:pointer;">
           <span class="lineup-card__badge lineup-card__badge--voice">🎙️ Voice</span>
           <div class="lineup-card__icon">📞</div>
-          <h3 class="lineup-card__role">AI Receptionist</h3>
+          <p class="lineup-card__name">Aria</p>
+          <p class="lineup-card__role">AI Receptionist</p>
           <p class="lineup-card__tagline">Answers every call. Books appointments. Never misses a lead.</p>
-          <span class="lineup-card__more">See what they handle →</span>
+          <span class="lineup-card__more">Meet Aria →</span>
           <span class="lineup-card__number">01</span>
         </div>
 
-        <!-- AI Secretary -->
+        <!-- Max — AI Secretary -->
         <div class="lineup-card" onclick="openLineupModal(1)" style="cursor:pointer;">
           <span class="lineup-card__badge lineup-card__badge--text">💬 Text</span>
           <div class="lineup-card__icon">🗂️</div>
-          <h3 class="lineup-card__role">AI Secretary</h3>
+          <p class="lineup-card__name">Max</p>
+          <p class="lineup-card__role">AI Secretary</p>
           <p class="lineup-card__tagline">Knows everything you tell it. Answers so you don't have to.</p>
-          <span class="lineup-card__more">See what they handle →</span>
+          <span class="lineup-card__more">Meet Max →</span>
           <span class="lineup-card__number">02</span>
         </div>
 
-        <!-- AI Support Agent -->
+        <!-- Nova — AI Support Agent -->
         <div class="lineup-card" onclick="openLineupModal(2)" style="cursor:pointer;">
           <span class="lineup-card__badge lineup-card__badge--text">💬 Text</span>
           <div class="lineup-card__icon">⚡</div>
-          <h3 class="lineup-card__role">AI Support Agent</h3>
+          <p class="lineup-card__name">Nova</p>
+          <p class="lineup-card__role">AI Support Agent</p>
           <p class="lineup-card__tagline">Handles every customer query. Day and night, without fail.</p>
-          <span class="lineup-card__more">See what they handle →</span>
+          <span class="lineup-card__more">Meet Nova →</span>
           <span class="lineup-card__number">03</span>
+        </div>
+
+        <!-- Custom AI Employee -->
+        <div class="lineup-card lineup-card--custom" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;">
+          <div class="lineup-card__icon">✦</div>
+          <p class="lineup-card__name">Your Employee</p>
+          <p class="lineup-card__tagline">Need something specific? We'll build the exact role your business needs.</p>
+          <span class="lineup-card__more">Build a custom AI →</span>
         </div>
 
       </div>
@@ -1267,7 +1321,7 @@
     <div class="container">
       <div class="about-header">
         <p class="section__eyebrow section__eyebrow--light" style="font-size: 1.5rem; margin-bottom: 32px;">About adotechai</p>
-        <h2 class="about-mission">Built by engineers.<br>Run for <em>business owners.</em></h2>
+        <h2 class="about-mission">AI does the repetitive.<br>Humans do the <em>irreplaceable.</em></h2>
       </div>
 
       <!-- Visual stat row -->
@@ -1444,9 +1498,9 @@
     // Lineup modal data
     const lineupData = [
       {
-        badge: '🎙️ Voice',
+        badge: '🎙️ Voice · AI Receptionist',
         badgeClass: 'info-modal__badge--voice',
-        title: 'AI Receptionist',
+        title: 'Meet Aria',
         tagline: 'Answers every call. Books appointments. Never misses a lead.',
         bullets: [
           'Answers calls 24/7 — no hold music, no voicemail',
@@ -1457,9 +1511,9 @@
         ]
       },
       {
-        badge: '💬 Text',
+        badge: '💬 Text · AI Secretary',
         badgeClass: 'info-modal__badge--text',
-        title: 'AI Secretary',
+        title: 'Meet Max',
         tagline: 'Knows everything you tell it. Answers so you don\'t have to.',
         bullets: [
           'You feed it your products, services, and FAQs — it handles the rest',
@@ -1470,9 +1524,9 @@
         ]
       },
       {
-        badge: '💬 Text',
+        badge: '💬 Text · AI Support Agent',
         badgeClass: 'info-modal__badge--text',
-        title: 'AI Support Agent',
+        title: 'Meet Nova',
         tagline: 'Handles every customer query. Day and night, without fail.',
         bullets: [
           'Responds to WhatsApp, SMS, and live chat instantly',
