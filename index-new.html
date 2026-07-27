@@ -154,6 +154,36 @@
     }
 
     /* ============================================================
+       HERO CARD — bigger, two-beat layout
+       ============================================================ */
+    .hero__glass {
+      max-width: 680px !important;
+      width: 92vw !important;
+      padding: 52px 56px !important;
+    }
+    .hero__card-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+      margin: 32px 0;
+    }
+    .hero__concept-line {
+      font-family: var(--font);
+      font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #5DCAA5 0%, #378ADD 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+      line-height: 1.25;
+    }
+    @media (max-width: 600px) {
+      .hero__glass { padding: 36px 28px !important; }
+    }
+
+    /* ============================================================
        CONCEPT SECTION
        ============================================================ */
     .concept-section {
@@ -1093,9 +1123,14 @@
         <div class="hero__glass" id="heroCard">
           <p class="hero__eyebrow">AI Employees For Business</p>
           <h1 class="hero__headline">Hire Your First<br>AI Employee</h1>
-          <p class="hero__sub">Free your team for the work only humans can do. AI Employees handle the rest.</p>
+
+          <div class="hero__card-divider"></div>
+
+          <p class="hero__concept-line">Your team has better things to do.</p>
+          <p class="hero__sub">AI Employees handle the calls, messages, and admin — so your people can focus on the work that actually needs them.</p>
+
           <div class="hero__ctas">
-            <a href="#lineup" class="btn btn--hero-primary">See The Team</a>
+            <a href="#lineup" class="btn btn--hero-primary">Meet The Team</a>
             <a href="https://buy.stripe.com/5kQbJ25t59u0gL02es8IU01" class="btn btn--hero-outline" target="_blank" rel="noopener">Hire Now →</a>
           </div>
         </div>
@@ -1103,15 +1138,6 @@
     </div>
 
     <div class="hero__fade"></div>
-  </section>
-
-  <!-- ===================== CONCEPT ===================== -->
-  <section class="concept-section">
-    <div class="container">
-      <span class="concept-label">The Idea</span>
-      <h2 class="concept-statement">Your team has<br><em>better things to do.</em></h2>
-      <p class="concept-sub">AI Employees handle the calls, messages, and admin.<br>Your people focus on the work that actually needs them.</p>
-    </div>
   </section>
 
   <!-- Dark → Light fade -->
