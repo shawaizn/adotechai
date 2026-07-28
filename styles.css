@@ -613,7 +613,7 @@ body.cursor-hover .cursor-dot {
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 0;
   pointer-events: none;
 }
 
@@ -722,6 +722,7 @@ p.section__eyebrow {
 
 .bento-card {
   position: relative;
+  z-index: 1;
   border-radius: 24px;
   padding: 52px 48px;
   overflow: hidden;
@@ -839,6 +840,7 @@ p.section__eyebrow {
   border-radius: 16px;
   padding: 36px 28px 32px;
   position: relative;
+  z-index: 1;
   overflow: hidden;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
@@ -1154,6 +1156,7 @@ p.section__eyebrow {
   padding: 40px 36px;
   background: #0d1a2a;
   position: relative;
+  z-index: 1;
   overflow: hidden;
   box-shadow: 0 8px 40px rgba(0,0,0,0.2);
   display: flex;
