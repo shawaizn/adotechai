@@ -397,7 +397,7 @@
       position: absolute;
       top: 0; right: 0; bottom: 0;
       width: 120px;
-      background: linear-gradient(to right, transparent, rgba(248,249,251,0.95));
+      background: linear-gradient(to right, transparent, #07111e);
       pointer-events: none;
       z-index: 2;
     }
@@ -411,10 +411,10 @@
     .lineup-card:nth-child(4) { --card-accent: #f5d97a; --card-ring: rgba(245,217,122,0.4);  --card-glow: rgba(245,217,122,0.08); }
 
     .lineup-card {
-      flex: 0 0 260px;
+      flex: 0 0 280px;
       scroll-snap-align: start;
-      background: #0b1829;
-      border: 1px solid rgba(255,255,255,0.07);
+      background: #0d1e30;
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 20px;
       cursor: pointer;
       opacity: 0;
@@ -424,7 +424,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      padding: 40px 28px 28px;
+      padding: 44px 32px 32px;
       position: relative;
       overflow: hidden;
     }
@@ -508,23 +508,23 @@
 
     /* Role title */
     .lineup-card__role {
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--card-accent);
-      margin-bottom: 18px;
+      margin-bottom: 20px;
       position: relative; z-index: 1;
     }
 
     /* Tagline */
     .lineup-card__tagline {
-      font-size: 0.82rem;
-      color: rgba(255,255,255,0.42);
-      line-height: 1.6;
-      margin-bottom: 24px;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.65;
+      margin-bottom: 0;
       position: relative; z-index: 1;
-      display: block; /* override old hide rule */
+      display: block;
     }
 
     /* Divider */
@@ -564,14 +564,15 @@
 
     /* View profile CTA */
     .lineup-card__cta {
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       color: var(--card-accent);
-      opacity: 0.6;
+      opacity: 0.7;
       transition: opacity 0.2s ease;
-      margin-top: auto;
+      margin-top: 28px;
       position: relative; z-index: 1;
+      display: block;
     }
     .lineup-card:hover .lineup-card__cta { opacity: 1; }
 
@@ -1466,17 +1467,10 @@
         <div class="hero__left">
           <p class="hero__eyebrow">AI Employees For Business</p>
           <h1 class="hero__headline">Hire Your First<br>AI Employee</h1>
-          <p class="hero__sub">AI Employees handle the admin — so your staff can be more productive and do what they do best.</p>
+          <p class="hero__sub">Your team's time is your most valuable asset. AI Employees take on the repetitive work — so your people can focus on what actually moves the business forward.</p>
           <div class="hero__ctas">
             <a href="#lineup" class="btn btn--hero-primary">Meet The Team</a>
             <a href="https://buy.stripe.com/5kQbJ25t59u0gL02es8IU01" class="btn btn--hero-outline" target="_blank" rel="noopener">Hire Now →</a>
-          </div>
-          <div class="hero__trust">
-            <span class="hero__trust-item"><span class="hero__trust-dot hero__trust-dot--green"></span>3 AI Employees Ready</span>
-            <span class="hero__trust-sep">·</span>
-            <span class="hero__trust-item">Voice &amp; Text</span>
-            <span class="hero__trust-sep">·</span>
-            <span class="hero__trust-item">24/7 Availability</span>
           </div>
         </div>
 
@@ -1659,12 +1653,6 @@
             <p class="lineup-card__name">Aria</p>
             <p class="lineup-card__role">AI Receptionist</p>
             <span class="lineup-card__tagline">Answers every call. Captures every lead. Never misses a booking.</span>
-            <div class="lineup-card__divider"></div>
-            <ul class="lineup-card__facts">
-              <li>Available 24/7, including weekends</li>
-              <li>Voice calls & instant messaging</li>
-              <li>Books appointments automatically</li>
-            </ul>
             <span class="lineup-card__cta">View full profile →</span>
           </div>
 
@@ -1675,12 +1663,6 @@
             <p class="lineup-card__name">Max</p>
             <p class="lineup-card__role">AI Secretary</p>
             <span class="lineup-card__tagline">Keeps your calendar full and your inbox under control.</span>
-            <div class="lineup-card__divider"></div>
-            <ul class="lineup-card__facts">
-              <li>Scheduling & calendar management</li>
-              <li>Follow-up emails & reminders</li>
-              <li>Meeting prep & summaries</li>
-            </ul>
             <span class="lineup-card__cta">View full profile →</span>
           </div>
 
@@ -1691,12 +1673,6 @@
             <p class="lineup-card__name">Nova</p>
             <p class="lineup-card__role">AI Support Agent</p>
             <span class="lineup-card__tagline">Resolves customer queries before they become problems.</span>
-            <div class="lineup-card__divider"></div>
-            <ul class="lineup-card__facts">
-              <li>Live chat & text support</li>
-              <li>FAQ handling & ticket routing</li>
-              <li>Escalates to humans when needed</li>
-            </ul>
             <span class="lineup-card__cta">View full profile →</span>
           </div>
 
@@ -1707,12 +1683,6 @@
             <p class="lineup-card__name">Your Role</p>
             <p class="lineup-card__role">Custom AI Employee</p>
             <span class="lineup-card__tagline">Built around your workflow, your team, and your goals.</span>
-            <div class="lineup-card__divider"></div>
-            <ul class="lineup-card__facts">
-              <li>Any channel, any task</li>
-              <li>Trained on your processes</li>
-              <li>Built and managed for you</li>
-            </ul>
             <span class="lineup-card__cta">Let's build yours →</span>
           </div>
 
@@ -1977,7 +1947,7 @@
   <!-- ===================== CONTACT ===================== -->
   <section class="section" id="contact">
     <div class="container">
-      <div class="section__header">
+      <div class="section__header" style="margin-bottom: 24px;">
         <p class="section__eyebrow">Get In Touch</p>
         <h2 class="section__display">Book a call.</h2>
         <p class="section__lead">Pick a time and let's talk about your business.</p>
@@ -1988,9 +1958,9 @@
       <!-- Calendly inline widget end -->
 
       <div class="contact-direct" style="justify-content:center; flex-direction:row; flex-wrap:wrap; gap:28px; margin-top:32px;">
-        <a href="https://wa.me/77368979016" target="_blank" rel="noopener">
+        <a href="https://wa.me/447368979016" target="_blank" rel="noopener">
           <span class="contact-direct__icon">📱</span>
-          WhatsApp: +7 736 897 9016
+          WhatsApp: +44 7368 979016
         </a>
         <a href="mailto:shawaiznaeem.104@gmail.com">
           <span class="contact-direct__icon">✉️</span>
