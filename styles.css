@@ -1561,6 +1561,61 @@ p.section__eyebrow {
 }
 
 /* ============================================================
+   SOCIAL PROOF STATS STRIP
+   ============================================================ */
+.stats-strip {
+  padding: 56px 0;
+  position: relative;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(13,26,42,0.5);
+  backdrop-filter: blur(8px);
+}
+
+.stats-strip__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.stats-strip__item {
+  flex: 1;
+  text-align: center;
+  padding: 0 32px;
+}
+
+.stats-strip__divider {
+  width: 1px;
+  height: 64px;
+  background: rgba(255,255,255,0.1);
+  flex-shrink: 0;
+}
+
+.stats-strip__num {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: #5DCAA5;
+  margin: 0 0 6px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.stats-strip__label {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.75);
+  margin: 0 0 6px;
+  font-weight: 500;
+}
+
+.stats-strip__source {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.3);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 900px) {
@@ -1589,6 +1644,10 @@ p.section__eyebrow {
 
 @media (max-width: 700px) {
   .section { padding: 64px 0; }
+
+  .stats-strip__inner { flex-direction: column; gap: 32px; }
+  .stats-strip__divider { width: 48px; height: 1px; }
+  .stats-strip__item { padding: 0 16px; }
 
   .hero__mobile-nav { display: block; }
 
