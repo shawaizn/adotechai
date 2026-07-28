@@ -592,18 +592,18 @@
     .lineup-nav__btn {
       width: 44px; height: 44px;
       border-radius: 50%;
-      border: 1px solid rgba(0,0,0,0.1);
-      background: #fff;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      border: none;
+      background: transparent;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer;
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
-      font-size: 1rem;
-      color: var(--text);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      font-size: 1.2rem;
+      color: #fff;
+      opacity: 0.7;
     }
     .lineup-nav__btn:hover {
-      box-shadow: 0 6px 20px rgba(0,0,0,0.14);
-      transform: scale(1.06);
+      transform: scale(1.15);
+      opacity: 1;
     }
 
     /* Hide old elements */
