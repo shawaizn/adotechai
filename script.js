@@ -211,22 +211,7 @@ if (hero) {
   resize();
   window.addEventListener('resize', resize, { passive: true });
 
-  // Determine dark section page-Y ranges
-  const DARK_SELECTORS = '.hero, .demo-section, .usp-section, .footer';
-  let darkRanges = [];
-
-  function buildDarkRanges() {
-    darkRanges = Array.from(document.querySelectorAll(DARK_SELECTORS)).map(el => ({
-      top:    el.offsetTop,
-      bottom: el.offsetTop + el.offsetHeight,
-    }));
-  }
-  buildDarkRanges();
-  window.addEventListener('resize', buildDarkRanges, { passive: true });
-
-  function isOverDark(pageY) {
-    return darkRanges.some(r => pageY >= r.top && pageY <= r.bottom);
-  }
+  // Site is fully dark — no section range detection needed
 
   // Particles use pageY (document coordinates)
   const pageH = () => document.documentElement.scrollHeight;
@@ -268,18 +253,12 @@ if (hero) {
 
       p.phase += p.speed;
       const flicker = p.alpha * (0.8 + 0.2 * Math.sin(p.phase));
-      const onDark  = isOverDark(p.pageY);
 
       ctx.beginPath();
       ctx.arc(p.x, viewY, p.r, 0, Math.PI * 2);
-      if (onDark) {
-        ctx.shadowBlur = 0;
-        ctx.fillStyle = `rgba(255,255,255,${flicker})`;
-      } else {
-        ctx.shadowColor = '#378ADD';
-        ctx.shadowBlur = 24;
-        ctx.fillStyle = `rgba(55,138,221,${Math.min(flicker * 2.5, 1)})`;
-      }
+      ctx.shadowColor = 'rgba(93,202,165,0.6)';
+      ctx.shadowBlur = 12;
+      ctx.fillStyle = `rgba(255,255,255,${flicker * 0.55})`;
       ctx.fill();
       ctx.shadowBlur = 0;
     });
