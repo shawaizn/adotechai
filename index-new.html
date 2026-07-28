@@ -165,7 +165,7 @@
       max-width: 520px;
     }
     .hero__right {
-      flex: 0 0 320px;
+      flex: 0 0 360px;
       position: relative;
     }
     .hero__trust {
@@ -201,7 +201,7 @@
     /* floating employee cards */
     .hero__cards-stack {
       position: relative;
-      height: 330px;
+      height: 390px;
       width: 100%;
     }
     .hero__emp-card {
@@ -209,47 +209,52 @@
       z-index: 1;
       display: flex;
       align-items: center;
-      gap: 14px;
-      background: #0e2038;
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 18px;
-      padding: 16px 20px;
-      width: 240px;
-      box-shadow: 0 12px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04) inset;
+      gap: 16px;
+      background: linear-gradient(145deg, #0f2444, #0b1c34);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-top: 1px solid rgba(255,255,255,0.22);
+      border-radius: 20px;
+      padding: 20px 24px;
+      width: 290px;
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(255,255,255,0.05) inset,
+        0 1px 0 rgba(255,255,255,0.1) inset;
     }
-    .hero__emp-card--1 { top: 0; left: 40px; animation: floatA 6s ease-in-out infinite; }
-    .hero__emp-card--2 { top: 100px; left: 0; animation: floatB 7s ease-in-out infinite 0.8s; }
-    .hero__emp-card--3 { top: 200px; left: 30px; animation: floatA 8s ease-in-out infinite 1.6s; }
+    .hero__emp-card--1 { top: 0; left: 20px; animation: floatA 6s ease-in-out infinite; }
+    .hero__emp-card--2 { top: 120px; left: 0; animation: floatB 7s ease-in-out infinite 0.8s; }
+    .hero__emp-card--3 { top: 240px; left: 20px; animation: floatA 8s ease-in-out infinite 1.6s; }
     @keyframes floatA {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      50% { transform: translateY(-12px); }
     }
     @keyframes floatB {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(8px); }
+      50% { transform: translateY(10px); }
     }
     .hero__emp-avatar {
-      width: 42px; height: 42px;
-      border-radius: 50%;
-      border: 1.5px solid;
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      border: 2px solid;
       display: flex; align-items: center; justify-content: center;
       font-family: var(--font);
-      font-size: 1.1rem; font-weight: 700;
+      font-size: 1.3rem; font-weight: 800;
       flex-shrink: 0;
-      background: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.07);
     }
-    .hero__emp-name { font-size: 0.95rem; font-weight: 700; color: #fff; margin: 0; }
-    .hero__emp-role { font-size: 0.75rem; color: rgba(255,255,255,0.55); margin: 3px 0 0; }
+    .hero__emp-name { font-size: 1.05rem; font-weight: 800; color: #fff; margin: 0; letter-spacing: -0.01em; }
+    .hero__emp-role { font-size: 0.78rem; font-weight: 500; color: rgba(255,255,255,0.5); margin: 4px 0 0; }
     .hero__emp-info { flex: 1; }
     .hero__emp-badge {
-      font-size: 0.6rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.1em;
-      padding: 3px 8px; border-radius: 100px; flex-shrink: 0;
+      font-size: 0.58rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      padding: 5px 10px; border-radius: 100px; flex-shrink: 0;
     }
     .hero__emp-badge--green {
-      background: rgba(93,202,165,0.2);
+      background: rgba(93,202,165,0.18);
       color: #5DCAA5;
-      border: 1px solid rgba(93,202,165,0.45);
+      border: 1px solid rgba(93,202,165,0.5);
+      box-shadow: 0 0 12px rgba(93,202,165,0.15);
     }
     .hero__stat-card {
       position: absolute;
