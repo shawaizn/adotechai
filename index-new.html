@@ -337,13 +337,13 @@
       pointer-events: none;
     }
     .section-fade--to-light {
-      background: linear-gradient(to bottom, #07111e, #f8f9fb);
+      background: linear-gradient(to bottom, #07111e, #0b1829);
     }
     .section-fade--to-dark {
-      background: linear-gradient(to bottom, #f8f9fb, #07111e);
+      background: linear-gradient(to bottom, #0b1829, #07111e);
     }
     .section-fade--alt-to-dark {
-      background: linear-gradient(to bottom, #eef1f6, #07111e);
+      background: linear-gradient(to bottom, #0b1829, #07111e);
     }
 
     /* ============================================================
@@ -352,7 +352,7 @@
     .lineup-section {
       position: relative;
       padding: 100px 0 120px;
-      background: rgba(248,249,251,0.84);
+      background: #07111e;
       overflow: hidden;
     }
     .lineup-header {
@@ -812,9 +812,9 @@
     .process-step__node {
       width: 116px; height: 116px;
       border-radius: 20px;
-      background: #fff;
-      border: 1.5px solid rgba(55,138,221,0.14);
-      box-shadow: 0 6px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.05);
+      background: #0d1a2a;
+      border: 1.5px solid rgba(55,138,221,0.22);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.35), 0 1px 4px rgba(0,0,0,0.2);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -927,7 +927,8 @@
       pointer-events: all;
     }
     .process-modal {
-      background: #fff;
+      background: #0d1a2a;
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 20px;
       padding: 40px 36px;
       max-width: 460px;
@@ -935,7 +936,7 @@
       position: relative;
       transform: translateY(20px) scale(0.97);
       transition: transform 0.28s ease;
-      box-shadow: 0 32px 80px rgba(0,0,0,0.22);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
     }
     .process-modal-overlay.open .process-modal {
       transform: translateY(0) scale(1);
@@ -945,17 +946,17 @@
       top: 16px; right: 16px;
       width: 32px; height: 32px;
       border-radius: 50%;
-      background: rgba(0,0,0,0.06);
+      background: rgba(255,255,255,0.06);
       border: none;
       cursor: pointer;
       font-size: 1rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--text);
+      color: rgba(255,255,255,0.6);
       transition: background 0.2s ease;
     }
-    .process-modal__close:hover { background: rgba(0,0,0,0.12); }
+    .process-modal__close:hover { background: rgba(255,255,255,0.12); }
     .process-modal__step {
       font-size: 0.65rem;
       font-weight: 700;
@@ -1584,10 +1585,8 @@
       </div>
     </div>
   </section>
-  <div class="section-fade" style="background: linear-gradient(to bottom, #07111e, rgba(238,241,246,0.84));"></div>
-
   <!-- ===================== COMPARISON ===================== -->
-  <section class="section" id="comparison" style="background: rgba(238,241,246,0.84); padding: 120px 0;">
+  <section class="section" id="comparison" style="background: #0b1829; padding: 120px 0;">
     <div class="container">
       <div class="section__header">
         <p class="section__eyebrow">The Difference</p>
@@ -1826,9 +1825,6 @@
     </div>
   </div>
 
-  <!-- Light/alt → Dark fade -->
-  <div class="section-fade section-fade--alt-to-dark"></div>
-
   <!-- ===================== ABOUT ===================== -->
   <section class="about-section" id="about">
     <canvas class="section-particles" id="aboutParticles"></canvas>
@@ -1861,11 +1857,8 @@
     </div>
   </section>
 
-  <!-- Dark → mid fade for FAQ -->
-  <div class="section-fade" style="background: linear-gradient(to bottom, #07111e, #f0f3f8);"></div>
-
   <!-- ===================== FAQ ===================== -->
-  <section class="section section--alt" id="faq" style="background: #f0f3f8; padding: 120px 0;">
+  <section class="section section--alt" id="faq" style="padding: 120px 0;">
     <div class="container">
       <div class="section__header">
         <p class="section__eyebrow">FAQ</p>
@@ -1966,9 +1959,6 @@
       </div>
     </div>
   </section>
-
-  <!-- FAQ → Light fade into contact -->
-  <div class="section-fade" style="background: linear-gradient(to bottom, #f0f3f8, #f8f9fb);"></div>
 
   <!-- ===================== CONTACT ===================== -->
   <section class="section" id="contact">
