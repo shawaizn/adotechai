@@ -1085,6 +1085,19 @@
       flex-shrink: 0;
     }
 
+    /* Photo avatar */
+    .founder-card__initials--photo {
+      background: none;
+      overflow: hidden;
+      padding: 0;
+    }
+    .founder-card__initials--photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
     /* LinkedIn link */
     .founder-card__linkedin {
       display: inline-flex;
@@ -1686,7 +1699,9 @@
           <span class="founder-card__more">About Harry →</span>
         </div>
         <div class="founder-card" onclick="openFounderModal(1)" style="cursor:pointer;">
-          <div class="founder-card__initials">SN</div>
+          <div class="founder-card__initials founder-card__initials--photo">
+            <img src="Image.jpg" alt="Shawaiz Naeem" />
+          </div>
           <p class="founder-card__name">Shawaiz Naeem</p>
           <p class="founder-card__title">Co-Founder · AI Engineer</p>
           <span class="founder-card__more">About Shawaiz →</span>
