@@ -490,69 +490,30 @@ a:hover { text-decoration: underline; }
   padding: 40px 80px;
 }
 
-/* ---- Glow bloom behind card ---- */
+/* ---- Subtle glow ---- */
 .hero__glow {
   position: absolute;
-  width: 600px;
-  height: 600px;
+  width: 700px;
+  height: 700px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(93,202,165,0.18) 0%, rgba(55,138,221,0.12) 40%, transparent 70%);
+  background: radial-gradient(circle, rgba(93,202,165,0.13) 0%, rgba(55,138,221,0.09) 40%, transparent 70%);
   pointer-events: none;
-  z-index: 4;
-  animation: glowBreath 5s ease-in-out infinite;
-  filter: blur(20px);
-}
-
-@keyframes glowBreath {
-  0%, 100% { opacity: 0.7; transform: scale(1); }
-  50%       { opacity: 1;   transform: scale(1.1); }
-}
-
-/* ---- Glass panel — proper glassmorphism ---- */
-.hero__glass {
-  position: relative;
-  z-index: 6;
-  width: 78%;
-  max-width: 980px;
-  text-align: center;
-  background: rgba(255,255,255,0.07);
-  backdrop-filter: blur(32px) saturate(180%);
-  -webkit-backdrop-filter: blur(32px) saturate(180%);
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 28px;
-  padding: 72px 80px;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,0.05) inset,
-    0 2px 0 rgba(255,255,255,0.12) inset,
-    0 32px 80px rgba(0,0,0,0.4),
-    0 8px 24px rgba(0,0,0,0.25);
-  transform-style: preserve-3d;
-  will-change: transform;
-  opacity: 0;
-  transform: translateY(32px);
-  animation: cardEnter 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
-}
-
-@keyframes cardEnter {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Floating card — zero gravity bob */
-@keyframes cardFloat {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-10px); }
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  filter: blur(24px);
 }
 
 .hero__eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: rgba(255,255,255,0.6);
-  margin-bottom: 20px;
+  letter-spacing: 0.18em;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 24px;
 }
 
 .hero__eyebrow::before,
@@ -561,35 +522,30 @@ a:hover { text-decoration: underline; }
 /* Display headline */
 .hero__headline {
   font-family: var(--font);
-  font-size: clamp(2rem, 4vw, 4.75rem);
-  white-space: nowrap;
+  font-size: clamp(2.4rem, 4.5vw, 5.25rem);
   font-weight: 700;
   font-style: normal;
   letter-spacing: -0.03em;
-  line-height: 1.06;
-  margin-bottom: 24px;
-  background: linear-gradient(140deg, #ffffff 0%, #d4f0e8 40%, #a8d8f0 100%);
+  line-height: 1.04;
+  margin-bottom: 28px;
+  background: linear-gradient(140deg, #ffffff 0%, #d4f0e8 45%, #a8d8f0 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .hero__sub {
-  font-size: 1rem;
-  color: rgba(255,255,255,0.7);
-  line-height: 1.75;
+  font-size: 1.0625rem;
+  color: rgba(255,255,255,0.62);
+  line-height: 1.7;
   margin-bottom: 40px;
-  max-width: none;
-  white-space: nowrap;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 480px;
 }
 
 .hero__ctas {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  justify-content: center;
 }
 
 /* Hero-specific buttons */
@@ -762,7 +718,7 @@ body.cursor-hover .cursor-dot {
   left: 0;
   right: 0;
   height: 48px;
-  background: linear-gradient(to bottom, transparent, #f8f9fb);
+  background: linear-gradient(to bottom, transparent, #07111e);
   z-index: 10;
   pointer-events: none;
 }
@@ -1689,17 +1645,17 @@ p.section__eyebrow {
 
 @media (max-width: 900px) {
   .hero__stage { padding: 60px 40px; }
-  .hero__frame { padding: 48px 40px; }
-  .frame__chip[data-pos="ml"],
-  .frame__chip[data-pos="mr"] { display: none; }
+  .hero__content { flex-direction: column; gap: 48px; }
+  .hero__left { max-width: 100%; text-align: center; }
+  .hero__sub { max-width: 100%; margin-left: auto; margin-right: auto; }
+  .hero__trust { justify-content: center; }
+  .hero__ctas { justify-content: center; }
+  .hero__right { display: flex; justify-content: center; }
+  .hero__cards-stack { width: 300px; }
 }
 
 @media (max-width: 700px) {
   .section { padding: 64px 0; }
-
-  .hero__frame { padding: 40px 24px; border: none; }
-  .frame__chip,
-  .frame__top-centre { display: none; }
 
   .hero__mobile-nav { display: block; }
 
@@ -1707,11 +1663,10 @@ p.section__eyebrow {
 
   .hero__headline {
     font-size: clamp(1.8rem, 8vw, 2.8rem);
-    white-space: normal;
     text-align: center;
   }
 
-  .hero__glass { padding: 32px 20px; width: 92%; }
+  .hero__right { display: none; }
 
   p.section__eyebrow { font-size: 1rem; }
 

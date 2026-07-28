@@ -140,33 +140,142 @@
     }
 
     /* ============================================================
-       HERO — updated copy
+       HERO — split layout
        ============================================================ */
     .hero { padding-top: 0; }
-    .hero__eyebrow-new {
-      font-family: var(--font);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
-      margin-bottom: 20px;
+
+    .hero__content {
+      position: relative;
+      z-index: 6;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 64px;
+      width: 100%;
+      max-width: 1200px;
+      opacity: 0;
+      transform: translateY(28px);
+      animation: heroEnter 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+    }
+    @keyframes heroEnter {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero__left {
+      flex: 1 1 520px;
+      max-width: 580px;
+    }
+    .hero__right {
+      flex: 0 0 340px;
+      position: relative;
+    }
+    .hero__trust {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+    .hero__trust-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.775rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.42);
+    }
+    .hero__trust-sep { color: rgba(255,255,255,0.2); font-size: 0.85rem; }
+    .hero__trust-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%; flex-shrink: 0;
+    }
+    .hero__trust-dot--green {
+      background: #5DCAA5;
+      box-shadow: 0 0 6px rgba(93,202,165,0.7);
+      animation: dotPulse 2s ease-in-out infinite;
+    }
+    @keyframes dotPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
     }
 
-    /* ============================================================
-       HERO CARD — fills the frame, frame acts as border
-       ============================================================ */
-    .hero__glass {
-      max-width: calc(100% - 32px) !important;
-      width: calc(100% - 32px) !important;
-      padding: 60px 72px !important;
-      border-radius: 26px !important;
+    /* floating employee cards */
+    .hero__cards-stack {
+      position: relative;
+      height: 360px;
     }
-    @media (max-width: 768px) {
-      .hero__glass { padding: 40px 32px !important; max-width: calc(100% - 20px) !important; width: calc(100% - 20px) !important; }
+    .hero__emp-card {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 14px 18px;
+      width: 240px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    }
+    .hero__emp-card--1 { top: 0; left: 60px; animation: floatA 6s ease-in-out infinite; }
+    .hero__emp-card--2 { top: 110px; left: 0; animation: floatB 7s ease-in-out infinite 0.8s; }
+    .hero__emp-card--3 { top: 220px; left: 50px; animation: floatA 8s ease-in-out infinite 1.6s; }
+    @keyframes floatA {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes floatB {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+    .hero__emp-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      border: 1.5px solid;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font);
+      font-size: 1.1rem; font-weight: 700;
+      flex-shrink: 0;
+      background: rgba(255,255,255,0.04);
+    }
+    .hero__emp-name { font-size: 0.875rem; font-weight: 600; color: #fff; margin: 0; }
+    .hero__emp-role { font-size: 0.72rem; color: rgba(255,255,255,0.45); margin: 2px 0 0; }
+    .hero__emp-info { flex: 1; }
+    .hero__emp-badge {
+      font-size: 0.6rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 3px 8px; border-radius: 100px; flex-shrink: 0;
+    }
+    .hero__emp-badge--green {
+      background: rgba(93,202,165,0.15);
+      color: #5DCAA5;
+      border: 1px solid rgba(93,202,165,0.3);
+    }
+    .hero__stat-card {
+      position: absolute;
+      bottom: 0; right: -20px;
+      background: linear-gradient(135deg, rgba(55,138,221,0.2), rgba(93,202,165,0.12));
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      padding: 18px 22px;
+      text-align: center;
+      animation: floatB 5s ease-in-out infinite 0.3s;
+    }
+    .hero__stat-num { font-size: 1.75rem; font-weight: 700; color: #5DCAA5; margin: 0; line-height: 1; }
+    .hero__stat-label { font-size: 0.68rem; color: rgba(255,255,255,0.5); margin: 4px 0 0; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    @media (max-width: 900px) {
+      .hero__content { flex-direction: column; gap: 48px; }
+      .hero__left { max-width: 100%; text-align: center; }
+      .hero__trust { justify-content: center; }
+      .hero__ctas { justify-content: center; }
+      .hero__right { width: 100%; display: flex; justify-content: center; }
+      .hero__cards-stack { width: 300px; }
     }
     @media (max-width: 480px) {
-      .hero__glass { padding: 32px 20px !important; }
+      .hero__right { display: none; }
     }
 
     /* ============================================================
@@ -1356,18 +1465,56 @@
     </div>
 
     <div class="hero__stage">
-      <div class="hero__frame">
+      <div class="hero__content">
         <div class="hero__glow"></div>
 
-        <div class="hero__glass" id="heroCard">
-          <p class="hero__eyebrow" style="font-size:1rem;letter-spacing:0.18em;">AI Employees For Business</p>
-          <h1 class="hero__headline">Hire Your First AI Employee</h1>
-
+        <div class="hero__left">
+          <p class="hero__eyebrow">AI Employees For Business</p>
+          <h1 class="hero__headline">Hire Your First<br>AI Employee</h1>
           <p class="hero__sub">AI Employees handle the admin — so your staff can be more productive and do what they do best.</p>
-
           <div class="hero__ctas">
             <a href="#lineup" class="btn btn--hero-primary">Meet The Team</a>
             <a href="https://buy.stripe.com/5kQbJ25t59u0gL02es8IU01" class="btn btn--hero-outline" target="_blank" rel="noopener">Hire Now →</a>
+          </div>
+          <div class="hero__trust">
+            <span class="hero__trust-item"><span class="hero__trust-dot hero__trust-dot--green"></span>3 AI Employees Ready</span>
+            <span class="hero__trust-sep">·</span>
+            <span class="hero__trust-item">Voice &amp; Text</span>
+            <span class="hero__trust-sep">·</span>
+            <span class="hero__trust-item">24/7 Availability</span>
+          </div>
+        </div>
+
+        <div class="hero__right">
+          <div class="hero__cards-stack">
+            <div class="hero__emp-card hero__emp-card--1">
+              <div class="hero__emp-avatar" style="border-color:rgba(93,202,165,0.5);color:#5DCAA5;">A</div>
+              <div class="hero__emp-info">
+                <p class="hero__emp-name">Aria</p>
+                <p class="hero__emp-role">AI Receptionist</p>
+              </div>
+              <span class="hero__emp-badge hero__emp-badge--green">Online</span>
+            </div>
+            <div class="hero__emp-card hero__emp-card--2">
+              <div class="hero__emp-avatar" style="border-color:rgba(55,138,221,0.5);color:#378ADD;">M</div>
+              <div class="hero__emp-info">
+                <p class="hero__emp-name">Max</p>
+                <p class="hero__emp-role">AI Sales Agent</p>
+              </div>
+              <span class="hero__emp-badge hero__emp-badge--green">Online</span>
+            </div>
+            <div class="hero__emp-card hero__emp-card--3">
+              <div class="hero__emp-avatar" style="border-color:rgba(106,174,232,0.5);color:#6aaee8;">N</div>
+              <div class="hero__emp-info">
+                <p class="hero__emp-name">Nova</p>
+                <p class="hero__emp-role">AI Support Agent</p>
+              </div>
+              <span class="hero__emp-badge hero__emp-badge--green">Online</span>
+            </div>
+            <div class="hero__stat-card">
+              <p class="hero__stat-num">+34%</p>
+              <p class="hero__stat-label">avg. staff productivity</p>
+            </div>
           </div>
         </div>
       </div>
@@ -1377,7 +1524,6 @@
   </section>
 
   <!-- ===================== ROI CALCULATOR ===================== -->
-  <div class="section-fade" style="background: linear-gradient(to bottom, #07111e, #07111e);"></div>
   <section class="roi-section" id="roi">
     <div class="container">
       <div class="roi-inner">
