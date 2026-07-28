@@ -1616,6 +1616,191 @@ p.section__eyebrow {
 }
 
 /* ============================================================
+   THEME TOGGLE BUTTON
+   ============================================================ */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  transition: background 0.22s ease, border-color 0.22s ease, color 0.22s ease;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  background: rgba(255,255,255,0.14);
+  color: #fff;
+  border-color: rgba(255,255,255,0.3);
+}
+
+/* Show moon in dark mode, sun in light mode */
+.theme-toggle__sun { display: none; }
+.theme-toggle__moon { display: block; }
+
+[data-theme="light"] .theme-toggle__sun { display: block; }
+[data-theme="light"] .theme-toggle__moon { display: none; }
+
+[data-theme="light"] .theme-toggle {
+  border-color: rgba(0,0,0,0.12);
+  background: rgba(0,0,0,0.05);
+  color: #555;
+}
+
+[data-theme="light"] .theme-toggle:hover {
+  background: rgba(0,0,0,0.09);
+  color: #222;
+}
+
+/* ============================================================
+   LIGHT THEME OVERRIDES
+   ============================================================ */
+[data-theme="light"] {
+  --bg:          #ffffff;
+  --bg-alt:      #f5f7fa;
+  --surface:     #ffffff;
+  --border:      #e4e8ef;
+  --text:        #1a1d23;
+  --text-muted:  #6b7280;
+  --text-light:  #9ca3af;
+}
+
+[data-theme="light"] body { background: #f8f9fb; }
+
+/* Nav */
+[data-theme="light"] .site-nav.scrolled {
+  background: rgba(255,255,255,0.92);
+  border-color: rgba(0,0,0,0.07);
+}
+[data-theme="light"] .site-nav__links a { color: rgba(0,0,0,0.55); }
+[data-theme="light"] .site-nav__links a:hover { color: #0d1a2a; }
+
+/* Sections that flip */
+[data-theme="light"] .section { background: #fff; }
+[data-theme="light"] .section--alt { background: #f5f7fa; }
+
+/* Section headers */
+[data-theme="light"] .section__display { color: #0d1a2a; }
+[data-theme="light"] .section__lead { color: #6b7280; }
+
+/* Section fades — hidden since sections sit flush */
+[data-theme="light"] .section-fade { display: none; }
+
+/* Lineup section */
+[data-theme="light"] .lineup-section { background: #f8f9fb !important; }
+[data-theme="light"] .lineup-card {
+  background: #ffffff;
+  border-color: rgba(0,0,0,0.07);
+}
+[data-theme="light"] .lineup-card__name { color: #0d1a2a; }
+[data-theme="light"] .lineup-card__role { color: #6b7280; }
+[data-theme="light"] .lineup-card__tagline { color: rgba(0,0,0,0.45); }
+[data-theme="light"] .lineup-card__divider { background: rgba(0,0,0,0.07); }
+[data-theme="light"] .lineup-card__facts li { color: rgba(0,0,0,0.6); }
+[data-theme="light"] .lineup-card__status {
+  background: rgba(93,202,165,0.12);
+  color: #1D9E75;
+  border: 1px solid rgba(93,202,165,0.3);
+}
+[data-theme="light"] .lineup-nav__btn {
+  background: rgba(0,0,0,0.06);
+  color: #0d1a2a;
+  border-color: rgba(0,0,0,0.1);
+}
+
+/* Comparison */
+[data-theme="light"] #comparison { background: #eef1f6 !important; }
+[data-theme="light"] .compare-grid { box-shadow: 0 4px 32px rgba(0,0,0,0.08); }
+[data-theme="light"] .compare-col--label .compare-col__header { background: #0d1a2a; }
+[data-theme="light"] .compare-col--human .compare-col__header {
+  background: #f4f5f7;
+  border-left: 1px solid #e4e8ef;
+}
+[data-theme="light"] .compare-col--ai .compare-col__header { background: linear-gradient(135deg, #0f2640, #0d1a2a); }
+[data-theme="light"] .compare-row__label { background: #0d1a2a; color: rgba(255,255,255,0.55); border-top: 1px solid rgba(255,255,255,0.05); }
+[data-theme="light"] .compare-row__cell {
+  border-top: 1px solid #e4e8ef;
+  color: #1a1d23;
+}
+[data-theme="light"] .compare-row__cell--dim {
+  background: #f9fafb;
+  color: #6b7280;
+  border-left: 1px solid #e4e8ef;
+}
+[data-theme="light"] .compare-row__cell--win {
+  background: linear-gradient(135deg, rgba(29,158,117,0.06), rgba(55,138,221,0.06));
+  color: #0d1a2a;
+}
+
+/* Process */
+[data-theme="light"] .process-step__node {
+  background: #ffffff;
+  border-color: rgba(55,138,221,0.14);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+}
+[data-theme="light"] .process-step__label { color: #0d1a2a; }
+[data-theme="light"] .process-step__sub { color: #6b7280; }
+[data-theme="light"] .process-modal {
+  background: #ffffff;
+  border: none;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.18);
+}
+[data-theme="light"] .process-modal__title { color: #0d1a2a; }
+[data-theme="light"] .process-modal__body { color: #6b7280; }
+[data-theme="light"] .process-modal__close {
+  background: rgba(0,0,0,0.05);
+  color: #555;
+}
+[data-theme="light"] .process-modal__close:hover { background: rgba(0,0,0,0.1); }
+
+/* FAQ */
+[data-theme="light"] .faq-list {
+  background: #fff;
+  border: none;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.07);
+}
+[data-theme="light"] .faq-item { border-bottom: 1px solid #e4e8ef; }
+[data-theme="light"] .faq-q { color: #0d1a2a; }
+[data-theme="light"] .faq-q:hover { background: rgba(55,138,221,0.03); }
+[data-theme="light"] .faq-icon { border-color: #d1d5db; }
+[data-theme="light"] .faq-a p { color: #6b7280; }
+
+/* Contact */
+[data-theme="light"] .contact-form-wrap,
+[data-theme="light"] .contact-calendar-wrap {
+  background: #ffffff;
+  border: none;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.07);
+}
+[data-theme="light"] .contact-form-wrap h3,
+[data-theme="light"] .contact-calendar-wrap h3 { color: #0d1a2a; }
+[data-theme="light"] .form-group label { color: #6b7280; }
+[data-theme="light"] .form-group input,
+[data-theme="light"] .form-group textarea {
+  color: #0d1a2a;
+  background: #f8f9fb;
+  border-color: #e4e8ef;
+}
+[data-theme="light"] .form-group input:focus,
+[data-theme="light"] .form-group textarea:focus {
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(55,138,221,0.12);
+}
+[data-theme="light"] .form-group input::placeholder,
+[data-theme="light"] .form-group textarea::placeholder { color: #9ca3af; }
+[data-theme="light"] .calendar-placeholder {
+  border-color: #e4e8ef;
+  color: #6b7280;
+}
+[data-theme="light"] .calendar-placeholder p { color: #1a1d23; }
+[data-theme="light"] .calendar-sub { color: #6b7280!important; }
+
+/* ============================================================
    SCROLL FADE-IN
    ============================================================ */
 .card, .bento-card, .timeline__step, .pricing-card, .faq-item {
