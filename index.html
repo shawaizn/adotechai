@@ -945,7 +945,6 @@
 
     /* Hide old elements */
     .process-ring { display: none; }
-    .process-steps-mobile { display: none !important; }
 
     /* ============================================================
        PROCESS POP-UP MODAL
@@ -1408,24 +1407,24 @@
       align-items: center;
       justify-content: space-between;
       padding: 18px 24px;
-      background: #fff;
-      border: 1px solid rgba(55,138,221,0.14);
+      background: linear-gradient(145deg, #0f2240, #0d1a2a);
+      border: 1px solid rgba(55,138,221,0.25);
       border-radius: 12px;
       font-family: var(--font);
       font-size: 0.95rem;
       font-weight: 600;
-      color: var(--text);
+      color: #fff;
       cursor: pointer;
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
     .process-step-btn span:last-child {
       font-size: 1.2rem;
-      color: #378ADD;
+      color: #5DCAA5;
       font-weight: 700;
     }
     .process-step-btn:hover {
-      border-color: #378ADD;
-      box-shadow: 0 4px 16px rgba(55,138,221,0.12);
+      border-color: #5DCAA5;
+      box-shadow: 0 4px 16px rgba(93,202,165,0.15);
     }
 
     @media (max-width: 1100px) {
@@ -1437,7 +1436,14 @@
     }
     @media (max-width: 700px) {
       .process-ring { display: none; }
+      .process-flow-wrap { display: none; }
       .process-steps-mobile { display: flex; }
+      .roi-outputs { grid-template-columns: 1fr; }
+      .roi-out--highlight .roi-out__num { font-size: 1.5rem; }
+      .lineup-carousel-wrap::after { width: 60px; }
+      .lineup-carousel { padding-left: max(20px, calc((100vw - 980px) / 2)); }
+      .lineup-card:last-child { margin-right: 20px; }
+      .calendly-inline-widget { min-width: 0 !important; width: 100% !important; }
     }
     @media (max-width: 768px) {
       .site-nav { padding: 16px 20px; }
