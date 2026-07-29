@@ -408,10 +408,13 @@
     /* ---- Profile Card ---- */
 
     /* Per-card accent colours */
-    .lineup-card:nth-child(1) { --card-accent: #5DCAA5; --card-ring: rgba(93,202,165,0.45); --card-glow: rgba(93,202,165,0.12); }
-    .lineup-card:nth-child(2) { --card-accent: #378ADD; --card-ring: rgba(55,138,221,0.45);  --card-glow: rgba(55,138,221,0.12);  }
-    .lineup-card:nth-child(3) { --card-accent: #6aaee8; --card-ring: rgba(106,174,232,0.4);  --card-glow: rgba(106,174,232,0.1);  }
-    .lineup-card:nth-child(4) { --card-accent: #f5d97a; --card-ring: rgba(245,217,122,0.4);  --card-glow: rgba(245,217,122,0.08); }
+    .lineup-card:nth-child(1) { --card-accent: #5DCAA5; --card-ring: rgba(93,202,165,0.45);  --card-glow: rgba(93,202,165,0.12);  }
+    .lineup-card:nth-child(2) { --card-accent: #378ADD; --card-ring: rgba(55,138,221,0.45);   --card-glow: rgba(55,138,221,0.12);  }
+    .lineup-card:nth-child(3) { --card-accent: #a78bfa; --card-ring: rgba(167,139,250,0.4);   --card-glow: rgba(167,139,250,0.1);  }
+    .lineup-card:nth-child(4) { --card-accent: #fb923c; --card-ring: rgba(251,146,60,0.4);    --card-glow: rgba(251,146,60,0.08);  }
+    .lineup-card:nth-child(5) { --card-accent: #38bdf8; --card-ring: rgba(56,189,248,0.4);    --card-glow: rgba(56,189,248,0.08);  }
+    .lineup-card:nth-child(6) { --card-accent: #f472b6; --card-ring: rgba(244,114,182,0.4);   --card-glow: rgba(244,114,182,0.08); }
+    .lineup-card:nth-child(7) { --card-accent: #f5d97a; --card-ring: rgba(245,217,122,0.4);   --card-glow: rgba(245,217,122,0.08); }
 
     .lineup-card {
       flex: 0 0 280px;
@@ -446,6 +449,9 @@
     .lineup-card:nth-child(2) { transition-delay: 0.1s; }
     .lineup-card:nth-child(3) { transition-delay: 0.2s; }
     .lineup-card:nth-child(4) { transition-delay: 0.3s; }
+    .lineup-card:nth-child(5) { transition-delay: 0.4s; }
+    .lineup-card:nth-child(6) { transition-delay: 0.5s; }
+    .lineup-card:nth-child(7) { transition-delay: 0.6s; }
     .lineup-card:hover {
       border-color: var(--card-ring);
       box-shadow: 0 20px 56px rgba(0,0,0,0.4), 0 0 0 1px var(--card-ring);
@@ -1526,25 +1532,25 @@
         <div class="hero__right">
           <div class="hero__cards-stack">
             <div class="hero__emp-card hero__emp-card--1">
-              <div class="hero__emp-avatar" style="border-color:rgba(93,202,165,0.5);color:#5DCAA5;">A</div>
+              <div class="hero__emp-avatar" style="border-color:rgba(93,202,165,0.5);color:#5DCAA5;">M</div>
               <div class="hero__emp-info">
-                <p class="hero__emp-name">Aria</p>
-                <p class="hero__emp-role">AI Receptionist</p>
+                <p class="hero__emp-name">Max</p>
+                <p class="hero__emp-role">AI Appointment Setter</p>
               </div>
               <span class="hero__emp-badge hero__emp-badge--green">Online</span>
             </div>
             <div class="hero__emp-card hero__emp-card--2">
-              <div class="hero__emp-avatar" style="border-color:rgba(55,138,221,0.5);color:#378ADD;">M</div>
+              <div class="hero__emp-avatar" style="border-color:rgba(55,138,221,0.5);color:#378ADD;">I</div>
               <div class="hero__emp-info">
-                <p class="hero__emp-name">Max</p>
-                <p class="hero__emp-role">AI Sales Agent</p>
+                <p class="hero__emp-name">Ivy</p>
+                <p class="hero__emp-role">AI Receptionist</p>
               </div>
               <span class="hero__emp-badge hero__emp-badge--green">Online</span>
             </div>
             <div class="hero__emp-card hero__emp-card--3">
-              <div class="hero__emp-avatar" style="border-color:rgba(106,174,232,0.5);color:#6aaee8;">N</div>
+              <div class="hero__emp-avatar" style="border-color:rgba(167,139,250,0.5);color:#a78bfa;">S</div>
               <div class="hero__emp-info">
-                <p class="hero__emp-name">Nova</p>
+                <p class="hero__emp-name">Sage</p>
                 <p class="hero__emp-role">AI Support Agent</p>
               </div>
               <span class="hero__emp-badge hero__emp-badge--green">Online</span>
@@ -1695,33 +1701,63 @@
       <div class="lineup-carousel-wrap">
         <div class="lineup-carousel" id="lineupCarousel">
 
-          <!-- Aria — AI Receptionist -->
+          <!-- Max — AI Appointment Setter -->
           <div class="lineup-card" onclick="openLineupModal(0)">
-            <span class="lineup-card__status">Online</span>
-            <div class="lineup-card__avatar">A</div>
-            <p class="lineup-card__name">Aria</p>
-            <p class="lineup-card__role">AI Receptionist</p>
-            <span class="lineup-card__tagline">Answers every call. Captures every lead. Never misses a booking.</span>
-            <span class="lineup-card__cta">View full profile →</span>
-          </div>
-
-          <!-- Max — AI Secretary -->
-          <div class="lineup-card" onclick="openLineupModal(1)">
             <span class="lineup-card__status">Online</span>
             <div class="lineup-card__avatar">M</div>
             <p class="lineup-card__name">Max</p>
-            <p class="lineup-card__role">AI Secretary</p>
-            <span class="lineup-card__tagline">Keeps your calendar full and your inbox under control.</span>
+            <p class="lineup-card__role">AI Appointment Setter</p>
+            <span class="lineup-card__tagline">Your calendar's empty because nobody has time to chase leads. Max fixes that.</span>
             <span class="lineup-card__cta">View full profile →</span>
           </div>
 
-          <!-- Nova — AI Support Agent -->
+          <!-- Ivy — AI Receptionist -->
+          <div class="lineup-card" onclick="openLineupModal(1)">
+            <span class="lineup-card__status">Online</span>
+            <div class="lineup-card__avatar">I</div>
+            <p class="lineup-card__name">Ivy</p>
+            <p class="lineup-card__role">AI Receptionist</p>
+            <span class="lineup-card__tagline">Every missed call is a lost customer. Ivy answers every call, 24/7.</span>
+            <span class="lineup-card__cta">View full profile →</span>
+          </div>
+
+          <!-- Sage — AI Support Agent -->
           <div class="lineup-card" onclick="openLineupModal(2)">
             <span class="lineup-card__status">Online</span>
-            <div class="lineup-card__avatar">N</div>
-            <p class="lineup-card__name">Nova</p>
+            <div class="lineup-card__avatar">S</div>
+            <p class="lineup-card__name">Sage</p>
             <p class="lineup-card__role">AI Support Agent</p>
-            <span class="lineup-card__tagline">Resolves customer queries before they become problems.</span>
+            <span class="lineup-card__tagline">Your team is drowning in the same questions. Sage resolves them instantly.</span>
+            <span class="lineup-card__cta">View full profile →</span>
+          </div>
+
+          <!-- Otto — AI Assistant -->
+          <div class="lineup-card" onclick="openLineupModal(3)">
+            <span class="lineup-card__status">Online</span>
+            <div class="lineup-card__avatar">O</div>
+            <p class="lineup-card__name">Otto</p>
+            <p class="lineup-card__role">AI Assistant</p>
+            <span class="lineup-card__tagline">There aren't enough hours to be unorganised. Otto handles the busywork.</span>
+            <span class="lineup-card__cta">View full profile →</span>
+          </div>
+
+          <!-- Iris — AI Research Assistant -->
+          <div class="lineup-card" onclick="openLineupModal(4)">
+            <span class="lineup-card__status">Online</span>
+            <div class="lineup-card__avatar">Ir</div>
+            <p class="lineup-card__name">Iris</p>
+            <p class="lineup-card__role">AI Research Assistant</p>
+            <span class="lineup-card__tagline">Your reps walk into calls unprepared. Iris makes sure they never do again.</span>
+            <span class="lineup-card__cta">View full profile →</span>
+          </div>
+
+          <!-- Leo — AI Content Creator -->
+          <div class="lineup-card" onclick="openLineupModal(5)">
+            <span class="lineup-card__status">Online</span>
+            <div class="lineup-card__avatar">L</div>
+            <p class="lineup-card__name">Leo</p>
+            <p class="lineup-card__role">AI Content Creator</p>
+            <span class="lineup-card__tagline">Filming content is slow and expensive. Leo publishes in minutes.</span>
             <span class="lineup-card__cta">View full profile →</span>
           </div>
 
@@ -2154,42 +2190,81 @@
     // Lineup modal data
     const lineupData = [
       {
-        badge: '🎙️ Voice · AI Receptionist',
+        badge: '🎙️ Voice · AI Appointment Setter',
         badgeClass: 'info-modal__badge--voice',
-        title: 'Meet Aria',
-        tagline: 'Answers every call. Books appointments. Never misses a lead.',
+        title: 'Meet Max',
+        tagline: 'Your calendar\'s empty because nobody has time to chase leads. Max calls your prospects, qualifies them, and books meetings straight onto your calendar — so you spend your day closing, not dialing.',
         bullets: [
-          'Answers calls 24/7 — no hold music, no voicemail',
-          'Books and confirms appointments automatically',
-          'Handles FAQs in a natural, human-sounding conversation',
-          'Escalates to you instantly when a human is needed',
-          'Every call logged and summarised for your review',
+          'Calls prospects and qualifies leads on your behalf',
+          'Books meetings directly into your calendar',
+          'Follows up automatically so no lead goes cold',
+          'Handles objections and routes warm leads to your team',
+          'Works 24/7 — every lead gets a response, every time',
         ]
       },
       {
-        badge: '💬 Text · AI Secretary',
-        badgeClass: 'info-modal__badge--text',
-        title: 'Meet Max',
-        tagline: 'Knows everything you tell it. Answers so you don\'t have to.',
+        badge: '🎙️ Voice · AI Receptionist',
+        badgeClass: 'info-modal__badge--voice',
+        title: 'Meet Ivy',
+        tagline: 'Every missed call is a lost customer. Ivy answers every call 24/7, handles the questions, routes who matters, and takes messages — so no opportunity ever rings out again.',
         bullets: [
-          'You feed it your products, services, and FAQs — it handles the rest',
-          'Responds to team and customer queries via chat instantly',
-          'Always up to date — update it once, it knows immediately',
-          'Integrates with your existing tools and workflows',
-          'Frees you to focus on what actually moves the business',
+          'Answers every inbound call — no hold music, no voicemail',
+          'Handles common questions in a natural, human-sounding voice',
+          'Routes important callers to the right person instantly',
+          'Takes messages and delivers them to you in real time',
+          'Every call logged and summarised for your review',
         ]
       },
       {
         badge: '💬 Text · AI Support Agent',
         badgeClass: 'info-modal__badge--text',
-        title: 'Meet Nova',
-        tagline: 'Handles every customer query. Day and night, without fail.',
+        title: 'Meet Sage',
+        tagline: 'Your team is drowning in the same questions all day. Sage instantly resolves your repetitive tickets over chat and email, and passes the tricky ones to a human — so customers get answers now and your team gets its time back.',
         bullets: [
-          'Responds to WhatsApp, SMS, and live chat instantly',
-          'Resolves common issues without any human input',
-          'Qualifies leads and routes them to the right person',
-          'Full conversation transcript handed over on escalation',
-          'Never leaves a customer waiting or ignored',
+          'Resolves repetitive support tickets instantly over chat and email',
+          'Handles FAQs without any human involvement',
+          'Escalates complex issues to a human with full context',
+          'Available 24/7 — customers never wait for an answer',
+          'Frees your team to focus on the issues that actually need them',
+        ]
+      },
+      {
+        badge: '💬 Text · AI Assistant',
+        badgeClass: 'info-modal__badge--text',
+        title: 'Meet Otto',
+        tagline: 'There aren\'t enough hours in your day to be unorganised. Otto drafts your emails, plans your projects, and handles the busywork — so you get your focus back for the work that actually matters.',
+        bullets: [
+          'Drafts emails, proposals, and communications for you',
+          'Plans projects and organises your workload',
+          'Handles the admin and busywork that eats your day',
+          'Keeps your team aligned with summaries and updates',
+          'Gives you your focus back for high-value work',
+        ]
+      },
+      {
+        badge: '💬 Text · AI Research Assistant',
+        badgeClass: 'info-modal__badge--text',
+        title: 'Meet Iris',
+        tagline: 'Your reps walk into calls unprepared. Iris researches every prospect, enriches your leads, and hands your team the insights before every conversation — so they show up knowing exactly who they\'re talking to.',
+        bullets: [
+          'Researches every prospect before your team picks up the phone',
+          'Enriches leads with company, role, and context data',
+          'Delivers ready-to-use call briefs straight to your reps',
+          'Flags key talking points and potential objections in advance',
+          'Turns cold outreach into warm, informed conversations',
+        ]
+      },
+      {
+        badge: '🎬 Video · AI Content Creator',
+        badgeClass: 'info-modal__badge--person',
+        title: 'Meet Leo',
+        tagline: 'Filming content is slow and expensive. Leo turns a script into on-brand videos — outreach, onboarding, training — in your face and voice, at scale — so you publish in minutes without ever touching a camera.',
+        bullets: [
+          'Turns scripts into polished videos in your face and voice',
+          'Creates outreach, onboarding, and training content at scale',
+          'Keeps everything on-brand without studio time or equipment',
+          'Delivers finished videos in minutes, not days',
+          'Scales your content output without scaling your team',
         ]
       },
     ];
