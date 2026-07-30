@@ -1215,6 +1215,7 @@ p.section__eyebrow {
   display: inline-block;
   font-size: 0.82rem;
   padding: 11px 22px;
+  margin-top: 20px;
   background: transparent !important;
   border: 1px solid rgba(93,202,165,0.4) !important;
   color: #5DCAA5 !important;
