@@ -1466,70 +1466,46 @@
        ABOUT — MANIFESTO CARD
        ============================================================ */
     .about-manifesto {
-      max-width: 760px;
+      max-width: 680px;
       margin: 0 auto;
-    }
-    .about-manifesto__card {
-      position: relative;
-      background: linear-gradient(145deg, #0f2444, #0d1a2a);
-      border: 1px solid rgba(93,202,165,0.18);
-      border-radius: 28px;
-      padding: 56px 64px;
-      text-align: left;
-      overflow: hidden;
-    }
-    .about-manifesto__card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(to right, #5DCAA5, #378ADD);
-      border-radius: 28px 28px 0 0;
-    }
-    .about-manifesto__card::after {
-      content: '';
-      position: absolute;
-      top: -80px; right: -80px;
-      width: 280px; height: 280px;
-      background: radial-gradient(ellipse at center, rgba(93,202,165,0.07) 0%, transparent 70%);
-      pointer-events: none;
+      text-align: center;
     }
     .about-manifesto__lead {
       font-family: var(--font);
-      font-size: clamp(1.4rem, 2.8vw, 1.9rem);
+      font-size: clamp(1.3rem, 2.5vw, 1.7rem);
       font-weight: 700;
       color: #fff;
       letter-spacing: -0.02em;
-      line-height: 1.2;
-      margin: 0 0 28px;
+      line-height: 1.25;
+      margin: 0 0 32px;
     }
     .about-manifesto__divider {
-      width: 48px;
+      width: 40px;
       height: 2px;
       background: linear-gradient(to right, #5DCAA5, #378ADD);
       border-radius: 2px;
-      margin-bottom: 28px;
+      margin: 0 auto 32px;
     }
     .about-manifesto__body {
       font-size: 1rem;
-      color: rgba(255,255,255,0.55);
+      color: rgba(255,255,255,0.5);
       line-height: 1.85;
       margin: 0 0 20px;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
     }
-    .about-manifesto__body:last-of-type { margin-bottom: 32px; }
+    .about-manifesto__body:last-of-type { margin-bottom: 40px; }
     .about-manifesto__closing {
       font-family: var(--font);
-      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
       font-weight: 700;
       color: #5DCAA5;
       letter-spacing: -0.01em;
       margin: 0;
-      padding-top: 28px;
-      border-top: 1px solid rgba(255,255,255,0.07);
     }
     @media (max-width: 600px) {
-      .about-manifesto__card { padding: 36px 28px; }
-      .about-manifesto__lead { font-size: clamp(1.2rem, 5vw, 1.5rem); }
+      .about-manifesto { padding: 0 4px; }
     }
   </style>
 </head>
@@ -1998,13 +1974,11 @@
 
       <!-- MISSION STATEMENT -->
       <div class="about-manifesto">
-        <div class="about-manifesto__card">
-          <p class="about-manifesto__lead">AI is only part of what we care about.</p>
-          <div class="about-manifesto__divider"></div>
-          <p class="about-manifesto__body">We're genuinely invested in the businesses we work with — the people, the challenges, the direction. The AI Employees we deploy are a tool, not the finish line.</p>
-          <p class="about-manifesto__body">We believe the businesses that win with AI aren't the ones who automate the most — they're the ones who know what to do with the time they get back. That takes more than software. It takes strategy, direction, and someone who actually understands your business.</p>
-          <p class="about-manifesto__closing">That's the standard we hold ourselves to.</p>
-        </div>
+        <p class="about-manifesto__lead">AI is only part of what we care about.</p>
+        <div class="about-manifesto__divider"></div>
+        <p class="about-manifesto__body">We're genuinely invested in the businesses we work with — the people, the challenges, the direction. The AI Employees we deploy are a tool, not the finish line.</p>
+        <p class="about-manifesto__body">We believe the businesses that win with AI aren't the ones who automate the most — they're the ones who know what to do with the time they get back. That takes more than software. It takes strategy, direction, and someone who actually understands your business.</p>
+        <p class="about-manifesto__closing">That's the standard we hold ourselves to.</p>
       </div>
 
       <!--
