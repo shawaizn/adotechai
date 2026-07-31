@@ -762,16 +762,7 @@ p.section__eyebrow {
 /* ============================================================
    SCROLL FADE-IN
    ============================================================ */
-.faq-item {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.55s ease var(--delay, 0ms), transform 0.55s ease var(--delay, 0ms);
-}
-
-.faq-item.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+/* faq-item: no scroll fade — items are already inside a visible card container */
 
 /* ============================================================
    SOCIAL PROOF STATS STRIP
