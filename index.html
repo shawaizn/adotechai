@@ -407,14 +407,14 @@
 
     /* ---- Profile Card ---- */
 
-    /* Per-card accent colours */
+    /* Per-card accent colours — teal/blue palette */
     .lineup-card:nth-child(1) { --card-accent: #5DCAA5; --card-ring: rgba(93,202,165,0.45);  --card-glow: rgba(93,202,165,0.12);  }
-    .lineup-card:nth-child(2) { --card-accent: #378ADD; --card-ring: rgba(55,138,221,0.45);   --card-glow: rgba(55,138,221,0.12);  }
-    .lineup-card:nth-child(3) { --card-accent: #a78bfa; --card-ring: rgba(167,139,250,0.4);   --card-glow: rgba(167,139,250,0.1);  }
-    .lineup-card:nth-child(4) { --card-accent: #fb923c; --card-ring: rgba(251,146,60,0.4);    --card-glow: rgba(251,146,60,0.08);  }
-    .lineup-card:nth-child(5) { --card-accent: #38bdf8; --card-ring: rgba(56,189,248,0.4);    --card-glow: rgba(56,189,248,0.08);  }
-    .lineup-card:nth-child(6) { --card-accent: #f472b6; --card-ring: rgba(244,114,182,0.4);   --card-glow: rgba(244,114,182,0.08); }
-    .lineup-card:nth-child(7) { --card-accent: #f5d97a; --card-ring: rgba(245,217,122,0.4);   --card-glow: rgba(245,217,122,0.08); }
+    .lineup-card:nth-child(2) { --card-accent: #378ADD; --card-ring: rgba(55,138,221,0.45);  --card-glow: rgba(55,138,221,0.12);  }
+    .lineup-card:nth-child(3) { --card-accent: #4dc9b0; --card-ring: rgba(77,201,176,0.4);   --card-glow: rgba(77,201,176,0.1);   }
+    .lineup-card:nth-child(4) { --card-accent: #5ba3e0; --card-ring: rgba(91,163,224,0.4);   --card-glow: rgba(91,163,224,0.1);   }
+    .lineup-card:nth-child(5) { --card-accent: #3ebfa8; --card-ring: rgba(62,191,168,0.4);   --card-glow: rgba(62,191,168,0.08);  }
+    .lineup-card:nth-child(6) { --card-accent: #6bb8f0; --card-ring: rgba(107,184,240,0.4);  --card-glow: rgba(107,184,240,0.08); }
+    .lineup-card:nth-child(7) { --card-accent: #f5d97a; --card-ring: rgba(245,217,122,0.4);  --card-glow: rgba(245,217,122,0.08); }
 
     .lineup-card {
       flex: 0 0 280px;
@@ -619,7 +619,7 @@
 
     /* Hide old elements */
     .lineup-card__tasks, .lineup-card__number,
-    .lineup-card__tagline, .lineup-card__badge { display: none; }
+    .lineup-card__badge { display: none; }
 
     /* ============================================================
        ROI CALCULATOR — dark section
@@ -1157,9 +1157,11 @@
        ============================================================ */
     .contact-direct {
       display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-top: 28px;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 28px;
+      margin-top: 32px;
+      justify-content: center;
     }
     .contact-direct a {
       display: flex;
@@ -1552,6 +1554,7 @@
     <a href="#process" onclick="closeMobileNav()">How It Works</a>
     <a href="#about" onclick="closeMobileNav()">About</a>
     <a href="#pricing" onclick="closeMobileNav()">Pricing</a>
+    <a href="#faq" onclick="closeMobileNav()">FAQ</a>
     <a href="#contact" onclick="closeMobileNav()">Contact</a>
     <a href="#pricing" class="site-nav__buy" onclick="closeMobileNav()">Hire Now</a>
   </div>
@@ -1637,8 +1640,8 @@
       <div class="roi-inner">
 
         <div class="roi-left">
-          <p class="section__eyebrow section__eyebrow--light" style="margin-bottom:24px;">The Real Cost of Admin</p>
-          <h2 class="roi-headline">Every hour spent on admin<br>is an hour <em>not spent</em> growing.</h2>
+          <p class="section__eyebrow section__eyebrow" style="margin-bottom:24px;">The Real Cost of Admin</p>
+          <h2 class="section__display" style="font-size:clamp(2rem,4vw,3.2rem);text-align:left;">Every hour spent on admin<br>is an hour <em>not spent</em> growing.</h2>
           <p class="roi-lead">AI Employees handle the repetitive tasks — calls, scheduling, follow-ups, support. That time goes back to your staff, every single day. It's like adding an hour to everyone's working day without increasing headcount.</p>
         </div>
 
@@ -1965,8 +1968,8 @@
     <canvas class="section-particles" id="aboutParticles"></canvas>
     <div class="container">
       <div class="about-header">
-        <p class="section__eyebrow section__eyebrow--light" style="font-size: 1.5rem; margin-bottom: 32px;">About adotechai</p>
-        <h2 class="about-mission">AI does the repetitive.<br>Humans do the <em>irreplaceable.</em></h2>
+        <p class="section__eyebrow section__eyebrow" style="font-size: 1.5rem; margin-bottom: 32px;">About adotechai</p>
+        <h2 class="section__display">AI does the repetitive.<br>Humans do the <em style="background:linear-gradient(135deg,#5DCAA5,#378ADD);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:italic;">irreplaceable.</em></h2>
       </div>
 
       <!-- MISSION STATEMENT -->
@@ -2021,14 +2024,14 @@
             <span class="pricing-row__badge">Step 1 · One-time</span>
             <h3 class="pricing-row__name">Setup Fee</h3>
             <p class="pricing-row__desc">Paid once upfront. We build and deploy your AI Employee — nothing goes live until you've approved it.</p>
-            <a href="https://buy.stripe.com/bJe14of3FbC8fGWg5i8IU02" class="btn btn--primary pricing-row__btn" target="_blank" rel="noopener">Pay Setup Fee →</a>
+            <a href="https://buy.stripe.com/bJe14of3FbC8fGWg5i8IU02" class="pricing-row__btn" target="_blank" rel="noopener">Pay Setup Fee →</a>
           </div>
           <div class="pricing-row__divider"></div>
           <div class="pricing-row__block">
             <span class="pricing-row__badge pricing-row__badge--green">Step 2 · Monthly</span>
             <h3 class="pricing-row__name">Subscription</h3>
             <p class="pricing-row__desc">Once your AI Employee is live, a fixed monthly fee keeps it running, maintained, and up to date.</p>
-            <a href="https://buy.stripe.com/5kQbJ25t59u0gL02es8IU01" class="btn btn--primary pricing-row__btn" target="_blank" rel="noopener">Start Subscription →</a>
+            <a href="https://buy.stripe.com/5kQbJ25t59u0gL02es8IU01" class="pricing-row__btn" target="_blank" rel="noopener">Start Subscription →</a>
           </div>
         </div>
         <div class="pricing-single__cta">
@@ -2052,7 +2055,7 @@
       <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
       <!-- Calendly inline widget end -->
 
-      <div class="contact-direct" style="justify-content:center; flex-direction:row; flex-wrap:wrap; gap:28px; margin-top:32px;">
+      <div class="contact-direct">
         <a href="https://wa.me/447368979016" target="_blank" rel="noopener">
           <span class="contact-direct__icon">📱</span>
           WhatsApp: +44 7368 979016
@@ -2100,7 +2103,7 @@
             <span class="faq-icon"></span>
           </button>
           <div class="faq-a">
-            <p>Yes. You can hire Aria (Receptionist), Max (Secretary), Nova (Support Agent), or we can build you a fully custom AI employee tailored to a specific role in your business.</p>
+            <p>Yes. You can hire Max (Appointment Setter), Ivy (Receptionist), Sage (Support Agent), Otto (Assistant), Iris (Research Assistant), Leo (Content Creator) — or we can build you a fully custom AI Employee tailored to a specific role in your business.</p>
           </div>
         </div>
 
@@ -2194,7 +2197,7 @@
   </div>
 
   <!-- ===================== FOOTER ===================== -->
-  <footer class="footer" style="padding: 32px 0;">
+  <footer class="footer">
     <div class="footer__bg"></div>
     <div class="container" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;">
       <p class="footer__wordmark" style="margin:0; font-size:0.75rem;">ADOTECHAI</p>
